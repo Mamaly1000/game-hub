@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "./Header";
 import vazirFont from "@/common/local-fonts/VazirFont";
 import { Toaster } from "react-hot-toast";
+import Providers from "@/services/QueryProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,10 +20,10 @@ export default function RootLayout({
       <body className={vazirFont.className}>
         <Header />
         <div className="min-w-full px-2 md:px-5 flex items-start justify-start gap-5 min-h-screen ">
-          {children}
+          <Providers>{children}</Providers>
         </div>
         <Toaster
-          position="bottom-left"
+          position="top-right"
           containerStyle={{ fontFamily: vazirFont.style.fontFamily }}
         />
       </body>

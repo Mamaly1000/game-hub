@@ -8,7 +8,9 @@ const Custom_Button = ({
   className,
   btn_type,
   children,
+  disable,
 }: {
+  disable?: boolean;
   btn_type: "button" | "submit" | "reset" | undefined;
   text: string;
   onclick: () => void;
@@ -29,9 +31,10 @@ const Custom_Button = ({
   return (
     <button
       type={btn_type}
-      className={className + colors.find((c) => c.name === type)?.value}
+      className={`${className + colors.find((c) => c.name === type)?.value} disabled:opacity-50`}
       onClick={onclick}
       style={vazirFont.style}
+      disabled={disable}
     >
       {text} {children}
     </button>
