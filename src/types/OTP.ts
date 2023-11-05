@@ -5,7 +5,7 @@ export type getOTPresponseType = {
   message: string;
   expiresIn: Date;
   phoneNumber: string;
-}; 
+};
 export type checkOTP_responseType = {
   statusCode: number;
   data: {
@@ -13,7 +13,7 @@ export type checkOTP_responseType = {
     user: {
       otp: {
         code: number;
-        expiresIn: string;
+        expiresIn: Date;
       };
       _id: string;
       biography: string | null;

@@ -20,11 +20,12 @@ const Custom_Button = ({
   className: string;
   children?: ReactNode;
 }) => {
-
   return (
     <button
       type={btn_type}
-      className={`${className + AppColors.find((c) => c.name === type)?.value} text-white disabled:opacity-50`}
+      className={` text-white disabled:opacity-50 ${
+        className + AppColors.find((c) => c.name === type)?.value
+      }`}
       onClick={onclick}
       style={vazirFont.style}
       disabled={disable}
