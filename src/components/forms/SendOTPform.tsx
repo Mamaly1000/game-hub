@@ -10,28 +10,36 @@ import { useMutation } from "@tanstack/react-query";
 import { getOTP } from "@/services/authServices";
 import { Dispatch, SetStateAction } from "react";
 import Loader from "../loading/Loader";
+import CustomForm from "./CustomForm";
+import { getOTPresponseType } from "@/types/OTP";
 const init = { phoneNumber: "" };
 
 const SendOTPform = ({
   setStep,
   setData,
+  setTimer,
 }: {
+  setTimer: Dispatch<SetStateAction<Date>>;
   setData: any;
   setStep: Dispatch<SetStateAction<number>>;
 }) => {
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: getOTP,
+  });
   const formik = useFormik({
     initialValues: init,
     onSubmit: async (vals) => {
       await mutateAsync(vals, {
-        onSuccess: (data) => {
-          console.log(data.data);
-          setStep(1);
+        onSuccess: (data: { data: { data: getOTPresponseType } }) => {
+          toast.success(data.data.data.message);
+          setTimer(data.data.data.expiresIn);
           setData({ phoneNumber: vals.phoneNumber, otp: "" });
+          setStep(1);
         },
         onError: (err: any) => {
-          setStep(1);
           setData({ phoneNumber: vals.phoneNumber, otp: "" });
           toast.error(err?.response?.data?.message);
+          setStep(1);
         },
       });
     },
@@ -42,14 +50,9 @@ const SendOTPform = ({
         .matches(phoneNumberRegex, "شماره تلفن وارد شده معتبر نمی باشد"),
     }),
   });
-  const { mutateAsync, isPending } = useMutation({
-    mutationFn: getOTP,
-  });
+
   return !isPending ? (
-    <form
-      onSubmit={formik.handleSubmit}
-      className="min-w-full flex flex-col items-center justify-center gap-5 p-5 text-secondary-100 dark:text-white"
-    >
+    <CustomForm onSubmit={formik.handleSubmit}>
       <Custom_textFiled
         label="شماره تلفن"
         name="phoneNumber"
@@ -64,14 +67,11 @@ const SendOTPform = ({
           );
         }}
       />
-      <div className="min-w-full flex items-center justify-center gap-4">
+      <div className=" min-w-full flex items-center justify-center gap-4">
         <Custom_Button
           btn_type="submit"
           className="px-3 py-2 rounded-lg drop-shadow-2xl "
-          onclick={() => {
-            formik.submitForm();
-          }}
-          text="تایید شماره"
+          text="تایید"
           type="primary"
         />{" "}
         <Custom_Button
@@ -80,11 +80,11 @@ const SendOTPform = ({
           onclick={() => {
             formik.resetForm();
           }}
-          text="حذف شماره"
+          text="ریست"
           type="error"
         />
       </div>
-    </form>
+    </CustomForm>
   ) : (
     <Loader />
   );

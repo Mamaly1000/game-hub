@@ -8,17 +8,22 @@ import toast from "react-hot-toast";
 import numConvertor from "@/utils/numConvertor";
 import Custom_Button from "../inputs/Custom_Button";
 import * as yup from "yup";
+import { checkOTP_responseType, getOTPresponseType } from "@/types/OTP";
+import { useRouter } from "next/navigation";
+import CustomForm from "./CustomForm";
 
 const CheckOTPform = ({
   setStep,
   data,
   setData,
   timer,
+  setTimer,
 }: {
+  setTimer: Dispatch<SetStateAction<Date>>;
   timer: {
     seconds: number;
     minutes: number;
-    timer: number;
+    timer: Date;
     isRunning: boolean;
     restart: (
       newExpiryTimestamp: Date,
@@ -33,26 +38,30 @@ const CheckOTPform = ({
   setData: Dispatch<SetStateAction<typeof data>>;
   setStep: Dispatch<SetStateAction<number>>;
 }) => {
-  const [otp, setOtp] = useState({
-    fa: "",
-    en: "",
-  });
-
+  const router = useRouter();
   const { mutateAsync, isPending } = useMutation({ mutationFn: checkOTP });
   const { mutateAsync: asyncOTPmutate, isPending: getOTPpending } = useMutation(
     { mutationFn: getOTP }
   );
+  const [otp, setOtp] = useState({
+    fa: "",
+    en: "",
+  });
   const formik = useFormik({
     initialValues: data,
     onSubmit: async (vals) => {
       await mutateAsync(vals, {
-        onSuccess: (data) => {
+        onSuccess: (data: { data: checkOTP_responseType }) => {
           toast.success(data.data.data.message);
-          setStep(2);
+
+          if (data.data.data.user.isActive) {
+            router.push("/");
+          } else {
+            router.push("/complete_profile");
+          }
         },
         onError: (err: any) => {
           toast.error(err.response.data.message);
-          setStep(2);
         },
       });
     },
@@ -63,55 +72,57 @@ const CheckOTPform = ({
         .min(6, "کد حداقل دارای شش کاراکتر می باشد."),
     }),
   });
-
-  useEffect(() => {
-    if (!isPending) {
-      timer.start();
-    }
-  }, []);
-
   const resetCode = async () => {
     await asyncOTPmutate(formik.values.phoneNumber, {
-      onSuccess: (res) => {
+      onSuccess: (res: { data: { data: getOTPresponseType } }) => {
         toast.success(res.data.data.message);
+        timer.restart(res.data.data.expiresIn, true);
+        setTimer(res.data.data.expiresIn);
       },
       onError: (err: any) => {
         toast.error(err.response.data.message);
+        timer.restart(new Date(Date.now() + 30 * 1000), true);
+        setTimer(new Date(Date.now() + 30 * 1000));
       },
     });
   };
-
+  useEffect(() => {
+    if (!timer.isRunning && timer.seconds !== 0) {
+      timer.start();
+    }
+  }, []);
   return !isPending ? (
-    <form
-      className="mt-10 min-w-fit flex items-center justify-center gap-5 flex-col"
-      onSubmit={formik.handleSubmit}
-    >
-      <span className="min-w-full text-start">کد تایید را وارد کنید</span>
-      <p>
-        ویرایش شماره{" "}
-        <span
-          onClick={() => {
-            setStep(0);
-            setData({
-              otp: "",
-              phoneNumber: "",
-            });
-            timer.restart(new Date(Date.now() + timer.timer * 1000), true);
-          }}
-          className="text-primary-900 underline"
-        >
-          {numConvertor("fa", formik.values.phoneNumber)}
+    <CustomForm onSubmit={formik.handleSubmit}>
+      <div className="min-w-full flex flex-wrap items-center justify-between gap-2">
+        <span className="w-full md:w-[30%] text-start">
+          کد تایید را وارد کنید:
         </span>
-      </p>
-      <div className="min-w-fit flex items-center justify-center gap-3 flex-wrap">
-        <p className="min-w-fit ">زمان باقی مانده</p>
-        <span className=" text-white bg-primary-900 rounded-lg p-3 text-center ">
-          {numConvertor("fa", timer.seconds + "")}
-        </span>
-        <span className="font-extrabold text-primary-900">:</span>
-        <span className=" text-white bg-primary-900 rounded-lg p-3 text-center ">
-          {numConvertor("fa", timer.minutes + "")}
-        </span>
+        <p className="w-full md:w-[30%]">
+          ویرایش شماره{" "}
+          <span
+            onClick={() => {
+              setStep(0);
+              setData({
+                otp: "",
+                phoneNumber: "",
+              });
+              timer.restart(new Date(timer.timer), true);
+            }}
+            className="text-primary-900 underline"
+          >
+            {numConvertor("fa", formik.values.phoneNumber)}
+          </span>
+        </p>
+        <div className="w-full md:w-[30%] flex items-center justify-center gap-3 flex-wrap">
+          <p className="min-w-fit ">زمان باقی مانده</p>
+          <span className=" text-white bg-primary-900 rounded-lg p-3 text-center ">
+            {numConvertor("fa", timer.seconds + "")}
+          </span>
+          <span className="font-extrabold text-primary-900">:</span>
+          <span className=" text-white bg-primary-900 rounded-lg p-3 text-center ">
+            {numConvertor("fa", timer.minutes + "")}
+          </span>
+        </div>
       </div>
       <div className="min-w-full flex items-center justify-center gap-3 flex-col">
         <OtpInput
@@ -156,7 +167,6 @@ const CheckOTPform = ({
         <Custom_Button
           btn_type="submit"
           className="px-3 py-2 rounded-lg drop-shadow-2xl text-white "
-          onclick={() => formik.submitForm()}
           text="تایید"
           type="primary"
         />{" "}
@@ -164,7 +174,7 @@ const CheckOTPform = ({
           btn_type="reset"
           className="px-3 py-2 rounded-lg drop-shadow-2xl text-white "
           onclick={() => {
-            timer.restart(new Date(Date.now() + timer.timer * 1000), true);
+            timer.restart(new Date(timer.timer), true);
             formik.resetForm();
             setStep(0);
           }}
@@ -176,14 +186,13 @@ const CheckOTPform = ({
           className="px-3 py-2 rounded-lg drop-shadow-2xl text-white opacity-100 "
           onclick={() => {
             resetCode();
-            timer.restart(new Date(Date.now() + timer.timer * 1000), true);
           }}
           text="دریافت مجدد کد"
           type="warning"
           disable={timer.isRunning}
         />
       </div>
-    </form>
+    </CustomForm>
   ) : (
     <Loader />
   );

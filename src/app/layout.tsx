@@ -18,10 +18,12 @@ export default function RootLayout({
   return (
     <html lang="fa" dir="rtl">
       <body className={vazirFont.className}>
-        <Header />
-        <div className="min-w-full px-2 md:px-5 flex items-start justify-start gap-5 min-h-screen ">
-          <Providers>{children}</Providers>
-        </div>
+        <Providers>
+          <Header />
+          <div className="min-w-full px-2 md:px-5 flex items-start justify-start gap-5 min-h-screen ">
+            {children}
+          </div>
+        </Providers>
         <Toaster
           position="top-right"
           containerStyle={{ fontFamily: vazirFont.style.fontFamily }}
