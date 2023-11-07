@@ -39,3 +39,7 @@ export type completeProfileResponse = {
   message: string;
   user: UserInterface;
 };
+export type updateUserProfileResponse = {
+  data: { message: "اطلاعات با موفقیت آپدیت شد" };
+  statusCode: 200;
+};

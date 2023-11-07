@@ -52,7 +52,12 @@ const SendOTPform = ({
   });
 
   return !isPending ? (
-    <CustomForm onSubmit={formik.handleSubmit}>
+    <CustomForm
+      onReset={() => formik.resetForm()}
+      resetText="ریست"
+      submitText="تایید"
+      onSubmit={formik.handleSubmit}
+    >
       <Custom_textFiled
         label="شماره تلفن"
         name="phoneNumber"
@@ -67,23 +72,6 @@ const SendOTPform = ({
           );
         }}
       />
-      <div className=" min-w-full flex items-center justify-center gap-4">
-        <Custom_Button
-          btn_type="submit"
-          className="px-3 py-2 rounded-lg drop-shadow-2xl "
-          text="تایید"
-          type="primary"
-        />{" "}
-        <Custom_Button
-          btn_type="reset"
-          className="px-3 py-2 rounded-lg drop-shadow-2xl "
-          onclick={() => {
-            formik.resetForm();
-          }}
-          text="ریست"
-          type="error"
-        />
-      </div>
     </CustomForm>
   ) : (
     <Loader />

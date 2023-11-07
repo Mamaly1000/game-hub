@@ -19,4 +19,16 @@ export interface UserInterface {
   Products: Array<unknown>;
   role: ROLES;
   cart: cartInterface;
+  _id: string;
+  createdAt: Date;
+  updatedAt: Date;
+  __v: number;
+  avatarUrl: null | string;
+}
+export interface UpdateUserInterface {
+  name: string;
+  biography: string | null;
+  email: string;
+  phoneNumber: string; 
+  // avatarUrl: null | string;
 }

@@ -27,7 +27,7 @@ export const middlewareAuth = async (req: NextRequest) => {
       }
     })
     .catch((err) => {
-      console.log(err.response.data.message);
+      console.log(err.response);
       return null;
     });
 

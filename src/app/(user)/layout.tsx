@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "./../globals.css";
 import Header from "./Header";
 import vazirFont from "@/common/local-fonts/VazirFont";
-import { Toaster } from "react-hot-toast";
 import Providers from "@/services/QueryProvider";
+import HotToast from "@/components/toast/HotToast";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,10 +24,7 @@ export default function RootLayout({
             {children}
           </div>
         </Providers>
-        <Toaster
-          position="top-right"
-          containerStyle={{ fontFamily: vazirFont.style.fontFamily }}
-        />
+        <HotToast />
       </body>
     </html>
   );

@@ -45,7 +45,14 @@ const CompleteUserDataForm = () => {
   });
 
   return !isPending ? (
-    <CustomForm onSubmit={formik.handleSubmit}>
+    <CustomForm
+      onReset={() => {
+        formik.resetForm();
+      }}
+      resetText="حذف شماره"
+      submitText="تایید شماره"
+      onSubmit={formik.handleSubmit}
+    >
       <Custom_textFiled
         label="نام"
         name="name"
@@ -68,23 +75,6 @@ const CompleteUserDataForm = () => {
           formik.setFieldValue("email", numConvertor("en", e.target.value));
         }}
       />
-      <div className="min-w-full flex items-center justify-center gap-4">
-        <Custom_Button
-          btn_type="submit"
-          className="px-3 py-2 rounded-lg drop-shadow-2xl "
-          text="تایید شماره"
-          type="primary"
-        />{" "}
-        <Custom_Button
-          btn_type="reset"
-          className="px-3 py-2 rounded-lg drop-shadow-2xl "
-          onclick={() => {
-            formik.resetForm();
-          }}
-          text="حذف شماره"
-          type="error"
-        />
-      </div>
     </CustomForm>
   ) : (
     <Loader />

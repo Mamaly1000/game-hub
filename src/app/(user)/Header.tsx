@@ -24,11 +24,11 @@ const Header = () => {
           </li>
           <li>
             <Custom_link classname="" href="/cart" text="سبد خرید">
-              <Badge
-                color="primary"
+              <Badge 
                 text={profile?.cart.payDetail.orderItems.length || 0}
                 height={"25px"}
                 width={"25px"}
+                classname="bg-primary-900"
               />
             </Custom_link>
           </li>

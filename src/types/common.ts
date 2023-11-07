@@ -5,3 +5,10 @@ export type AppColorsTypes =
   | "warning"
   | "error"
   | "success";
+export type userUpdateKeys =
+  | "name"
+  | "biography"
+  | "email"
+  | "phoneNumber"
+  | "password"
+  | "avatarUrl";

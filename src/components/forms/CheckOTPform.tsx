@@ -55,7 +55,7 @@ const CheckOTPform = ({
           toast.success(data.data.data.message);
 
           if (data.data.data.user.isActive) {
-            router.push("/");
+            document.location.href = "/";
           } else {
             router.push("/complete_profile");
           }
@@ -92,7 +92,28 @@ const CheckOTPform = ({
     }
   }, []);
   return !isPending ? (
-    <CustomForm onSubmit={formik.handleSubmit}>
+    <CustomForm
+      additionalButtons={
+        <Custom_Button
+          btn_type="reset"
+          className="px-3 py-2 rounded-lg drop-shadow-2xl text-white opacity-100 bg-warning"
+          onclick={() => {
+            resetCode();
+          }}
+          text="دریافت مجدد کد"
+          type="warning"
+          disable={timer.isRunning}
+        />
+      }
+      onSubmit={formik.handleSubmit}
+      onReset={() => {
+        timer.restart(new Date(timer.timer), true);
+        formik.resetForm();
+        setStep(0);
+      }}
+      resetText="بازگشت"
+      submitText="تایید کد"
+    >
       <div className="min-w-full flex flex-wrap items-center justify-between gap-2">
         <span className="w-full md:w-[30%] text-start">
           کد تایید را وارد کنید:
@@ -162,35 +183,6 @@ const CheckOTPform = ({
           }}
         />
         <p className="text-error">{formik.errors.otp}</p>
-      </div>
-      <div className="min-w-full flex items-center justify-center gap-4">
-        <Custom_Button
-          btn_type="submit"
-          className="px-3 py-2 rounded-lg drop-shadow-2xl text-white "
-          text="تایید"
-          type="primary"
-        />{" "}
-        <Custom_Button
-          btn_type="reset"
-          className="px-3 py-2 rounded-lg drop-shadow-2xl text-white "
-          onclick={() => {
-            timer.restart(new Date(timer.timer), true);
-            formik.resetForm();
-            setStep(0);
-          }}
-          text="بازگشت"
-          type="error"
-        />{" "}
-        <Custom_Button
-          btn_type="reset"
-          className="px-3 py-2 rounded-lg drop-shadow-2xl text-white opacity-100 "
-          onclick={() => {
-            resetCode();
-          }}
-          text="دریافت مجدد کد"
-          type="warning"
-          disable={timer.isRunning}
-        />
       </div>
     </CustomForm>
   ) : (
