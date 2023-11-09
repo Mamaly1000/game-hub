@@ -1,11 +1,14 @@
-import { List } from "@mui/material";
+import vazirFont from "@/common/local-fonts/VazirFont";
+import { DialogTitle, Divider, List } from "@mui/material";
 import React, { ReactNode } from "react";
 
 const Custom_list = ({
   children,
   classname,
   bgcolor,
+  title,
 }: {
+  title: string;
   bgcolor?: string;
   classname: string;
   children: ReactNode;
@@ -20,6 +23,17 @@ const Custom_list = ({
       }}
       className={classname}
     >
+      <DialogTitle
+        style={{
+          fontWeight: 600,
+          textAlign: "start",
+          direction: "rtl",
+          fontFamily: vazirFont.style.fontFamily,
+        }}
+      >
+        {title}
+      </DialogTitle>
+      <Divider className="min-w-full border-b-[1px] border-primary-900" />
       {children}
     </List>
   );
