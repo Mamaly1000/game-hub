@@ -17,11 +17,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fa" dir="rtl">
-      <body className={vazirFont.className}>
+      <body
+        className={`bg-white dark:bg-secondary-900 text-secondary-900 dark:text-white ${vazirFont.className}`}
+      >
         <Providers>
           <Header />
-          <div className="min-w-full px-2 md:px-5 flex items-start justify-start gap-5 min-h-screen ">
-            {children}
+          <div className="min-w-full max-h-screen grid grid-cols-12 grid-rows-6 ">
+            <div className="bg-white dark:bg-secondary-900 text-secondary-900 dark:text-white col-span-full row-span-full min-w-full min-h-screen max-h-screen overflow-y-auto   flex flex-col items-start justify-start gap-5">
+              {children}
+            </div>
           </div>
         </Providers>
         <HotToast />

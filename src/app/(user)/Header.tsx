@@ -10,7 +10,7 @@ const Header = () => {
   const profile: UserInterface = data?.data.data;
   return (
     <header
-      className={`sticky top-0 min-w-full min-h-[50px]   rounded-b-lg shadow-xl mb-2 flex items-center justify-center ${
+      className={`z-[1000000000000] sticky top-0 min-w-full min-h-[50px] backdrop-blur-md  rounded-b-lg shadow-xl mb-2 flex items-center justify-center ${
         isLoading ? "animate-pulse blur-sm" : "animate-none blur-none"
       }`}
     >
@@ -24,7 +24,7 @@ const Header = () => {
           </li>
           <li>
             <Custom_link classname="" href="/cart" text="سبد خرید">
-              <Badge 
+              <Badge
                 text={profile?.cart.payDetail.orderItems.length || 0}
                 height={"25px"}
                 width={"25px"}

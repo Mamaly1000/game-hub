@@ -10,12 +10,12 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
+  /* background: linear-gradient(
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
     )
-    rgb(var(--background-start-rgb));
+    rgb(var(--background-start-rgb)); */
 }
 @layer base {
   :root {
@@ -53,7 +53,7 @@ button {
 }
 
 * {
-  @apply transition-all;
+  @apply transition-all font-vazir;
 }
 
 html,
@@ -61,6 +61,5 @@ body {
   padding: 0;
   margin: 0;
   font-family: var(--vazir-font);
-  min-height: 100vh;
-  user-select: none;
+  min-height: 100vh; 
 }
