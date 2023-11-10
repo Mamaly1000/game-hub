@@ -15,7 +15,7 @@ const Custom_link = ({
   return (
     <Link
       href={href}
-      className={`active:scale-90 hover:scale-105 flex gap-2 whitespace-nowrap  text-primary-900  ${classname}`}
+      className={`active:scale-90 hover:scale-105 flex gap-2 whitespace-nowrap  text-primary-900 dark:text-white  ${classname}`}
     >
       {text}
       {children}

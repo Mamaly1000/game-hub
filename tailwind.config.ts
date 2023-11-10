@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss"; 
+import type { Config } from "tailwindcss";
 function withOpacity(variableName: any): any {
   return ({ opacityValue }: { opacityValue: any }) => {
     if (opacityValue !== undefined) {
@@ -41,6 +41,9 @@ const config: Config = {
         success: withOpacity("--color-success"),
         warning: withOpacity("--color-warning"),
         error: withOpacity("--color-error"),
+        mid_transparent: "rgba(0 0 0 /.5)",
+        min_transparent: "rgba(0 0 0 /.9)",
+        max_transparent: "rgba(0 0 0 /.1)",
       },
       fontFamily: {
         vazir: ["var(--font-vazir)"],

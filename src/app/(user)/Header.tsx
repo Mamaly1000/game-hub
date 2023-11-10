@@ -10,7 +10,7 @@ const Header = () => {
   const profile: UserInterface = data?.data.data;
   return (
     <header
-      className={`z-[1000000000000] sticky top-0 min-w-full min-h-[50px] backdrop-blur-md  rounded-b-lg shadow-xl mb-2 flex items-center justify-center ${
+      className={`z-[1000] sticky top-0 min-w-full min-h-[50px] backdrop-blur-md  rounded-b-lg shadow-xl mb-2 flex items-center justify-center ${
         isLoading ? "animate-pulse blur-sm" : "animate-none blur-none"
       }`}
     >
@@ -28,7 +28,7 @@ const Header = () => {
                 text={profile?.cart.payDetail.orderItems.length || 0}
                 height={"25px"}
                 width={"25px"}
-                classname="bg-primary-900"
+                classname="bg-primary-900 rounded-full"
               />
             </Custom_link>
           </li>
@@ -36,7 +36,7 @@ const Header = () => {
             <li>
               <Custom_link
                 classname=""
-                href="/profile"
+                href={profile.role === "USER" ? "/profile" : "/admin"}
                 text={profile.name || profile.email}
               >
                 <img
@@ -53,9 +53,6 @@ const Header = () => {
               <Custom_link classname="" href="/auth" text="ورود" />
             </li>
           )}
-          <li>
-            <Custom_link classname="" href="/admin" text="ادمین" />
-          </li>
         </ul>
       </nav>
     </header>

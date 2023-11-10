@@ -20,7 +20,7 @@ export function toPersianNumbersWithComma(n: any) {
 function numberWithCommas(x: any) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-
+console.log(numberWithCommas(45345345345));
 export function toPersianNumbers(n: any) {
   return n.toString().replace(/\d/g, (x: any) => farsiDigits[parseInt(x)]);
 }

@@ -1,3 +1,4 @@
+"use client";
 import { AppColorsTypes } from "@/types/common";
 import numConvertor from "@/utils/numConvertor";
 import React from "react";
@@ -15,13 +16,17 @@ const Badge = ({
 }) => {
   return (
     <div
-      className={`drop-shadow-2xl rounded-full text-white flex items-center justify-center ${classname}`}
-      style={{
-        minWidth: width || "auto",
-        maxWidth: width || "auto",
-        minHeight: height || "auto",
-        maxHeight: height || "auto",
-      }}
+      className={`drop-shadow-2xl  text-white flex items-center justify-center ${classname}`}
+      style={
+        width && height
+          ? {
+              minWidth: width || "auto",
+              maxWidth: width || "auto",
+              minHeight: height || "auto",
+              maxHeight: height || "auto",
+            }
+          : {}
+      }
     >
       {numConvertor("fa", text + "")}
     </div>

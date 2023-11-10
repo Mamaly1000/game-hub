@@ -10,4 +10,9 @@ export interface cartInterface {
     productIds: Array<unknown>;
     description: string;
   };
+  products: {
+    productId: string;
+    quantity: number;
+    _id: string;
+  }[];
 }
