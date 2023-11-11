@@ -18,6 +18,20 @@ const CartPage = () => {
   const router = useRouter();
   if (isLoading) {
     return <Loader />;
+  } 
+  if (!user) {
+    return (
+      <Box>
+        <Custom_Button
+          btn_type="button"
+          className="bg-primary-900"
+          text="لطفا ابتدا لاگین کنید"
+          type="primary"
+          disable={isLoading}
+          onclick={() => router.push("/auth")}
+        />
+      </Box>
+    );
   }
   if (error) {
     return (
@@ -29,20 +43,6 @@ const CartPage = () => {
           disable={isLoading}
           type="primary"
           onclick={() => refetch()}
-        />
-      </Box>
-    );
-  }
-  if (!user) {
-    return (
-      <Box>
-        <Custom_Button
-          btn_type="button"
-          className="bg-primary-900"
-          text="لطفا ابتدا لاگین کنید"
-          type="primary"
-          disable={isLoading}
-          onclick={() => router.push("/auth")}
         />
       </Box>
     );

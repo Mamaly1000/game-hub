@@ -2,24 +2,10 @@
 import { toPersianNumbers } from "@/utils/numConvertor";
 import React from "react";
 import vazirFont from "@/common/local-fonts/VazirFont";
-
-import { styled } from "@mui/material/styles";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
-import { TablePagination, TableRow } from "@mui/material";
-const StyledPaginationTableRow = styled(TableRow)(({ theme }) => ({
-  ".MuiTablePagination-displayedRows": {
-    ...vazirFont.style,
-  },
-  " .MuiTableCell-root": {
-    minWidth: "100% !important",
-    overflow: "visible !important",
-    paddingInline: "10px !important",
-  },
-  color: theme.palette.common.white,
-  display: "flex",
-  justifyContent: "center",
-  overflow: "visible !important",
-}));
+import { TablePagination } from "@mui/material";
+import { StyledPaginationTableRow } from "@/styles/table";
+
 const CustomTablePagination = ({
   rows,
   rowsPerPage,
@@ -83,7 +69,7 @@ const CustomTablePagination = ({
           return (
             toPersianNumbers(pinfo.page) +
             " از " +
-            toPersianNumbers(pinfo.count / rowsPerPage - 1) +
+            toPersianNumbers(Math.ceil(pinfo.count / rowsPerPage - 1)) +
             " - " +
             toPersianNumbers(pinfo.from) +
             " تا " +

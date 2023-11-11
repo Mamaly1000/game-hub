@@ -1,19 +1,14 @@
 import { checkOTP_responseType } from "@/types/OTP";
-import { UserInterface } from "@/types/User";
+import { toStringCookies } from "@/utils/toStringCookies";
 import { NextRequest } from "next/server";
 
 export const middlewareAuth = async (req: NextRequest) => {
   let url = `${process.env.NEXT_PUBLIC_API_URL}/user/profile`;
-  const TOKENCOOKIE = `${req.cookies.get("accessToken")?.name}=${
-    req.cookies.get("accessToken")?.value
-  }; ${req.cookies.get("accessToken")?.name}=${
-    req.cookies.get("accessToken")?.value
-  }`;
   const fetchOptions: RequestInit = {
     credentials: "include",
     method: "GET",
     headers: {
-      Cookie: TOKENCOOKIE,
+      Cookie: toStringCookies(req.cookies),
     },
   };
   let UserData = await fetch(url, fetchOptions)

@@ -1,4 +1,4 @@
-"use client";
+import { paymentType } from "@/types/payment";
 import {
   Paper,
   Table,
@@ -7,28 +7,26 @@ import {
   TableContainer,
   TableFooter,
   TableHead,
-  TableRow, 
+  TableRow,
 } from "@mui/material";
-import React from "react"; 
-import { toPersianNumbers } from "@/utils/numConvertor"; 
-import { singleCartProductInterface } from "@/types/product";
-import CustomTablePagination from "./TablePagination"; 
-import AddToCart from "../cart-components/AddToCart";
-import Custom_link from "../inputs/Custom_link";
+import React from "react";
 import { StyledTableCell, StyledTableRow } from "@/styles/table";
+import {
+  toPersianNumbers,
+  toPersianNumbersWithComma,
+} from "@/utils/numConvertor";
+import CustomTablePagination from "./TablePagination";
+import moment from "jalali-moment";
 
-
-export default function CustomizedTables({
+const PaymentsTable = ({
   rows,
   labels,
 }: {
   labels: string[];
-  rows: singleCartProductInterface[];
-}) {
+  rows: paymentType[];
+}) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
-  // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
@@ -47,10 +45,15 @@ export default function CustomizedTables({
   };
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
+      <TableContainer sx={{ maxHeight: 440, direction: "rtl" }}>
         <Table
           stickyHeader
-          sx={{ maxWidth: "100%", minWidth: "100%", overflow: "auto" }}
+          sx={{
+            maxWidth: "100%",
+            minWidth: "100%",
+            overflow: "auto",
+            direction: "rtl",
+          }}
           aria-label="custom pagination table"
         >
           <TableHead>
@@ -66,32 +69,32 @@ export default function CustomizedTables({
             {(rowsPerPage > 0
               ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               : rows
-            ).map((row) => (
+            ).map((row, i) => (
               <StyledTableRow key={row._id}>
                 <StyledTableCell align="right" component="td" scope="row">
-                  {row.title}
+                  {toPersianNumbers(i + 1)}
                 </StyledTableCell>
                 <StyledTableCell align="right" component="td" scope="row">
-                  {toPersianNumbers(row.quantity)}
+                  {toPersianNumbers(row.invoiceNumber)}
                 </StyledTableCell>
                 <StyledTableCell align="right" component="td" scope="row">
-                  {toPersianNumbers(row.price)}
+                  {row.description}
+                </StyledTableCell>
+                <StyledTableCell align="right" component="td" scope="row">
+                  {row.cart.productDetail.map((p) => (
+                    <span key={p._id}>{p.title}/</span>
+                  ))}
+                </StyledTableCell>
+                <StyledTableCell align="right" component="td" scope="row">
+                  {toPersianNumbersWithComma(row.amount)}
                 </StyledTableCell>{" "}
                 <StyledTableCell align="right" component="td" scope="row">
-                  {toPersianNumbers(row.discount)}
+                  {toPersianNumbers(
+                    moment(row.createdAt).format("jYYYY/jMMM/DD HH:MM")
+                  )}
                 </StyledTableCell>{" "}
                 <StyledTableCell align="right" component="td" scope="row">
-                  {toPersianNumbers(row.offPrice)}
-                </StyledTableCell>
-                <StyledTableCell align="right" component="td" scope="row">
-                  <Custom_link
-                    text={"مشاهده محصول"}
-                    href={`/products/${row.slug}`}
-                    classname="bg-warning px-3 py-2 rounded-lg text-center flex items-center justify-center drop-shadow-2xl"
-                  />
-                </StyledTableCell>
-                <StyledTableCell align="right" component="td" scope="row">
-                  <AddToCart redirect={false} product={row} />
+                  {row.status === "COMPLETED" ? "موفق" : "ناموفق"}
                 </StyledTableCell>
               </StyledTableRow>
             ))}
@@ -120,4 +123,6 @@ export default function CustomizedTables({
       </TableContainer>
     </Paper>
   );
-}
+};
+
+export default PaymentsTable;

@@ -25,7 +25,7 @@
       "@components": ["./components/*"],
       "@containers": ["./containers/*"],
       "@context": ["./context/*"],
-      "@motions": ["./motions/*"],
+      "@styles": ["./styles/*"],
       "@services": ["./services/*"],
       "@types": ["./types/*"],
       "@utils": ["./utils/*"],

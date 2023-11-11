@@ -4,13 +4,15 @@ import SideBar from "@/components/user-sidebar/SideBar";
 import { getAllCategories } from "@/services/categoryServices";
 import { getAllProducts } from "@/services/productServices";
 import { productInterface } from "@/types/product";
+import { toStringCookies } from "@/utils/toStringCookies";
 import React, { Suspense } from "react";
+import { cookies } from "next/headers";
 
 export const dynamic = "force-dynamic";
 
 const ProductsPage = async ({ searchParams }: { searchParams: any }) => {
   const allcategories = getAllCategories();
-  const allproducts = getAllProducts(searchParams);
+  const allproducts = getAllProducts(searchParams, toStringCookies(cookies()));
 
   const [
     {

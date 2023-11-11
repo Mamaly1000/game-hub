@@ -32,7 +32,7 @@ const AddToCart = ({
   const user: UserInterface | null = data?.data.data.user;
   const router = useRouter();
   const addToCart = async () => {
-    if (user && !user.isActive) {
+    if (!user || !user.isActive) {
       toast.error("لطفا ابتدا لاگین کنید.");
       router.push("/auth");
     } else {

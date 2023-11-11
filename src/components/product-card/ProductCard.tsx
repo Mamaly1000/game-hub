@@ -7,11 +7,16 @@ import Badge from "../ui/Badge";
 import PriceDisplay from "./PriceDisplay";
 import Link from "next/link";
 import NumDisplay from "../ui/NumDisplay";
+import LikeButton from "./LikeButton"; 
 
 const ProductCard = ({ product }: { product: productInterface }) => {
   return (
     <div className="min-w-full min-h-fit md:min-w-[320px] md:min-h-[320px] md:max-h-[320px] md:max-w-[320px] rounded-lg drop-shadow-2xl p-3 flex flex-col items-center justify-between gap-2 backdrop-blur-md text-inherit bg-mid_transparent ">
       <div className="relative min-w-full max-h-[130px] aspect-video rounded-lg">
+        <LikeButton
+          classname="absolute z-10 p-2 rounded-full top-2 start-2"
+          product={product}
+        />
         <Image
           src={product.imageLink}
           placeholder="blur"

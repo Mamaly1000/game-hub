@@ -3,6 +3,7 @@ import React, { Fragment, ReactNode } from "react";
 import { TbUserStar } from "react-icons/tb";
 import { HiOutlineHome } from "react-icons/hi";
 import Custom_link from "../inputs/Custom_link";
+import { MdPayment } from "react-icons/md";
 import { Divider } from "@mui/material";
 import { CgProfile } from "react-icons/cg";
 import Custom_Button from "../inputs/Custom_Button";
@@ -29,15 +30,20 @@ const SideBar = () => {
       route: "/profile/me",
       icon: <TbUserStar />,
     },
+    {
+      name: "اطلاعات پرداخت ها",
+      route: "/profile/payments",
+      icon: <MdPayment />,
+    },
   ];
   const { mutate } = useLogout();
   return (
-    <div className="col-span-3 p-5 flex flex-col items-start justify-start gap-2 bg-secondary-100 min-h-screen max-h-screen overflow-y-auto">
+    <div className="col-span-3 p-5 flex flex-col items-start justify-start gap-2 bg-secondary-300 dark:bg-secondary-800 min-h-screen max-h-screen overflow-y-auto">
       {items.map((i) => {
         return (
           <Fragment key={i.route}>
             <Custom_link
-              classname="flex flex-row-reverse items-center justify-start gap-3"
+              classname="flex flex-row-reverse items-center justify-start gap-3 text-primary-900"
               href={i.route}
               text={i.name}
             >
