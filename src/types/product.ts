@@ -51,3 +51,13 @@ export interface singleProductInterface {
   updatedAt: Date;
   __v: number;
 }
+export interface singleCartProductInterface {
+  discount: number | null;
+  imageLink: string;
+  offPrice: number;
+  price: number;
+  quantity: number;
+  slug: string;
+  title: string;
+  _id: string;
+}

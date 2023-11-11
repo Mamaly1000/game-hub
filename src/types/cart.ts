@@ -1,13 +1,18 @@
+import { singleCartProductInterface } from "./product";
+
 export interface cartInterface {
   _id: string;
-  productDetail: Array<unknown>;
+  productDetail: singleCartProductInterface[];
   coupon: null | string;
   payDetail: {
     totalOffAmount: number;
     totalPrice: number;
     totalGrossPrice: number;
-    orderItems: Array<unknown>;
-    productIds: Array<unknown>;
+    orderItems: Array<{
+      price: number;
+      product: string;
+    }>;
+    productIds: Array<string>;
     description: string;
   };
   products: {

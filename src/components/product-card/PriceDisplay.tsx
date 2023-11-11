@@ -12,10 +12,10 @@ const PriceDisplay = ({
   price: {
     price: number;
     discount: number | null;
-    offPrice: number;
+    offPrice: number | null;
   };
 }) => {
-  return price.discount ? (
+  return price.discount && price.offPrice ? (
     <div className={className}>
       {title || "قیمت کل"} :
       <span className="text-error line-through">

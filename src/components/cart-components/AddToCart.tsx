@@ -1,7 +1,11 @@
 "use client";
 import { useFetchUser } from "@/hook/useAuth";
 import { UserInterface } from "@/types/User";
-import { productInterface, singleProductInterface } from "@/types/product";
+import {
+  productInterface,
+  singleCartProductInterface,
+  singleProductInterface,
+} from "@/types/product";
 import { useRouter } from "next/navigation";
 import React from "react";
 import toast from "react-hot-toast";
@@ -13,8 +17,13 @@ import Custom_link from "../inputs/Custom_link";
 import { toPersianNumbers } from "@/utils/numConvertor";
 const AddToCart = ({
   product,
+  redirect = true,
 }: {
-  product: singleProductInterface | productInterface;
+  redirect?: boolean;
+  product:
+    | singleProductInterface
+    | productInterface
+    | singleCartProductInterface;
 }) => {
   const { data, isLoading, refetch } = useFetchUser();
   const { isPending: addPending, mutateAsync: addMutation } = useCart("add");
@@ -72,7 +81,7 @@ const AddToCart = ({
       >
         <HiOutlinePlusSm />
       </Custom_Button>
-      <Custom_link classname="" href="/cart" text="ادامه سفارش" />
+      {redirect && <Custom_link classname="" href="/cart" text="ادامه سفارش" />}
     </div>
   ) : (
     <div>

@@ -5,7 +5,7 @@ import { Toaster } from "react-hot-toast";
 const HotToast = () => {
   return (
     <Toaster
-      position="top-right"
+      position="bottom-right"
       containerStyle={{ fontFamily: vazirFont.style.fontFamily }}
     />
   );
