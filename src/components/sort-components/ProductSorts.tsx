@@ -36,7 +36,7 @@ const ProductSorts = () => {
   return (
     <Custom_list
       bgcolor="inherit"
-      classname="relative z-0 text-primary-900 font-vazir "
+      classname="relative z-0   font-vazir "
       title="مرتب سازی محصولات"
     >
       {sorts.map((sort) => {

@@ -24,7 +24,7 @@ const ProductFilters = ({ links }: { links: categoryInterface[] }) => {
     <Suspense fallback={<Loader />}>
       <Custom_list
         bgcolor="inherit"
-        classname=" relative z-0 text-primary-900 font-vazir "
+        classname=" relative z-0   font-vazir "
         title="فیلتر محصولات"
       >
         {links.map((link) => {

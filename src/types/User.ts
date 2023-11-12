@@ -1,11 +1,12 @@
 import { cartInterface } from "./cart";
 import { ROLES } from "./common";
+import { productInterface } from "./product";
 
 export interface UserInterface {
   name: string;
   avatar: string;
   biography: string | null;
-  likedProducts: Array<unknown>;
+  likedProducts: Array<productInterface>;
   email: string;
   phoneNumber: string;
   password: string;
@@ -16,7 +17,7 @@ export interface UserInterface {
   resetLink: string | null;
   isVerifiedPhoneNumber: boolean;
   isActive: boolean;
-  Products: Array<unknown>;
+  Products: Array<productInterface>;
   role: ROLES;
   cart: cartInterface;
   _id: string;
@@ -29,6 +30,6 @@ export interface UpdateUserInterface {
   name: string;
   biography: string | null;
   email: string;
-  phoneNumber: string; 
+  phoneNumber: string;
   // avatarUrl: null | string;
 }

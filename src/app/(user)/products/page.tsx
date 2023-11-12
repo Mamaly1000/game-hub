@@ -31,7 +31,7 @@ const ProductsPage = async ({ searchParams }: { searchParams: any }) => {
     <div className="min-w-full max-h-screen min-h-screen grid grid-cols-12 grid-rows-6 ">
       <SideBar links={categories} />
       <Suspense fallback={<Loader />}>
-        <div className="max-w-full col-span-9   flex items-start justify-start gap-5 flex-wrap bg-transparent p-2">
+        <div className="max-w-full col-span-9 p-5  flex items-start justify-start gap-5 flex-wrap bg-transparent  ">
           {(products as productInterface[]).map((p) => {
             return <ProductCard product={p} key={p._id} />;
           })}

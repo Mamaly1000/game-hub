@@ -20,6 +20,7 @@ export interface productInterface {
   createdAt: Date;
   updatedAt: Date;
   __v: number;
+  quantity: number;
   likesCount: number;
   isLiked: boolean;
 }
@@ -56,6 +57,7 @@ export interface singleCartProductInterface {
   imageLink: string;
   offPrice: number;
   price: number;
+  countInStock: number;
   quantity: number;
   slug: string;
   title: string;

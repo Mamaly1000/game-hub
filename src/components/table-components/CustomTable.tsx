@@ -7,23 +7,22 @@ import {
   TableContainer,
   TableFooter,
   TableHead,
-  TableRow, 
+  TableRow,
 } from "@mui/material";
-import React from "react"; 
-import { toPersianNumbers } from "@/utils/numConvertor"; 
-import { singleCartProductInterface } from "@/types/product";
-import CustomTablePagination from "./TablePagination"; 
+import React from "react";
+import { toPersianNumbers } from "@/utils/numConvertor";
+import { productInterface, singleCartProductInterface } from "@/types/product";
+import CustomTablePagination from "./TablePagination";
 import AddToCart from "../cart-components/AddToCart";
 import Custom_link from "../inputs/Custom_link";
 import { StyledTableCell, StyledTableRow } from "@/styles/table";
-
 
 export default function CustomizedTables({
   rows,
   labels,
 }: {
   labels: string[];
-  rows: singleCartProductInterface[];
+  rows: singleCartProductInterface[] | productInterface[];
 }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -50,7 +49,12 @@ export default function CustomizedTables({
       <TableContainer sx={{ maxHeight: 440 }}>
         <Table
           stickyHeader
-          sx={{ maxWidth: "100%", minWidth: "100%", overflow: "auto" }}
+          sx={{
+            maxWidth: "100%",
+            minWidth: "100%",
+            overflow: "auto",
+            background: "rgb(var(--color-primary-900))",
+          }}
           aria-label="custom pagination table"
         >
           <TableHead>
@@ -72,7 +76,8 @@ export default function CustomizedTables({
                   {row.title}
                 </StyledTableCell>
                 <StyledTableCell align="right" component="td" scope="row">
-                  {toPersianNumbers(row.quantity)}
+                  {row.quantity && toPersianNumbers(row.quantity)}
+                  {row.countInStock && toPersianNumbers(row?.countInStock)}
                 </StyledTableCell>
                 <StyledTableCell align="right" component="td" scope="row">
                   {toPersianNumbers(row.price)}

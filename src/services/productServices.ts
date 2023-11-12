@@ -8,6 +8,9 @@ export const getAllProducts = (data: ParsedUrlQuery, cookies: string) => {
     },
   });
 };
+export const getAllRawProducts = () => {
+  return http.get(`/product/list`);
+};
 export const getSingleProduct = (slug: string) => {
   return http.get(`/product/slug/${slug}`);
 };

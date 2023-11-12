@@ -1,4 +1,4 @@
-import { singleCartProductInterface } from "./product";
+import { productInterface, singleCartProductInterface } from "./product";
 
 export interface cartInterface {
   _id: string;
@@ -16,7 +16,7 @@ export interface cartInterface {
     description: string;
   };
   products: {
-    productId: string;
+    productId: productInterface;
     quantity: number;
     _id: string;
   }[];

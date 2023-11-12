@@ -38,7 +38,7 @@ const SideBar = () => {
   ];
   const { mutate } = useLogout();
   return (
-    <div className="col-span-3 p-5 flex flex-col items-start justify-start gap-2 bg-secondary-300 dark:bg-secondary-800 min-h-screen max-h-screen overflow-y-auto">
+    <div className="col-span-3 p-5 flex flex-col items-start justify-start gap-2 text-white bg-secondary-800 min-h-screen max-h-screen overflow-y-auto">
       {items.map((i) => {
         return (
           <Fragment key={i.route}>

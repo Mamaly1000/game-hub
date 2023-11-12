@@ -63,7 +63,7 @@ export const StyledThead = styled(TableHead)(() => {
 });
 export const StyledTfooter = styled(TableFooter)(() => {
   return { 
-    color: "#ffffff",
+    color: "#ffffff !important",
     ...vazirFont.style,
     ".MuiTableCell-root": {
       ...vazirFont.style,
