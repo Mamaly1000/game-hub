@@ -6,6 +6,7 @@ import CustomizedTables from "@/components/table-components/CustomTable";
 import Box from "@/components/ui/Box";
 import { useAllProducts } from "@/hook/useGetProducts";
 import { productInterface } from "@/types/product";
+import { AddIcCallOutlined } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 import React from "react";
 
@@ -47,7 +48,7 @@ const page = () => {
   }
 
   return (
-    <div className="min-w-full flex flex-col gap-3 items-start justify-start ">
+    <div className="min-w-full flex flex-col gap-3 items-start justify-start  relative">
       <PageHeader>لیست محصولات</PageHeader>
       <CustomizedTables
         labels={[
@@ -61,6 +62,16 @@ const page = () => {
         ]}
         rows={products}
       />
+      <Custom_Button
+        btn_type="button"
+        className="absolute top-2 end-2 z-10 bg-success text-white p-3 rounded-full"
+        text=""
+        type="primary"
+        disable={false}
+        onclick={() => router.push("/admin/products/add")}
+      >
+        <AddIcCallOutlined />
+      </Custom_Button>
     </div>
   );
 };
