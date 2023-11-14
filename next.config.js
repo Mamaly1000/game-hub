@@ -5,6 +5,8 @@ const nextConfig = {
       "dkstatics-public.digikala.com",
       "selphie1999gaming.com",
       "images.wallpapersden.com",
+      "behtarin.io",
+      "gametrex.com",
     ],
   },
 };

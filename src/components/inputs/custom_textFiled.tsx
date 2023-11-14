@@ -1,8 +1,7 @@
-"use client";
 import vazirFont from "@/common/local-fonts/VazirFont";
-import numConvertor from "@/utils/numConvertor";
+import numConvertor, { toPersianNumbers } from "@/utils/numConvertor";
 import { TextField } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState, useTransition } from "react";
 import styled from "styled-components";
 import RTL_Creator from "../ui/RTL_Creator";
 
@@ -36,55 +35,47 @@ const Custom_textFiled = ({
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
 }) => {
+  const [_transition, setTransition] = useTransition();
   const [display, setDisplay] = useState({
     persian_value: "",
     english_value: "",
   });
-  useEffect(() => {
-    if (value.length === 0) {
-      setDisplay({ english_value: "", persian_value: "" });
-    }
-  }, [value]);
+
   return (
     <RTL_Creator>
       <Div className=" p-2 bg-primary-100 rounded-lg shadow-xl shadow-primary-400">
         <TextField
           {...formik.getFieldProps(name)}
           fullWidth
-          className="font-vazir"
-          type="type"
-          id="filled-basic"
+          type={type}
           label={label}
           variant="filled"
           error={formik.touched[name] && formik.errors[name] ? true : false}
           helperText={
             formik.touched[name] && formik.errors[name] && formik.errors[name]
           }
-          style={{ direction: "rtl", fontFamily: vazirFont.style.fontFamily }}
-          lang="fa"
           InputLabelProps={{
-            dir: "rtl",
-            style: {
-              direction: "rtl",
-              textAlign: "start",
-              fontFamily: vazirFont.style.fontFamily,
-            },
+            style: vazirFont.style,
           }}
           value={display.persian_value}
           FormHelperTextProps={{
             style: {
-              fontFamily: vazirFont.style.fontFamily,
-              fontWeight: 600,
+              ...vazirFont.style,
               fontSize: ".8rem",
             },
           }}
           onChange={(e) => {
-            if (setValue && onchangeType === "custom") {
-              setValue(e);
-            }
-            setDisplay({
-              persian_value: numConvertor("fa", e.target.value),
-              english_value: numConvertor("en", e.target.value),
+            setTransition(() => {
+              if (setValue) {
+                setValue(e);
+              }
+              if (!setValue) {
+                formik.setFieldValue(name, numConvertor("en", e.target.value));
+              }
+              setDisplay({
+                english_value: numConvertor("en", e.target.value),
+                persian_value: toPersianNumbers(e.target.value),
+              });
             });
           }}
           InputProps={{
@@ -96,4 +87,4 @@ const Custom_textFiled = ({
   );
 };
 
-export default Custom_textFiled;
+export default React.memo(Custom_textFiled);

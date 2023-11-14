@@ -63,3 +63,16 @@ export interface singleCartProductInterface {
   title: string;
   _id: string;
 }
+export interface createProductInterface {
+  title: string;
+  description: string;
+  slug: string;
+  imageLink: string;
+  brand: string;
+  tags: string[];
+  category: string;
+  price: string;
+  discount: string;
+  countInStock: string;
+  offPrice: string;
+}

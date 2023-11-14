@@ -1,6 +1,7 @@
 import { ParsedUrlQuery } from "querystring";
 import http from "./httpService";
 import queryString from "query-string";
+import { createProductInterface } from "@/types/product";
 export const getAllProducts = (data: ParsedUrlQuery, cookies: string) => {
   return http.get(`/product/list?${queryString.stringify(data)}`, {
     headers: {
@@ -17,6 +18,6 @@ export const getSingleProduct = (slug: string) => {
 export const likeProductService = (id: string) => {
   return http.post(`/product/like/${id}`);
 };
-export const createProductService = (data: any) => {
+export const createProductService = (data: createProductInterface) => {
   return http.post("/admin/product/add", data);
 };

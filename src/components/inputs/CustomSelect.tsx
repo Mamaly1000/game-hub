@@ -79,7 +79,7 @@ const CustomSelect = ({
               );
             })}
         </Select>
-        {formik.errors[name] && (
+        {formik.touched[name] && formik.errors[name] && (
           <Custom_HelperText>{formik.errors[name]}</Custom_HelperText>
         )}
       </FormControl>

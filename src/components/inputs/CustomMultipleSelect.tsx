@@ -33,24 +33,11 @@ const CustomMultipleSelect = ({
     const {
       target: { value },
     } = event;
-    if (
-      value[value.length - 1] !== "input" &&
-      Data.includes(value[value.length - 1])
-    ) {
-      setData(
-        // On autofill we get a stringified value.
-        typeof value === "string" ? value.split(",") : value
-      );
-      setDataChange([...Data]);
-    } else if (value[value.length - 1] !== "input") {
-      setData(
-        // On autofill we get a stringified value.
-        typeof value === "string" ? value.split(",") : value
-      );
-      setDataChange([...Data, ...value]);
+    if (value[value.length - 1] !== "input") {
+      setData(typeof value === "string" ? value.split(",") : value);
+      setDataChange(typeof value === "string" ? value.split(",") : value);
     }
   };
-  console.log(formik.errors[name]);
   return (
     <RTL_Creator>
       <FormControl
@@ -157,9 +144,10 @@ const CustomMultipleSelect = ({
               return <MenuItem value={item.name}>{item.name}</MenuItem>;
             })}
         </Select>
-        {formik.errors[name] && (
-          <Custom_HelperText>{formik.errors[name]}</Custom_HelperText>
-        )}
+        {formik.touched[name] &&
+          formik.errors[name] && (
+            <Custom_HelperText>{formik.errors[name]}</Custom_HelperText>
+          )}
       </FormControl>
     </RTL_Creator>
   );
