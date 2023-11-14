@@ -54,7 +54,7 @@ const AddToCart = ({
     }
   };
   const availableProduct = user?.cart.products.find(
-    (p) => p.productId === product._id
+    (p) => p.productId._id === product._id
   );
   return user && availableProduct ? (
     <div className="min-w-full md:min-w-fit md:max-w-fit flex items-center justify-center gap-2 ">
@@ -87,7 +87,7 @@ const AddToCart = ({
     <div>
       <Custom_Button
         btn_type="button"
-        className="bg-success px-3 py-2 rounded-lg "
+        className="bg-success px-3 py-2 rounded-lg whitespace-nowrap"
         text="اضافه کردن به سبد خرید"
         type="success"
         disable={isLoading && addPending}

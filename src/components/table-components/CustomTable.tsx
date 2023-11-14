@@ -9,7 +9,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import React from "react";
+import React, { ReactNode } from "react";
 import { toPersianNumbers } from "@/utils/numConvertor";
 import { productInterface, singleCartProductInterface } from "@/types/product";
 import CustomTablePagination from "./TablePagination";
@@ -20,8 +20,12 @@ import { StyledTableCell, StyledTableRow } from "@/styles/table";
 export default function CustomizedTables({
   rows,
   labels,
+  additionalActions,
 }: {
   labels: string[];
+  additionalActions?: (
+    data: singleCartProductInterface | productInterface
+  ) => ReactNode | null;
   rows: singleCartProductInterface[] | productInterface[];
 }) {
   const [page, setPage] = React.useState(0);
@@ -95,8 +99,16 @@ export default function CustomizedTables({
                     classname="bg-warning px-3 py-2 rounded-lg text-center flex items-center justify-center drop-shadow-2xl"
                   />
                 </StyledTableCell>
-                <StyledTableCell align="right" component="td" scope="row">
-                  <AddToCart redirect={false} product={row} />
+                <StyledTableCell
+                  sx={{ minWidth: "180px" }}
+                  align="right"
+                  component="td"
+                  scope="row"
+                >
+                  <div className="min-w-fit flex items-center justify-start gap-2">
+                    <AddToCart redirect={false} product={row} />
+                    {additionalActions && additionalActions(row)}
+                  </div>
                 </StyledTableCell>
               </StyledTableRow>
             ))}

@@ -4,7 +4,7 @@ import React from "react";
 
 const AddProductPage = () => {
   return (
-    <div className=" min-w-full flex flex-col gap-3 items-start justify-start">
+    <div className=" min-w-full flex flex-col gap-5 items-start justify-start">
       <PageHeader>ایجاد محصول جدید</PageHeader>
       <CreateProductsForm />
     </div>

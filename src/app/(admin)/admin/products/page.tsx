@@ -6,15 +6,17 @@ import CustomizedTables from "@/components/table-components/CustomTable";
 import Box from "@/components/ui/Box";
 import { useAllProducts } from "@/hook/useGetProducts";
 import { productInterface } from "@/types/product";
-import { BiSolidCartAdd } from "react-icons/bi";
 import { useRouter } from "next/navigation";
 import React from "react";
-
+import { MdAdd } from "react-icons/md";
+import TableActions from "@/components/table-actions/TableActions";
+import { useRemoveProduct } from "@/hook/useGetSingleProduct";
 const page = () => {
   const router = useRouter();
   const { data, isLoading, error, refetch } = useAllProducts();
+  const { isPending, mutateAsync } = useRemoveProduct();
   const products: productInterface[] | null = data?.data.data.products;
-  if (isLoading) {
+  if (isLoading || isPending) {
     return <Loader />;
   }
   if (error) {
@@ -61,6 +63,11 @@ const page = () => {
           "عملیات",
         ]}
         rows={products}
+        additionalActions={(data) => {
+          return (
+            <TableActions refetch={refetch} fn={mutateAsync} data={data} />
+          );
+        }}
       />
       <Custom_Button
         btn_type="button"
@@ -70,7 +77,7 @@ const page = () => {
         disable={false}
         onclick={() => router.push("/admin/products/add")}
       >
-        <BiSolidCartAdd className="w-[30px] h-[30px]" />
+        <MdAdd className="w-[30px] h-[30px]" />
       </Custom_Button>
     </div>
   );

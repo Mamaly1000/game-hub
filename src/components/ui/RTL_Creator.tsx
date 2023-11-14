@@ -21,4 +21,4 @@ const RTL_Creator = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export default RTL_Creator;
+export default React.memo(RTL_Creator);

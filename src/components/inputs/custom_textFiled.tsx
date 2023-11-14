@@ -1,9 +1,8 @@
 import vazirFont from "@/common/local-fonts/VazirFont";
 import numConvertor, { toPersianNumbers } from "@/utils/numConvertor";
 import { TextField } from "@mui/material";
-import React, { useState, useTransition } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import styled from "styled-components";
-import RTL_Creator from "../ui/RTL_Creator";
 
 const Div = styled.div`
   min-width: 100%;
@@ -41,49 +40,57 @@ const Custom_textFiled = ({
     english_value: "",
   });
 
+  useEffect(() => {
+    if (value === "" || value.length === 0) {
+      setDisplay({ english_value: "", persian_value: "" });
+    }
+    if (!!value || value.length > 0) {
+      setDisplay({
+        english_value: numConvertor("en", value),
+        persian_value: toPersianNumbers(value),
+      });
+    }
+  }, [value]);
+
   return (
-    <RTL_Creator>
-      <Div className=" p-2 bg-primary-100 rounded-lg shadow-xl shadow-primary-400">
-        <TextField
-          {...formik.getFieldProps(name)}
-          fullWidth
-          type={type}
-          label={label}
-          variant="filled"
-          error={formik.touched[name] && formik.errors[name] ? true : false}
-          helperText={
-            formik.touched[name] && formik.errors[name] && formik.errors[name]
+    <Div className=" p-2 bg-primary-100 rounded-lg shadow-xl shadow-primary-400">
+      <TextField
+        {...formik.getFieldProps(name)}
+        fullWidth
+        type={type}
+        label={label}
+        variant="filled"
+        error={formik.touched[name] && formik.errors[name] ? true : false}
+        helperText={
+          formik.touched[name] && formik.errors[name] && formik.errors[name]
+        }
+        InputLabelProps={{
+          style: vazirFont.style,
+        }}
+        value={display.persian_value}
+        FormHelperTextProps={{
+          style: {
+            ...vazirFont.style,
+            fontSize: ".8rem",
+          },
+        }}
+        onChange={(e) => {
+          if (setValue) {
+            setValue(e);
           }
-          InputLabelProps={{
-            style: vazirFont.style,
-          }}
-          value={display.persian_value}
-          FormHelperTextProps={{
-            style: {
-              ...vazirFont.style,
-              fontSize: ".8rem",
-            },
-          }}
-          onChange={(e) => {
-            setTransition(() => {
-              if (setValue) {
-                setValue(e);
-              }
-              if (!setValue) {
-                formik.setFieldValue(name, numConvertor("en", e.target.value));
-              }
-              setDisplay({
-                english_value: numConvertor("en", e.target.value),
-                persian_value: toPersianNumbers(e.target.value),
-              });
-            });
-          }}
-          InputProps={{
-            style: vazirFont.style,
-          }}
-        />
-      </Div>
-    </RTL_Creator>
+          if (!setValue) {
+            formik.setFieldValue(name, numConvertor("en", e.target.value));
+          }
+          setDisplay({
+            english_value: numConvertor("en", e.target.value),
+            persian_value: toPersianNumbers(e.target.value),
+          });
+        }}
+        InputProps={{
+          style: vazirFont.style,
+        }}
+      />
+    </Div>
   );
 };
 
