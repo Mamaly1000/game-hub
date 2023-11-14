@@ -1,67 +1,89 @@
-import { ImportContactsRounded } from "@mui/icons-material";
 import {
-  Box,
-  Button,
   FormControl,
-  Input,
+  FormHelperText,
   InputLabel,
   MenuItem,
-  OutlinedInput,
   Select,
   SelectChangeEvent,
 } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
+import RTL_Creator from "../ui/RTL_Creator";
+import vazirFont from "@/common/local-fonts/VazirFont";
+import Custom_HelperText from "./Custom_HelperText";
 
-const CustomSelect = () => {
-  const [age, setAge] = React.useState<string[]>([]);
-  const [text, setText] = useState("");
-  const handleChange = (event: SelectChangeEvent<typeof age>) => {
+const CustomSelect = ({
+  label,
+  asyncData,
+  onclickHandler,
+  name,
+  formik,
+}: {
+  formik: any;
+  name: string;
+  label: string;
+  asyncData?: { name: string; data: unknown }[];
+  onclickHandler: (val: any) => void;
+}) => {
+  const [Data, setData] = React.useState<string>("");
+  const handleChange = (event: SelectChangeEvent<typeof Data>) => {
     const {
       target: { value },
     } = event;
-    setAge(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
+    if (value !== Data) {
+      setData(value);
+    } else {
+      setData("");
+    }
   };
-  const addSelect = () => {
-    setAge([...age, text]);
-  };
+
   return (
-    <FormControl fullWidth>
-      <InputLabel id="demo-simple-select-label">Age</InputLabel>
-      <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        label="Age"
-        onChange={handleChange}
-        multiple
-        value={age}
-        input={
-          <Box>
-            <Input
-              value={text}
-              onChange={(e) => {
-                setText(e.target.value);
-              }}
-            />
-            <Button onClick={() => addSelect()}>
-              <ImportContactsRounded />
-            </Button>
-            <Box>
-              {age.map((a) => (
-                <span key={a}>{a}</span>
-              ))}
-            </Box>
-          </Box>
-        }
-        inputComponent="address"
+    <RTL_Creator>
+      <FormControl
+        className=" p-2 bg-primary-100 rounded-lg shadow-xl shadow-primary-400"
+        fullWidth
       >
-        <MenuItem value={10}>Ten</MenuItem>
-        <MenuItem value={20}>Twenty</MenuItem>
-        <MenuItem value={30}>Thirty</MenuItem>
-      </Select>
-    </FormControl>
+        <InputLabel
+          style={vazirFont.style}
+          id="demo-simple-select-label"
+          sx={{ direction: "rtl" }}
+        >
+          {label}
+        </InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          label="Data"
+          onChange={handleChange}
+          value={Data}
+          MenuProps={{
+            style: {
+              background: "rgba(0 0 0 /.3)",
+            },
+            draggable: true,
+          }}
+          inputProps={{ style: vazirFont.style }}
+          renderValue={(val) => {
+            return <span style={vazirFont.style}>{val}</span>;
+          }}
+        >
+          {asyncData &&
+            asyncData.map((item) => {
+              return (
+                <MenuItem
+                  onClick={() => onclickHandler(item.data)}
+                  value={item.name}
+                  style={vazirFont.style}
+                >
+                  {item.name}
+                </MenuItem>
+              );
+            })}
+        </Select>
+        {formik.errors[name] && (
+          <Custom_HelperText>{formik.errors[name]}</Custom_HelperText>
+        )}
+      </FormControl>
+    </RTL_Creator>
   );
 };
 

@@ -6,7 +6,7 @@ import CustomizedTables from "@/components/table-components/CustomTable";
 import Box from "@/components/ui/Box";
 import { useAllProducts } from "@/hook/useGetProducts";
 import { productInterface } from "@/types/product";
-import { AddIcCallOutlined } from "@mui/icons-material";
+import { BiSolidCartAdd } from "react-icons/bi";
 import { useRouter } from "next/navigation";
 import React from "react";
 
@@ -70,7 +70,7 @@ const page = () => {
         disable={false}
         onclick={() => router.push("/admin/products/add")}
       >
-        <AddIcCallOutlined />
+        <BiSolidCartAdd className="w-[30px] h-[30px]" />
       </Custom_Button>
     </div>
   );

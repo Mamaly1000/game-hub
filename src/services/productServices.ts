@@ -17,3 +17,6 @@ export const getSingleProduct = (slug: string) => {
 export const likeProductService = (id: string) => {
   return http.post(`/product/like/${id}`);
 };
+export const createProductService = (data: any) => {
+  return http.post("/admin/product/add", data);
+};

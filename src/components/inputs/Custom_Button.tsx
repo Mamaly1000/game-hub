@@ -18,10 +18,10 @@ const Custom_Button = ({
   disable,
 }: {
   disable?: boolean;
-  btn_type: "button" | "submit" | "reset" | undefined;
-  text: string;
+  btn_type?: "button" | "submit" | "reset" | undefined;
+  text?: string;
   onclick?: () => void;
-  type: AppColorsTypes;
+  type?: AppColorsTypes;
   className: string;
   children?: ReactNode;
 }) => {

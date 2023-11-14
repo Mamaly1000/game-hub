@@ -1,15 +1,14 @@
+"use client";
 import vazirFont from "@/common/local-fonts/VazirFont";
 import numConvertor from "@/utils/numConvertor";
 import { TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import styled, { StyleSheetManager } from "styled-components";
-import stylisRTLPlugin from "stylis-plugin-rtl";
+import styled from "styled-components";
+import RTL_Creator from "../ui/RTL_Creator";
 
 const Div = styled.div`
   min-width: 100%;
-  * {
-    text-align: left !important;
-  }
+
   .css-2y464i-MuiInputBase-root-MuiFilledInput-root::after,
   label:focused {
     border-color: rgb(var(--color-primary-900)) !important;
@@ -47,8 +46,8 @@ const Custom_textFiled = ({
     }
   }, [value]);
   return (
-    <StyleSheetManager stylisPlugins={[stylisRTLPlugin]}>
-      <Div className=" p-2 bg-primary-100 rounded-lg shadow-xl shadow-primary-400" >
+    <RTL_Creator>
+      <Div className=" p-2 bg-primary-100 rounded-lg shadow-xl shadow-primary-400">
         <TextField
           {...formik.getFieldProps(name)}
           fullWidth
@@ -58,7 +57,9 @@ const Custom_textFiled = ({
           label={label}
           variant="filled"
           error={formik.touched[name] && formik.errors[name] ? true : false}
-          helperText={formik.errors[name]}
+          helperText={
+            formik.touched[name] && formik.errors[name] && formik.errors[name]
+          }
           style={{ direction: "rtl", fontFamily: vazirFont.style.fontFamily }}
           lang="fa"
           InputLabelProps={{
@@ -91,7 +92,7 @@ const Custom_textFiled = ({
           }}
         />
       </Div>
-    </StyleSheetManager>
+    </RTL_Creator>
   );
 };
 
