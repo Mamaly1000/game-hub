@@ -6,4 +6,4 @@ export const useFetchAllUsers = () => {
     queryFn: getAllUsers,
     queryKey: ["fetch-all-users"],
   });
-};
+}; 

@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import PageHeader from "@/components/headers/PageHeader";
 import Custom_Button from "@/components/inputs/Custom_Button";
 import Loader from "@/components/loading/Loader";
@@ -7,7 +8,6 @@ import Box from "@/components/ui/Box";
 import { useAllProducts } from "@/hook/useGetProducts";
 import { productInterface } from "@/types/product";
 import { useRouter } from "next/navigation";
-import React from "react";
 import { MdAdd } from "react-icons/md";
 import TableActions from "@/components/table-actions/TableActions";
 import { useRemoveProduct } from "@/hook/useGetSingleProduct";

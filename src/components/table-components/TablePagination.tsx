@@ -3,7 +3,7 @@ import { toPersianNumbers } from "@/utils/numConvertor";
 import React from "react";
 import vazirFont from "@/common/local-fonts/VazirFont";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
-import { TablePagination } from "@mui/material";
+import { TableCell, TablePagination } from "@mui/material";
 import { StyledPaginationTableRow } from "@/styles/table";
 
 const CustomTablePagination = ({

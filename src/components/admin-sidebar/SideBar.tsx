@@ -17,7 +17,7 @@ const SideBar = () => {
     { name: "داشبورد", route: "/admin", icon: <MdOutlineDashboard /> },
     { name: "کاربران", route: "/admin/users", icon: <PiUsersFourDuotone /> },
     { name: "محصولات", route: "/admin/products", icon: <BsBoxes /> },
-    { name: "دسته بندی", route: "/admin/category", icon: <MdCategory /> },
+    { name: "دسته بندی", route: "/admin/categories", icon: <MdCategory /> },
     { name: "سفارشات", route: "/admin/orders", icon: <RiSecurePaymentLine /> },
     { name: "کد تخفیف", route: "/admin/coupon", icon: <RiCoupon3Fill /> },
   ];

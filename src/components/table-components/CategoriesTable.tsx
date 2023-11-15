@@ -1,4 +1,6 @@
-"use client";
+import { StyledTableCell, StyledTableRow } from "@/styles/table";
+import { categoryInterface } from "@/types/category";
+import { toPersianNumbers } from "@/utils/numConvertor";
 import {
   Paper,
   Table,
@@ -10,26 +12,21 @@ import {
   TableRow,
 } from "@mui/material";
 import React, { ReactNode } from "react";
-import { toPersianNumbers } from "@/utils/numConvertor";
-import { productInterface, singleCartProductInterface } from "@/types/product";
-import CustomTablePagination from "./TablePagination";
-import AddToCart from "../cart-components/AddToCart";
 import Custom_link from "../inputs/Custom_link";
-import { StyledTableCell, StyledTableRow } from "@/styles/table";
+import CustomTablePagination from "./TablePagination";
+import CategoryTableAction from "../table-actions/CategoryTableAction";
 
-export default function CustomizedTables({
+const CategoriesTable = ({
   rows,
   labels,
   additionalActions,
 }: {
   labels: string[];
-  additionalActions?: (
-    data: singleCartProductInterface | productInterface
-  ) => ReactNode | null;
-  rows: singleCartProductInterface[] | productInterface[];
-}) {
+  rows: categoryInterface[];
+  additionalActions?: (data: categoryInterface) => ReactNode | null;
+}) => {
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5); 
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
@@ -72,31 +69,28 @@ export default function CustomizedTables({
             {(rowsPerPage > 0
               ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               : rows
-            ).map((row) => (
+            ).map((row, i) => (
               <StyledTableRow key={row._id}>
+                <StyledTableCell
+                  sx={{ maxWidth: "50px" }}
+                  align="right"
+                  component="td"
+                  scope="row"
+                >
+                  {toPersianNumbers(i + 1)}
+                </StyledTableCell>{" "}
                 <StyledTableCell align="right" component="td" scope="row">
                   {row.title}
                 </StyledTableCell>
                 <StyledTableCell align="right" component="td" scope="row">
-                  {row.quantity && toPersianNumbers(row.quantity)}
-                  {row.countInStock && toPersianNumbers(row?.countInStock)}
+                  {row.description}
                 </StyledTableCell>
                 <StyledTableCell align="right" component="td" scope="row">
-                  {toPersianNumbers(row.price)}
+                  {row.englishTitle}
                 </StyledTableCell>{" "}
                 <StyledTableCell align="right" component="td" scope="row">
-                  {toPersianNumbers(row.discount)}
+                  {row.type}
                 </StyledTableCell>{" "}
-                <StyledTableCell align="right" component="td" scope="row">
-                  {toPersianNumbers(row.offPrice)}
-                </StyledTableCell>
-                <StyledTableCell align="right" component="td" scope="row">
-                  <Custom_link
-                    text={"مشاهده محصول"}
-                    href={`/products/${row.slug}`}
-                    classname="bg-warning px-3 py-2 rounded-lg text-center flex items-center justify-center drop-shadow-2xl"
-                  />
-                </StyledTableCell>
                 <StyledTableCell
                   sx={{ minWidth: "180px" }}
                   align="right"
@@ -104,7 +98,7 @@ export default function CustomizedTables({
                   scope="row"
                 >
                   <div className="min-w-fit flex items-center justify-start gap-2">
-                    <AddToCart redirect={false} product={row} />
+                    <CategoryTableAction category={row} />
                     {additionalActions && additionalActions(row)}
                   </div>
                 </StyledTableCell>
@@ -135,4 +129,6 @@ export default function CustomizedTables({
       </TableContainer>
     </Paper>
   );
-}
+};
+
+export default CategoriesTable;
