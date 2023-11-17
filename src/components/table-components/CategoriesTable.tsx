@@ -77,10 +77,7 @@ const CategoriesTable = ({
                   component="td"
                   scope="row"
                 >
-                  {toPersianNumbers(i + 1)}
-                </StyledTableCell>{" "}
-                <StyledTableCell align="right" component="td" scope="row">
-                  {row.title}
+                  {toPersianNumbers(i + 1) + " "}-{" " + row.title}
                 </StyledTableCell>
                 <StyledTableCell align="right" component="td" scope="row">
                   {row.description}

@@ -8,6 +8,7 @@ import { categoryInterface } from "@/types/category";
 import { Box } from "@mui/material";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { MdAdd } from "react-icons/md";
 
 const AddCategoryPage = () => {
   const router = useRouter();
@@ -46,12 +47,22 @@ const AddCategoryPage = () => {
     );
   }
   return (
-    <div className="min-w-full flex flex-col items-start justify-start gap-5 ">
+    <div className="relative min-w-full flex flex-col items-start justify-start gap-5 ">
       <PageHeader>لیست دسته بندی ها</PageHeader>
       <CategoriesTable
-        labels={["#", "عنوان", "توضیحات", "عنوان انگلیسی", "نوع", "عملیات"]}
+        labels={["عنوان", "توضیحات", "عنوان انگلیسی", "نوع", "عملیات"]}
         rows={categories || []}
       />
+      <Custom_Button
+        btn_type="button"
+        className="absolute top-2 end-2 z-10 bg-success text-white p-3 rounded-full"
+        text=""
+        type="primary"
+        disable={false}
+        onclick={() => router.push("/admin/categories/add")}
+      >
+        <MdAdd className="w-[30px] h-[30px]" />
+      </Custom_Button>
     </div>
   );
 };

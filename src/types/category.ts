@@ -1,3 +1,5 @@
+import { categoryTypes } from "./common";
+
 export interface categoryInterface {
   icon: {
     sm: null | string;
@@ -7,9 +9,15 @@ export interface categoryInterface {
   title: string;
   englishTitle: string;
   description: string;
-  type: string;
+  type: categoryTypes;
   parentId: null | string;
   createdAt: Date;
   updatedAt: Date;
   __v: number;
+}
+export interface createCategoryInterface {
+  title: string;
+  englishTitle: string;
+  description: string;
+  type: categoryTypes | "";
 }

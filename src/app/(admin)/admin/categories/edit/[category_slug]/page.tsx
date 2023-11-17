@@ -1,7 +1,12 @@
 "use client";
+import CreateCategoryForm from "@/components/forms/CreateCategoryForm";
+import PageHeader from "@/components/headers/PageHeader";
 import Custom_Button from "@/components/inputs/Custom_Button";
 import Loader from "@/components/loading/Loader";
-import { useGetSingleCategory } from "@/hook/useGetAllCategories";
+import {
+  useGetSingleCategory,
+  useUpdateCategory,
+} from "@/hook/useGetAllCategories";
 import { categoryInterface } from "@/types/category";
 import { Box } from "@mui/material";
 import { useParams, useRouter } from "next/navigation";
@@ -13,6 +18,7 @@ const EditCategoryPage = () => {
   const router = useRouter();
   const { data, error, isLoading, refetch } =
     useGetSingleCategory(category_slug);
+  const { isPending, mutateAsync } = useUpdateCategory();
   if (isLoading) {
     return <Loader />;
   }
@@ -41,10 +47,31 @@ const EditCategoryPage = () => {
   }
   const category: categoryInterface | null = data.data.data.category;
   const submitHandler = async (data: {
-    productId: string | undefined;
+    categoryId: string | undefined;
     data: any;
-  }) => {};
-  return <div></div>;
+  }) => {
+    await mutateAsync({
+      data: data.data,
+      id: data.categoryId || (category_slug as string),
+    }).then((res) => {
+      toast.success(res.data.data.message);
+      router.push("/admin/categories");
+    });
+  };
+  return (
+    <div className="relative min-w-full flex flex-col items-start justify-start gap-5 ">
+      <PageHeader>{"دسته بندی " + category?.title}</PageHeader>
+      {!isPending ? (
+        <CreateCategoryForm
+          initialData={category}
+          formType="update"
+          submitHandler={submitHandler}
+        />
+      ) : (
+        <Loader />
+      )}
+    </div>
+  );
 };
 
 export default EditCategoryPage;

@@ -1,37 +1,6 @@
-import {
-  Box,
-  Collapse,
-  IconButton,
-  Table,
-  TableBody,
-  TableHead,
-  TableRow,
-  Typography,
-} from "@mui/material";
 import React from "react";
-import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
-import { adminPaymentInterface, paymentType } from "@/types/payment";
-import Custom_link from "../inputs/Custom_link";
-import {
-  toPersianNumbers,
-  toPersianNumbersWithComma,
-} from "@/utils/numConvertor";
 
-import moment from "jalali-moment";
-import vazirFont from "@/common/local-fonts/VazirFont";
-import { StyledTableCell, StyledTableRow } from "@/styles/table";
-import { FaEye } from "react-icons/fa";
-const SingleCollapsibleRow = ({
-  row,
-  labels,
-  i,
-}: {
-  i: number;
-  labels: string[];
-  row: paymentType | adminPaymentInterface;
-}) => {
-  const [open, setOpen] = React.useState(false);
-
+const SingleCollapsiblePaymentRow = () => {
   return (
     <React.Fragment>
       <StyledTableRow key={row._id}>
@@ -47,7 +16,9 @@ const SingleCollapsibleRow = ({
               <KeyboardArrowDown color="primary" />
             )}
           </IconButton>
-          {toPersianNumbers(i + 1)} {" - "}
+          {toPersianNumbers(i + 1)}
+        </StyledTableCell>
+        <StyledTableCell align="right" component="td" scope="row">
           {toPersianNumbers(row.invoiceNumber)}
         </StyledTableCell>
         <StyledTableCell
@@ -59,15 +30,6 @@ const SingleCollapsibleRow = ({
         >
           {row.description}
         </StyledTableCell>
-        <StyledTableCell align="right" component="td" scope="row">
-          {row.user.name}
-        </StyledTableCell>{" "}
-        <StyledTableCell align="right" component="td" scope="row">
-          {row.user.email}
-        </StyledTableCell>{" "}
-        <StyledTableCell align="right" component="td" scope="row">
-          {toPersianNumbers(row.user.phoneNumber)}
-        </StyledTableCell>{" "}
         <StyledTableCell align="right" component="td" scope="row">
           {toPersianNumbersWithComma(row.amount)}
         </StyledTableCell>{" "}
@@ -83,15 +45,6 @@ const SingleCollapsibleRow = ({
         </StyledTableCell>{" "}
         <StyledTableCell align="right" component="td" scope="row">
           {row.status === "COMPLETED" ? "موفق" : "ناموفق"}
-        </StyledTableCell>{" "}
-        <StyledTableCell align="right" component="td" scope="row">
-          <Custom_link
-            classname="p-3 rounded-lg bg-warning"
-            href={`/admin/payments/${row._id}`}
-            text=""
-          >
-            <FaEye />
-          </Custom_link>
         </StyledTableCell>
       </StyledTableRow>
       <TableRow sx={{ background: "rgb(var(--color-secondary-800))" }}>
@@ -143,8 +96,8 @@ const SingleCollapsibleRow = ({
                       </StyledTableCell>
                       <StyledTableCell align="right">
                         <Custom_link
-                          href={`/products/${product.slug}`}
-                          classname="px-3 py-2 rounded-lg bg-warning text-center flex items-center justify-center"
+                          href={`/products/{product.slug}`}
+                          classname=""
                           text="مشاهده محصول"
                         />
                       </StyledTableCell>
@@ -160,4 +113,4 @@ const SingleCollapsibleRow = ({
   );
 };
 
-export default SingleCollapsibleRow;
+export default SingleCollapsiblePaymentRow;

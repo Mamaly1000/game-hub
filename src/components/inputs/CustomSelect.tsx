@@ -1,11 +1,11 @@
 import {
-  FormControl, 
+  FormControl,
   InputLabel,
   MenuItem,
   Select,
   SelectChangeEvent,
 } from "@mui/material";
-import React, { useEffect } from "react"; 
+import React, { useEffect } from "react";
 import vazirFont from "@/common/local-fonts/VazirFont";
 import Custom_HelperText from "./Custom_HelperText";
 
@@ -35,6 +35,11 @@ const CustomSelect = ({
       setData("");
     }
   };
+  useEffect(() => {
+    if (formik.values[name] === "") {
+      setData("");
+    }
+  }, [formik.values[name]]);
   useEffect(() => {
     if (PreData) {
       setData(PreData.name);

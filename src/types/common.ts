@@ -12,3 +12,4 @@ export type userUpdateKeys =
   | "phoneNumber"
   | "password"
   | "avatarUrl";
+export type categoryTypes = "product" | "comment" | "post" | "ticket";

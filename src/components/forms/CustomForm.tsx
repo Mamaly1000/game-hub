@@ -13,7 +13,7 @@ const CustomForm = ({
   additionalButtons?: ReactNode;
   resetText: string;
   submitText: string;
-  onReset: () => void;
+  onReset: (e?: React.FormEvent<HTMLFormElement>) => void;
   children: ReactNode;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }) => {
