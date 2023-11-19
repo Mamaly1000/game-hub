@@ -19,7 +19,7 @@ const SideBar = () => {
     { name: "محصولات", route: "/admin/products", icon: <BsBoxes /> },
     { name: "دسته بندی", route: "/admin/categories", icon: <MdCategory /> },
     { name: "سفارشات", route: "/admin/payments", icon: <RiSecurePaymentLine /> },
-    { name: "کد تخفیف", route: "/admin/coupon", icon: <RiCoupon3Fill /> },
+    { name: "کد تخفیف", route: "/admin/coupons", icon: <RiCoupon3Fill /> },
   ];
   return (
     <div className="col-span-2 row-span-full  flex items-start justify-start gap-3 flex-col max-h-screen min-h-screen overflow-auto  text-white bg-secondary-800 p-5">

@@ -8,7 +8,6 @@ import {
 } from "@mui/material";
 import React, { useEffect, useTransition } from "react";
 import { IoMdAdd, IoMdRemove } from "react-icons/io";
-import RTL_Creator from "../ui/RTL_Creator";
 import Custom_Button from "./Custom_Button";
 import vazirFont from "@/common/local-fonts/VazirFont";
 import Custom_HelperText from "./Custom_HelperText";
@@ -18,7 +17,9 @@ const CustomMultipleSelect = ({
   name,
   formik,
   setDataChange,
+  displayInput = true,
 }: {
+  displayInput?: boolean;
   name: string;
   formik: any;
   setDataChange: (vals: string[]) => void;
@@ -58,7 +59,7 @@ const CustomMultipleSelect = ({
 
   return (
     <FormControl
-      className=" p-2 bg-primary-100 rounded-lg shadow-xl shadow-primary-400"
+      className=" p-2 bg-primary-100 rounded-lg shadow-xl shadow-primary-400 dark:shadow-none dark:bg-mid_transparent dark:text-white text-secondary-300"
       fullWidth
     >
       <InputLabel
@@ -82,6 +83,7 @@ const CustomMultipleSelect = ({
                 .filter((i) => i.length > 0)
                 .map((v) => (
                   <span
+                    key={v}
                     style={vazirFont.style}
                     className="p-1 rounded-lg text-[.8rem] text-white bg-primary-900 drop-shadow-2xl"
                   >
@@ -92,61 +94,63 @@ const CustomMultipleSelect = ({
           );
         }}
       >
-        <MenuItem
-          className="flex items-center justify-start gap-2"
-          value={"input"}
-          onClick={undefined}
-        >
-          <TextField
-            id="standard-basic"
-            label="نام تگ"
-            variant="standard"
-            value={text}
-            onChange={(e) => {
-              setText(e.target.value);
-            }}
-            InputLabelProps={{ style: vazirFont.style }}
-            inputProps={{
-              style: {
-                ...vazirFont.style,
-                borderColor: "rgb(var(--color-primary-900))",
-              },
-            }}
-          />
-          <Custom_Button
-            onclick={() => {
-              usetransition(() => {
-                if (!CustomData.includes(text)) {
-                  setCustomData(
-                    [...CustomData, text].filter(
-                      (i) => i !== "" || i.length !== 0
-                    )
-                  );
-                  setData(
-                    [...Data, text].filter((i) => i !== "" || i.length !== 0)
-                  );
-                  setDataChange(
-                    [...Data, text].filter((i) => i !== "" || i.length !== 0)
-                  );
+        {displayInput && (
+          <MenuItem
+            className="flex items-center justify-start gap-2"
+            value={"input"}
+            onClick={undefined}
+          >
+            <TextField
+              id="standard-basic"
+              label="نام تگ"
+              variant="standard"
+              value={text}
+              onChange={(e) => {
+                setText(e.target.value);
+              }}
+              InputLabelProps={{ style: vazirFont.style }}
+              inputProps={{
+                style: {
+                  ...vazirFont.style,
+                  borderColor: "rgb(var(--color-primary-900))",
+                },
+              }}
+            />
+            <Custom_Button
+              onclick={() => {
+                usetransition(() => {
+                  if (!CustomData.includes(text)) {
+                    setCustomData(
+                      [...CustomData, text].filter(
+                        (i) => i !== "" || i.length !== 0
+                      )
+                    );
+                    setData(
+                      [...Data, text].filter((i) => i !== "" || i.length !== 0)
+                    );
+                    setDataChange(
+                      [...Data, text].filter((i) => i !== "" || i.length !== 0)
+                    );
+                    setText("");
+                  }
+                });
+              }}
+              className="bg-success px-2 py-2 rounded-lg"
+            >
+              <IoMdAdd />
+            </Custom_Button>
+            <Custom_Button
+              className="bg-error px-2 py-2 rounded-lg"
+              onclick={() =>
+                usetransition(() => {
                   setText("");
-                }
-              });
-            }}
-            className="bg-success px-2 py-2 rounded-lg"
-          >
-            <IoMdAdd />
-          </Custom_Button>
-          <Custom_Button
-            className="bg-error px-2 py-2 rounded-lg"
-            onclick={() =>
-              usetransition(() => {
-                setText("");
-              })
-            }
-          >
-            <IoMdRemove />
-          </Custom_Button>
-        </MenuItem>
+                })
+              }
+            >
+              <IoMdRemove />
+            </Custom_Button>
+          </MenuItem>
+        )}
         {!transition ? (
           CustomData.map((val, i) => (
             <MenuItem key={val + i} style={vazirFont.style} value={val}>

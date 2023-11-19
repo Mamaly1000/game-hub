@@ -48,7 +48,7 @@ const CustomSelect = ({
   }, []);
   return (
     <FormControl
-      className=" p-2 bg-primary-100 rounded-lg shadow-xl shadow-primary-400"
+      className=" p-2 bg-primary-100 rounded-lg shadow-xl shadow-primary-400 dark:shadow-none dark:bg-mid_transparent dark:text-white text-secondary-300"
       fullWidth
     >
       <InputLabel

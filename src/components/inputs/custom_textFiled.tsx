@@ -23,8 +23,10 @@ const Custom_textFiled = ({
   name,
   type,
   onchangeType,
+  real_type = "text",
 }: {
-  onchangeType: "custom" | "formik";
+  real_type?: "text" | "number";
+  onchangeType?: "custom" | "formik";
   type: React.HTMLInputTypeAttribute | undefined;
   name: string;
   value: string;
@@ -53,7 +55,7 @@ const Custom_textFiled = ({
   }, [value]);
 
   return (
-    <Div className=" p-2 bg-primary-100 rounded-lg shadow-xl shadow-primary-400">
+    <Div className=" p-2 rounded-lg shadow-xl shadow-primary-400 bg-primary-100 dark:shadow-none dark:bg-mid_transparent dark:text-white text-secondary-300 ">
       <TextField
         {...formik.getFieldProps(name)}
         fullWidth
@@ -75,16 +77,32 @@ const Custom_textFiled = ({
           },
         }}
         onChange={(e) => {
-          if (setValue) {
-            setValue(e);
+          if (real_type === "text") {
+            if (setValue) {
+              setValue(e);
+            }
+            if (!setValue) {
+              formik.setFieldValue(name, numConvertor("en", e.target.value));
+            }
+            setDisplay({
+              english_value: numConvertor("en", e.target.value),
+              persian_value: toPersianNumbers(e.target.value),
+            });
           }
-          if (!setValue) {
-            formik.setFieldValue(name, numConvertor("en", e.target.value));
+          if (real_type === "number") {
+            if (!isNaN(+numConvertor("en", e.target.value))) {
+              if (setValue) {
+                setValue(e);
+              }
+              if (!setValue) {
+                formik.setFieldValue(name, numConvertor("en", e.target.value));
+              }
+              setDisplay({
+                english_value: numConvertor("en", e.target.value),
+                persian_value: toPersianNumbers(e.target.value),
+              });
+            }
           }
-          setDisplay({
-            english_value: numConvertor("en", e.target.value),
-            persian_value: toPersianNumbers(e.target.value),
-          });
         }}
         InputProps={{
           style: vazirFont.style,
