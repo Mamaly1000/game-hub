@@ -74,14 +74,7 @@ const CouponTable = ({
               <SingleCouponRow
                 key={row._id}
                 i={i}
-                labels={[
-                  "نام محصول",
-                  "قیمت",
-                  "تخفیف",
-                  "قیمت نهایی",
-                  "لینک محصول",
-                  "عملیات",
-                ]}
+                labels={["نام محصول", "قیمت", "تخفیف", "قیمت نهایی", "عملیات"]}
                 row={row}
                 actions={actions}
               />

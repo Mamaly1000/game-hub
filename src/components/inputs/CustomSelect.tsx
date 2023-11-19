@@ -16,8 +16,13 @@ const CustomSelect = ({
   name,
   formik,
   PreData,
+  valueType = "category",
 }: {
-  PreData?: { name: string; data: any };
+  valueType?: "category" | "couponType";
+  PreData?: {
+    name: "fixedProduct" | "percent" | "درصدی" | "قیمت ثابت" | "";
+    data: any;
+  };
   formik: any;
   name: string;
   label: string;
@@ -43,7 +48,12 @@ const CustomSelect = ({
   useEffect(() => {
     if (PreData) {
       setData(PreData.name);
-      formik.setFieldValue(name, PreData.data._id);
+      if (valueType === "category") {
+        formik.setFieldValue(name, PreData.data);
+      }
+      if (valueType === "couponType") {
+        formik.setFieldValue(name, PreData.data);
+      }
     }
   }, []);
   return (

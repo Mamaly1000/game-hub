@@ -11,6 +11,7 @@ import { IoMdAdd, IoMdRemove } from "react-icons/io";
 import Custom_Button from "./Custom_Button";
 import vazirFont from "@/common/local-fonts/VazirFont";
 import Custom_HelperText from "./Custom_HelperText";
+import { productInterface } from "@/types/product";
 const CustomMultipleSelect = ({
   label,
   asyncData,
@@ -18,7 +19,9 @@ const CustomMultipleSelect = ({
   formik,
   setDataChange,
   displayInput = true,
+  valueType = "tag",
 }: {
+  valueType?: "tag" | "product";
   displayInput?: boolean;
   name: string;
   formik: any;
@@ -52,8 +55,15 @@ const CustomMultipleSelect = ({
   };
 
   useEffect(() => {
-    if (formik.values[name]) {
+    if (formik.values[name] && valueType !== "product") {
       setData(formik.values[name]);
+    }
+    if (formik.values[name] && valueType === "product") {
+      setData(formik.values[name].map((p: productInterface) => p.title));
+      formik.setFieldValue(
+        name,
+        formik.values[name].map((p: productInterface) => p._id)
+      );
     }
   }, []);
 

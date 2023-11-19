@@ -1,4 +1,9 @@
-import { createCouponService, deleteCouponServeci, getAllCouponService } from "@/services/coupon";
+import {
+  createCouponService,
+  deleteCouponServeci,
+  getAllCouponService,
+  updateCouponService,
+} from "@/services/coupon";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
@@ -19,5 +24,11 @@ export const useDeleteCoupon = () => {
   return useMutation({
     mutationFn: deleteCouponServeci,
     mutationKey: ["delete-coupon"],
+  });
+};
+export const useUpdateCoupon = () => {
+  return useMutation({
+    mutationFn: updateCouponService,
+    mutationKey: ["update-coupon"],
   });
 };

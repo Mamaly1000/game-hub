@@ -52,12 +52,7 @@ const SingleCouponRow = ({
           {toPersianNumbers(i + 1)} {" - "}
           {row.code}
         </StyledTableCell>
-        <StyledTableCell
-          align="right"
-          component="td"
-          scope="row"
-          className="line-clamp-2"
-        >
+        <StyledTableCell align="right" component="td">
           {row.type}
         </StyledTableCell>
         <StyledTableCell align="right" component="td" scope="row">
@@ -116,6 +111,7 @@ const SingleCouponRow = ({
                     row.productIds.map((product) => (
                       <StyledTableRow key={product._id}>
                         <StyledTableCell
+                          sx={{ minWidth: "200px" }}
                           align="right"
                           component="th"
                           scope="row"

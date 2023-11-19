@@ -2,7 +2,7 @@ import { useAllProducts } from "@/hook/useGetProducts";
 import { couponInterface, createCouponInterface } from "@/types/coupon";
 import { productInterface } from "@/types/product";
 import { useFormik } from "formik";
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import * as yup from "yup";
 import Custom_Dialog from "../ui/Custom_Dialog";
 import Custom_Button from "../inputs/Custom_Button";
@@ -11,21 +11,23 @@ import Custom_textFiled from "../inputs/custom_textFiled";
 import CustomSelect from "../inputs/CustomSelect";
 import CustomMultipleSelect from "../inputs/CustomMultipleSelect";
 import CustomDatePicker from "../inputs/CustomDatePicker";
+import { formGenerator } from "@/utils/formGenerator";
 
 const EditCouponForm = ({
   submitHandler,
   loading = false,
-  open = false,
-  setOpen,
+  value = null,
+  setValue,
 }: {
-  open: boolean;
-  setOpen: Dispatch<SetStateAction<couponInterface | null>>;
+  setValue: Dispatch<SetStateAction<couponInterface | null>>;
+  value: couponInterface | null;
   loading?: boolean;
   submitHandler: (
     vals: createCouponInterface,
     setValue?: Dispatch<SetStateAction<boolean>>
   ) => Promise<void>;
 }) => {
+  const [open, setOpen] = useState(false);
   const { data, isLoading: productsLoading } = useAllProducts();
   const products: productInterface[] | null = data?.data.data.products;
   const formik = useFormik<createCouponInterface>({
@@ -54,6 +56,39 @@ const EditCouponForm = ({
       expireDate: yup.date().required("لطفا تاریخ انقضا کد تخفیف را وارد کنید"),
     }),
   });
+  useEffect(() => {
+    if (value) {
+      setOpen(true);
+      formik.setValues(
+        formGenerator<
+          couponInterface,
+          | "code"
+          | "type"
+          | "productIds"
+          | "amount"
+          | "usageLimit"
+          | "expireDate",
+          createCouponInterface
+        >(value, [
+          "code",
+          "type",
+          "productIds",
+          "amount",
+          "usageLimit",
+          "expireDate",
+        ])
+      );
+    } else {
+      setOpen(false);
+      formik.resetForm();
+    }
+  }, [value]);
+  useEffect(() => {
+    if (!open) {
+      setValue(null);
+    }
+  }, [open]);
+
   return (
     <Custom_Dialog
       open={open}
@@ -71,6 +106,7 @@ const EditCouponForm = ({
             className="px-3 py-2 rounded-lg bg-error"
             onclick={() => {
               formik.resetForm();
+              setValue(null);
               setOpen(false);
             }}
             text="ریست فرم"
@@ -121,6 +157,15 @@ const EditCouponForm = ({
               { data: "percent", name: "درصدی" },
               { data: "fixedProduct", name: "قیمت ثابت" },
             ]}
+            PreData={
+              value
+                ? {
+                    data: value.type,
+                    name: value.type,
+                  }
+                : undefined
+            }
+            valueType="couponType"
           />
           <CustomMultipleSelect
             asyncData={
@@ -144,6 +189,7 @@ const EditCouponForm = ({
               }
             }}
             displayInput={false}
+            valueType="product"
           />
           <CustomDatePicker
             changeHandler={(val) => {
