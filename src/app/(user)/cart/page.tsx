@@ -18,7 +18,7 @@ const CartPage = () => {
   const router = useRouter();
   if (isLoading) {
     return <Loader />;
-  } 
+  }
   if (!user) {
     return (
       <Box>
@@ -47,7 +47,7 @@ const CartPage = () => {
       </Box>
     );
   }
-  if ((user && user.cart.products.length === 0) || !user.cart.products) {
+  if (user && !user.cart?.products) {
     return (
       <Box>
         <span>سبد خرید خالی می باشد!</span>

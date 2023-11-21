@@ -30,7 +30,8 @@
       "@types": ["./types/*"],
       "@utils": ["./utils/*"],
       "@lib": ["./lib/*"],
-      "@hook": ["./hook/*"]
+      "@hook": ["./hook/*"],
+      "@assets": ["./assets/*"]
     },
     "downlevelIteration": true
   },
