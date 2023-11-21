@@ -15,7 +15,7 @@ const SmallProductCard = ({ product }: { product: productInterface }) => {
       className="min-w-[150px] min-h-[150px] relative flex items-center justify-center"
       sx={{ maxWidth: 345 }}
     >
-      <CardActionArea className="min-w-[150px] min-h-[150px] relative flex items-center justify-center">
+      <CardActionArea className="   min-w-[150px] min-h-[150px] relative flex items-center justify-center">
         <CardMedia
           component="img"
           image={product.imageLink}
