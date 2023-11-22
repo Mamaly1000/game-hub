@@ -53,7 +53,7 @@ const AddToCart = ({
       });
     }
   };
-  const availableProduct = user?.cart.products.find(
+  const availableProduct = user?.cart?.products.find(
     (p) => p.productId._id === product._id
   );
   return user && availableProduct ? (
