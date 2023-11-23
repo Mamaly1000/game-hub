@@ -4,10 +4,7 @@ import { productInterface } from "@/types/product";
 import React, { useCallback } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SmallProductCard from "../landing-page/SmallProductCard";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
+
 const MultipleSlider = ({
   title,
   data,
