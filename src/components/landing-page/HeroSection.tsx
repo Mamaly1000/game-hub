@@ -10,7 +10,7 @@ import robot from "@/assets/robot.svg";
 import mock from "@/assets/3d-casual-life-boy-holding-shopping-bag.png";
 const HeroSection = ({ products }: { products: productInterface[] }) => {
   return (
-    <section className="min-w-full min-h-[400px] flex flex-col md:flex-row gap-5 justify-between items-center ">
+    <section className="min-w-full bg-inherit min-h-fit md:min-h-[400px] flex flex-col md:flex-row gap-5 justify-between items-center max-h-fit">
       <div className="min-w-full md:min-w-[47%] md:max-w-[47%] md:min-h-full relative flex flex-col gap-5 items-start justify-start   ">
         <div className="min-w-full flex flex-col relative justify-between items-start gap-3">
           <PageHeader classname="relative w-[80%]   font-extrabold text-start text-[1.5rem] min-h-[200px] md:text-[3rem] text-white flex flex-wrap gap-2 justify-between items-center p-0 ">
@@ -41,7 +41,7 @@ const HeroSection = ({ products }: { products: productInterface[] }) => {
         )}
       </div>
 
-      <div className="min-w-full md:min-w-[47%] md:max-w-[47%] min-h-full relative flex flex-col-reverse md:flex-col items-center justify-start gap-5">
+      <div className="min-w-full md:min-w-[47%] md:max-w-[47%] md:min-h-full relative flex flex-col-reverse md:flex-col items-center justify-start gap-5">
         <div className="relative min-w-full flex justify-center items-center min-h-[400px] border-[1px] border-primary-900 rounded-lg drop-shadow-2xl">
           <Image alt="" src={pol} className="absolute" />
           <Image alt="" src={robot} className="absolute w-[300px] h-[300px]" />
