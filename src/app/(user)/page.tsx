@@ -5,6 +5,7 @@ import Overviews from "@/components/landing-page/Overviews";
 import Colaborations from "@/components/landing-page/Colaborations";
 import Acheivements from "@/components/landing-page/Acheivements";
 import Services from "@/components/landing-page/Services";
+import QA from "@/components/landing-page/QA";
 export default async function Home() {
   const {
     data: {
@@ -23,6 +24,7 @@ export default async function Home() {
       <Colaborations />
       <Acheivements products={products} />
       <Services />
+      <QA />
     </main>
   );
 }
