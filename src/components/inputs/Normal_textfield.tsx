@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import vazirFont from "@/common/local-fonts/VazirFont";
 import numConvertor from "@/utils/numConvertor";

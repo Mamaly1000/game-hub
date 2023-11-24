@@ -4,7 +4,7 @@ import CustomAccordian from "../ui/CustomAccordian";
 const QA = () => {
   return (
     <section className="min-h-fit min-w-full py-10">
-      <h4 className="min-w-full border-b-[1px] border-white text-[2rem] font-bold pb-5">سوالات متداول</h4>
+      <h4 className="min-w-full border-b-[3px] border-white text-[2rem] font-bold pb-5">سوالات متداول</h4>
       <CustomAccordian
         description="Game-Hub انواع محصولات را از جمله بازی‌ها، کامپیوتر، لپتاپ، لوازم فناوری و فیلم‌ها در یک مکان مناسب و جامع ارائه می‌دهد. همچنین ما مشاوره و توصیه‌هایی را ارائه می‌دهیم تا به شما در انتخاب بهترین محصولات برای نیازهای بازی و فناوری کمک کنیم"
         title="چگونگی تفاوت فروشگاه آنلاین Game-Hub با سایر فروشگاه‌های آنلاین فناوری و بازی؟"
