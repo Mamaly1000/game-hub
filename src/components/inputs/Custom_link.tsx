@@ -8,9 +8,9 @@ const Custom_link = ({
   classname,
 }: {
   href: string;
-  text: string | number;
+  text?: string | number;
   children?: ReactNode;
-  classname: string;
+  classname?: string;
 }) => {
   return (
     <Link

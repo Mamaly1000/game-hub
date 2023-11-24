@@ -3,14 +3,12 @@ import React, { useEffect, useState } from "react";
 import vazirFont from "@/common/local-fonts/VazirFont";
 import numConvertor from "@/utils/numConvertor";
 import { TextField } from "@mui/material";
-import styled, { StyleSheetManager } from "styled-components";
-import stylisRTLPlugin from "stylis-plugin-rtl";
+import styled from "styled-components";
+import RTL_Creator from "../ui/RTL_Creator";
 
 const Div = styled.div`
   min-width: 100%;
-  * {
-    text-align: left !important;
-  }
+
   .css-2y464i-MuiInputBase-root-MuiFilledInput-root::after,
   label:focused {
     border-color: rgb(var(--color-primary-900)) !important;
@@ -39,18 +37,17 @@ const Normal_textfield = ({
   });
   const [error, setError] = useState({ value: false, message: "" });
   useEffect(() => {
-    setDisplay({
-      english_value: numConvertor("en", value),
-      persian_value: numConvertor("fa", value),
-    });
-  }, [value]);
-  useEffect(() => {
     if (value && value.length === 0) {
       setDisplay({ english_value: "", persian_value: "" });
+    } else {
+      setDisplay({
+        english_value: numConvertor("en", value),
+        persian_value: numConvertor("fa", value),
+      });
     }
   }, [value]);
   const errorHandling = (e: React.ChangeEvent<any>) => {
-    if (e.target.value.length === 0) {
+    if (e.target.value && e.target.value.length === 0) {
       setError(onError(e));
     } else {
       setError({ value: false, message: "" });
@@ -58,8 +55,8 @@ const Normal_textfield = ({
   };
 
   return (
-    <StyleSheetManager stylisPlugins={[stylisRTLPlugin]}>
-      <Div className=" p-2 bg-primary-100 rounded-lg shadow-xl shadow-primary-400">
+    <RTL_Creator>
+      <Div className=" p-2 bg-mid_transparent text-white rounded-lg text-start ">
         <TextField
           fullWidth
           className="font-vazir"
@@ -70,23 +67,16 @@ const Normal_textfield = ({
           variant="filled"
           error={error.value}
           helperText={error.message}
-          style={{ direction: "rtl", fontFamily: vazirFont.style.fontFamily }}
-          lang="fa"
+          style={vazirFont.style}
           InputLabelProps={{
-            dir: "rtl",
             style: {
-              direction: "rtl",
-              textAlign: "start",
               fontFamily: vazirFont.style.fontFamily,
+              color: "#ffffff",
             },
           }}
           value={display.persian_value}
           FormHelperTextProps={{
-            style: {
-              fontFamily: vazirFont.style.fontFamily,
-              fontWeight: 600,
-              fontSize: ".8rem",
-            },
+            style: vazirFont.style,
           }}
           onChange={(e) => {
             setValue(e);
@@ -97,7 +87,10 @@ const Normal_textfield = ({
             errorHandling(e);
           }}
           InputProps={{
-            style: vazirFont.style,
+            style: {
+              ...vazirFont.style,
+              color: "#ffffff",
+            },
           }}
           onFocus={errorHandling}
           onBlur={errorHandling}
@@ -105,7 +98,7 @@ const Normal_textfield = ({
           onBeforeInput={errorHandling}
         />
       </Div>
-    </StyleSheetManager>
+    </RTL_Creator>
   );
 };
 

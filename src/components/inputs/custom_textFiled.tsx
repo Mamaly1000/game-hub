@@ -55,7 +55,7 @@ const Custom_textFiled = ({
   }, [value]);
 
   return (
-    <Div className=" p-2 rounded-lg shadow-xl shadow-primary-400 bg-primary-100 dark:shadow-none dark:bg-mid_transparent dark:text-white text-secondary-300 ">
+    <Div className="p-2 rounded-lg bg-mid_transparent text-white">
       <TextField
         {...formik.getFieldProps(name)}
         fullWidth
