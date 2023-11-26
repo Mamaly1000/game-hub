@@ -100,10 +100,10 @@ const CheckOTPform = ({
           onclick={() => {
             resetCode();
           }}
-          text="دریافت مجدد کد"
-          type="warning"
           disable={timer.isRunning}
-        />
+        >
+          دریافت مجدد کد
+        </Custom_Button>
       }
       onSubmit={formik.handleSubmit}
       onReset={() => {

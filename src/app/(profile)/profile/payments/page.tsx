@@ -19,13 +19,12 @@ const PaymentsPage = () => {
       <Box>
         <p>{error.message}</p>
         <Custom_Button
-          btn_type="button"
           className="bg-primary-900"
-          text="دوباره تلاش کنید"
-          type="primary"
           disable={isLoading}
           onclick={() => refetch()}
-        />
+        >
+          دوباره تلاش کنید
+        </Custom_Button>
       </Box>
     );
   }

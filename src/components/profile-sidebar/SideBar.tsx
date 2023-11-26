@@ -54,14 +54,12 @@ const SideBar = () => {
         );
       })}
       <Custom_Button
-        btn_type="button"
         className="flex flex-row-reverse items-center justify-end gap-3 bg-error min-w-full rounded-lg px-3 py-2"
-        text="خروج از حساب"
-        type="error"
         onclick={() => {
           mutate();
         }}
       >
+        خروج از حساب
         <RiLogoutBoxLine />
       </Custom_Button>
     </div>

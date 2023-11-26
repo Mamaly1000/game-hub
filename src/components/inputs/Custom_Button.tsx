@@ -1,37 +1,39 @@
 import vazirFont from "@/common/local-fonts/VazirFont";
-import { Button } from "@mui/material";
+import { Theme } from "@emotion/react";
+import { Button, SxProps } from "@mui/material";
 import React, { ReactNode } from "react";
 
 const Custom_Button = ({
-  text,
   onclick,
   className,
-  btn_type,
+  btn_type = "button",
   children,
   disable,
   background,
+  sx,
+  color,
 }: {
+  sx?: SxProps<Theme> | undefined;
   background?: string;
   disable?: boolean;
   btn_type?: "button" | "submit" | "reset" | undefined;
-  text?: string;
   onclick?: () => void;
-  className: string;
+  className?: string;
   children?: ReactNode;
+  color?: string;
 }) => {
   return (
     <Button
       type={btn_type}
-      className={`
-      text-white disabled:opacity-50 drop-shadow-2xl
+      className={` disabled:opacity-50 drop-shadow-2xl
       ${className}
       `}
       onClick={onclick}
       style={vazirFont.style}
       disabled={disable}
-      sx={{ background: background || "auto" }}
+      sx={sx || { background: background || "auto", color: color || "#ffffff" }}
     >
-      {text} {children}
+      {children}
     </Button>
   );
 };

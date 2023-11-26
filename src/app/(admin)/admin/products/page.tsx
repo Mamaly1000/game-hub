@@ -24,27 +24,21 @@ const page = () => {
       <Box>
         <h1>{error.message}</h1>
         <Custom_Button
-          btn_type="button"
           className="bg-primary-900"
-          text="لطفا دوباره امتحان کنید"
-          type="primary"
           disable={isLoading}
           onclick={() => refetch()}
-        />
+        >
+          لطفا دوباره امتحان کنید
+        </Custom_Button>
       </Box>
     );
   }
   if (!products) {
     return (
       <Box>
-        <Custom_Button
-          btn_type="button"
-          className=""
-          text="لطفا ابتدا لاگین کنید"
-          type="primary"
-          disable={isLoading}
-          onclick={() => router.push("/auth")}
-        />
+        <Custom_Button disable={isLoading} onclick={() => router.push("/auth")}>
+          لطفا ابتدا لاگین کنید
+        </Custom_Button>
       </Box>
     );
   }
@@ -70,10 +64,7 @@ const page = () => {
         }}
       />
       <Custom_Button
-        btn_type="button"
         className="absolute top-2 end-2 z-10 bg-success text-white p-3 rounded-full"
-        text=""
-        type="primary"
         disable={false}
         onclick={() => router.push("/admin/products/add")}
       >

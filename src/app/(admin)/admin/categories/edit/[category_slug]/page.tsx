@@ -26,22 +26,18 @@ const EditCategoryPage = () => {
     return (
       <Box>
         <p>{error.message}</p>
-        <Custom_Button
-          className=""
-          onclick={() => router.push("/admin/products")}
-          text="بازگشت یه پنل"
-        />
+        <Custom_Button onclick={() => router.push("/admin/products")}>
+          بازگشت یه پنل
+        </Custom_Button>
       </Box>
     );
   }
   if (!data) {
     return (
       <Box>
-        <Custom_Button
-          className=""
-          onclick={() => refetch()}
-          text="دوباره تلاش کنید"
-        />
+        <Custom_Button onclick={() => refetch()}>
+          دوباره تلاش کنید
+        </Custom_Button>
       </Box>
     );
   }

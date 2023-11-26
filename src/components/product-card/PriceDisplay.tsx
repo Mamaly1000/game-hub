@@ -24,8 +24,9 @@ const PriceDisplay = ({
       -<span>{toPersianNumbersWithComma(price.offPrice)}</span>
     </div>
   ) : (
-    <div className={className}>
-      {title || "قیمت کل"} :{toPersianNumbersWithComma(price.price)}
+    <div className={`min-h-full flex items-center justify-between gap-5 ${className}`}>
+      <span>{title || "قیمت کل"} : </span>
+      <span>{toPersianNumbersWithComma(price.price)}</span>
     </div>
   );
 };

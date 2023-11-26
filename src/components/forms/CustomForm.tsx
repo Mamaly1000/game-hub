@@ -28,16 +28,16 @@ const CustomForm = ({
           <Custom_Button
             btn_type="submit"
             className="px-3 py-2 rounded-lg drop-shadow-2xl bg-success"
-            text={submitText}
-            type="primary"
-          />{" "}
+          >
+            {submitText}
+          </Custom_Button>
           <Custom_Button
             btn_type="reset"
             className="px-3 py-2 rounded-lg drop-shadow-2xl bg-error"
             onclick={onReset}
-            text={resetText}
-            type="error"
-          />
+          >
+            {resetText}
+          </Custom_Button>
           {additionalButtons}
         </div>
       </form>

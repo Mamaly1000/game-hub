@@ -59,10 +59,7 @@ const CreateCouponForm = ({
       Modal_title="ایجاد کد تخفیف"
       btnElement={
         <Custom_Button
-          btn_type="button"
           className="absolute top-2 end-2 z-10 bg-success text-white p-3 rounded-full"
-          text=""
-          type="primary"
           disable={false}
           onclick={() => setOpen(true)}
         >
@@ -74,17 +71,20 @@ const CreateCouponForm = ({
           <Custom_Button
             className="px-3 py-2 rounded-lg bg-success"
             btn_type="submit"
-            text="ایجاد کوپن"
             onclick={() => formik.submitForm()}
-          />{" "}
+          >
+            ایجاد کوپن
+          </Custom_Button>
           <Custom_Button
             className="px-3 py-2 rounded-lg bg-error"
             onclick={() => {
               formik.resetForm();
               setOpen(false);
             }}
-            text="ریست فرم"
-          />
+            btn_type="reset"
+          >
+            ریست فرم
+          </Custom_Button>
         </>
       }
     >

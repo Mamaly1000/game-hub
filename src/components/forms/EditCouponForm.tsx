@@ -99,9 +99,10 @@ const EditCouponForm = ({
           <Custom_Button
             className="px-3 py-2 rounded-lg bg-success"
             btn_type="submit"
-            text="ایجاد کوپن"
             onclick={() => formik.submitForm()}
-          />{" "}
+          >
+            ایجاد کوپن
+          </Custom_Button>
           <Custom_Button
             className="px-3 py-2 rounded-lg bg-error"
             onclick={() => {
@@ -109,8 +110,9 @@ const EditCouponForm = ({
               setValue(null);
               setOpen(false);
             }}
-            text="ریست فرم"
-          />
+          >
+            ریست فرم
+          </Custom_Button>
         </>
       }
     >

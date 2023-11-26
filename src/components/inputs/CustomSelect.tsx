@@ -20,7 +20,7 @@ const CustomSelect = ({
 }: {
   valueType?: "category" | "couponType";
   PreData?: {
-    name: "fixedProduct" | "percent" | "درصدی" | "قیمت ثابت" | "";
+    name: "fixedProduct" | "percent" | "درصدی" | "قیمت ثابت" | "" | string;
     data: any;
   };
   formik: any;

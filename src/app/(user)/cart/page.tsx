@@ -23,13 +23,12 @@ const CartPage = () => {
     return (
       <Box>
         <Custom_Button
-          btn_type="button"
           className="bg-primary-900"
-          text="لطفا ابتدا لاگین کنید"
-          type="primary"
           disable={isLoading}
           onclick={() => router.push("/auth")}
-        />
+        >
+          لطفا ابتدا لاگین کنید
+        </Custom_Button>
       </Box>
     );
   }
@@ -37,13 +36,12 @@ const CartPage = () => {
     return (
       <Box>
         <Custom_Button
-          btn_type="button"
           className="bg-primary-900"
-          text="لطفا دوباره تلاش کنید"
           disable={isLoading}
-          type="primary"
           onclick={() => refetch()}
-        />
+        >
+          لطفا دوباره تلاش کنید
+        </Custom_Button>
       </Box>
     );
   }
@@ -52,30 +50,31 @@ const CartPage = () => {
       <Box>
         <span>سبد خرید خالی می باشد!</span>
         <Custom_Button
-          btn_type="button"
           className="bg-primary-900"
-          text="رفتن به فروشگاه"
-          type="primary"
           disable={false}
           onclick={() => router.push("/products")}
-        />
+        >
+          رفتن به فروشگاه
+        </Custom_Button>
       </Box>
     );
   }
   return (
-    <div className="min-w-full flex items-start justify-start gap-3 flex-col p-5 max-w-full overflow-hidden">
-      <CustomizedTables
-        labels={[
-          "نام محصول",
-          "تعداد",
-          "قیمت",
-          "تخفیف",
-          "قیمت نهایی",
-          "لینک محصول",
-          "عملیات",
-        ]}
-        rows={cart!.productDetail || []}
-      />
+    <div className="col-span-12 grid grid-cols-12 min-w-full items-start justify-start gap-3 flex-col p-5 max-w-full overflow-hidden">
+      <div className="col-span-9">
+        <CustomizedTables
+          labels={[
+            "نام محصول",
+            "تعداد",
+            "قیمت",
+            "تخفیف",
+            "قیمت نهایی",
+            "لینک محصول",
+            "عملیات",
+          ]}
+          rows={cart!.productDetail || []}
+        />
+      </div>
       <PayDetail cart={cart || null} />
     </div>
   );
