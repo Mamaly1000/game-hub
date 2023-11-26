@@ -26,9 +26,8 @@ export default function RootLayout({
         className={`bg-white dark:bg-secondary-900 text-secondary-900 dark:text-white ${vazirFont.className}`}
       >
         <Providers>
-          <Header />
           <ResponsiveAppBar />
-          <div className=" bg-secondary-900 text-white col-span-full grid grid-cols-12 grid-rows-6  min-w-full min-h-screen gap-5">
+          <div className="bg-secondary-900 text-white col-span-full grid grid-cols-12 min-w-full min-h-screen max-h-fit">
             {children}
             <Footer />
           </div>

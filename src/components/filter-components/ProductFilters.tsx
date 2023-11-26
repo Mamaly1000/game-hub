@@ -65,7 +65,40 @@ const ProductFilters = ({ links }: { links: categoryInterface[] }) => {
                 }
               }}
             >
-              <ListItemButton style={{ direction: "rtl" }}>
+              <ListItemButton
+                onClick={() => {
+                  if (selectedCategories.includes(link.englishTitle)) {
+                    const newArray = selectedCategories.filter(
+                      (c) => c !== link.englishTitle
+                    );
+                    setSelectedCategories(newArray);
+                    if (newArray.length === 0) {
+                      router.push(pathname);
+                    } else {
+                      router.push(
+                        pathname +
+                          "?" +
+                          QueryCreator("category", newArray, searchParams)
+                      );
+                    }
+                  } else {
+                    setSelectedCategories([
+                      ...selectedCategories,
+                      link.englishTitle,
+                    ]);
+                    router.push(
+                      pathname +
+                        "?" +
+                        QueryCreator(
+                          "category",
+                          [...selectedCategories, link.englishTitle],
+                          searchParams
+                        )
+                    );
+                  }
+                }}
+                style={{ direction: "rtl" }}
+              >
                 {link.icon.sm && (
                   <ListItemAvatar>
                     <Avatar alt={link.description} src={link.icon.sm} />

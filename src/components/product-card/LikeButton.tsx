@@ -1,16 +1,16 @@
 "use client";
 import React, { useState } from "react";
-import Custom_Button from "../inputs/Custom_Button";
-import { BiSolidLike } from "react-icons/bi";
 import { productInterface } from "@/types/product";
 import toast from "react-hot-toast";
 import { likeProductService } from "@/services/productServices";
+import Custom_Icon_Button from "../inputs/Custom_Icon_Button";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 const LikeButton = ({
   classname,
   product,
 }: {
   product: productInterface;
-  classname: string;
+  classname?: string;
 }) => {
   const [liked, setLiked] = useState(product.isLiked);
   const [loading, setLoading] = useState(false);
@@ -27,18 +27,14 @@ const LikeButton = ({
     }
   };
   return (
-    <Custom_Button
-      btn_type="button"
-      className={`${liked ? "bg-error" : "bg-primary-900"} ${classname} ${
-        loading ? "animate-pulse" : "animate-none"
-      }`}
-      text=""
-      type="primary"
+    <Custom_Icon_Button
+      className={`${classname} ${loading ? "animate-pulse" : "animate-none"}`}
       disable={loading}
-      onclick={likeHandler}
+      onClick={likeHandler}
+      background={liked ? "rgb(var(--color-error))" : "auto"}
     >
-      <BiSolidLike />
-    </Custom_Button>
+      <FavoriteIcon />
+    </Custom_Icon_Button>
   );
 };
 

@@ -13,8 +13,11 @@ import Custom_Button from "../inputs/Custom_Button";
 import { useCart } from "@/hook/useAddCart";
 import { HiOutlinePlusSm } from "react-icons/hi";
 import { BiMinus } from "react-icons/bi";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Custom_link from "../inputs/Custom_link";
 import { toPersianNumbers } from "@/utils/numConvertor";
+import AddIcon from "@mui/icons-material/Add";
+import Custom_Icon_Button from "../inputs/Custom_Icon_Button";
 const AddToCart = ({
   product,
   redirect = true,
@@ -54,45 +57,39 @@ const AddToCart = ({
     }
   };
   const availableProduct = user?.cart?.products.find(
-    (p) => p.productId._id === product._id
+    (p) => (p.productId as unknown as string) === product._id
   );
+
   return user && availableProduct ? (
-    <div className="min-w-full md:min-w-fit md:max-w-fit flex items-center justify-center gap-2 ">
-      <Custom_Button
-        btn_type="button"
-        className="bg-error rounded-lg  text-white w-[35px] h-[35px] flex items-center justify-center "
-        text=""
-        type="error"
+    <div className="  md:min-w-fit  max-w-fit flex items-center justify-center gap-2 ">
+      <Custom_Icon_Button
+        background="rgb(var(--color-error))"
         disable={removePending}
-        onclick={removeFromCart}
+        onClick={removeFromCart}
       >
         <BiMinus />
-      </Custom_Button>
+      </Custom_Icon_Button>
       <span className="min-w-[35px] h-[35px] flex items-center justify-center rounded-lg font-bold border-[1px] border-primary-900 ">
         {toPersianNumbers(availableProduct.quantity)}
       </span>
-      <Custom_Button
-        btn_type="button"
-        className="bg-success rounded-lg w-[35px] h-[35px] flex items-center justify-center  text-white"
-        text=""
-        type="success"
+      <Custom_Icon_Button
+        background="rgb(var(--color-success))"
         disable={addPending}
-        onclick={addToCart}
+        onClick={addToCart}
       >
-        <HiOutlinePlusSm />
-      </Custom_Button>
+        <AddIcon />
+      </Custom_Icon_Button>
       {redirect && <Custom_link classname="" href="/cart" text="ادامه سفارش" />}
     </div>
   ) : (
     <div>
-      <Custom_Button
-        btn_type="button"
-        className="bg-success px-3 py-2 rounded-lg whitespace-nowrap"
-        text="اضافه کردن به سبد خرید"
-        type="success"
+      <Custom_Icon_Button
+        background="rgb(var(--color-success))"
         disable={isLoading && addPending}
-        onclick={addToCart}
-      />
+        onClick={addToCart}
+      >
+        <ShoppingCartIcon />
+      </Custom_Icon_Button>
     </div>
   );
 };

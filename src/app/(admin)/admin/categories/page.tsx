@@ -25,7 +25,6 @@ const AddCategoryPage = () => {
           btn_type="button"
           className="bg-primary-900"
           text="لطفا دوباره امتحان کنید"
-          type="primary"
           disable={isLoading}
           onclick={() => refetch()}
         />
@@ -39,7 +38,6 @@ const AddCategoryPage = () => {
           btn_type="button"
           className=""
           text="لطفا ابتدا لاگین کنید"
-          type="primary"
           disable={isLoading}
           onclick={() => router.push("/auth")}
         />
@@ -57,7 +55,6 @@ const AddCategoryPage = () => {
         btn_type="button"
         className="absolute top-2 end-2 z-10 bg-success text-white p-3 rounded-full"
         text=""
-        type="primary"
         disable={false}
         onclick={() => router.push("/admin/categories/add")}
       >

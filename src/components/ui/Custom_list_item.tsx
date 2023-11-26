@@ -8,27 +8,28 @@ const Custom_list_item = ({
   secondaryAction,
   onchange,
   labelId,
-  checked,
+  checked = false,
 }: {
   secondaryAction?: ReactNode;
   children: ReactNode;
-  labelId: string;
-  onchange: (
+  labelId?: string;
+  onchange?: (
     e: React.ChangeEvent<HTMLInputElement> | categoryInterface
   ) => void;
-  checked: boolean;
+  checked?: boolean;
 }) => {
   return (
     <ListItem
       secondaryAction={
-        secondaryAction || (
+        secondaryAction ||
+        (labelId && onchange && (
           <Custom_checkbox
             checked={checked}
             color=""
             labelId={labelId}
             onchange={onchange}
           />
-        )
+        ))
       }
       disablePadding
     >

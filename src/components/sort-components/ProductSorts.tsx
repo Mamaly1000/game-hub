@@ -31,7 +31,6 @@ const ProductSorts = () => {
   const [selectedSort, setSelectedSort] = useState(
     searchparams.get("sort") || ""
   );
-  console.log(searchparams.get("sort"));
 
   return (
     <Custom_list
@@ -44,7 +43,7 @@ const ProductSorts = () => {
           <Custom_list_item
             checked={selectedSort === sort.value}
             labelId={sort.id + ""}
-            onchange={(e) => {
+            onchange={(_e) => {
               if (sort.value === selectedSort) {
                 setSelectedSort("");
                 router.push(pathname);
@@ -59,7 +58,22 @@ const ProductSorts = () => {
             }}
             key={sort.id}
           >
-            <ListItemButton style={{ direction: "rtl" }}>
+            <ListItemButton
+              onClick={() => {
+                if (sort.value === selectedSort) {
+                  setSelectedSort("");
+                  router.push(pathname);
+                } else {
+                  setSelectedSort(sort.value);
+                  router.push(
+                    pathname +
+                      "?" +
+                      QueryCreator("sort", sort.value, searchparams)
+                  );
+                }
+              }}
+              style={{ direction: "rtl" }}
+            >
               <ListItemText
                 style={{
                   direction: "rtl",
