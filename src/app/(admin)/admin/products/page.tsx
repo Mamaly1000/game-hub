@@ -11,6 +11,8 @@ import { useRouter } from "next/navigation";
 import { MdAdd } from "react-icons/md";
 import TableActions from "@/components/table-actions/TableActions";
 import { useRemoveProduct } from "@/hook/useGetSingleProduct";
+import BottomAppBar from "@/components/admin-sidebar/BottomSideBar";
+import Custom_Icon_Button from "@/components/inputs/Custom_Icon_Button";
 const page = () => {
   const router = useRouter();
   const { data, isLoading, error, refetch } = useAllProducts();
@@ -44,7 +46,11 @@ const page = () => {
   }
 
   return (
-    <div className="min-w-full flex flex-col gap-3 items-start justify-start  relative">
+    <BottomAppBar
+      displayAddBtn={true}
+      tooltipTitle="ایجاد محصول جدید"
+      mainOnClick={() => router.push("/admin/products/add")}
+    >
       <PageHeader>لیست محصولات</PageHeader>
       <CustomizedTables
         labels={[
@@ -63,14 +69,15 @@ const page = () => {
           );
         }}
       />
-      <Custom_Button
-        className="absolute top-2 end-2 z-10 bg-success text-white p-3 rounded-full"
+      <Custom_Icon_Button
+        className="hidden md:block fixed top-2 end-2 z-10        "
         disable={false}
-        onclick={() => router.push("/admin/products/add")}
+        onClick={() => router.push("/admin/products/add")}
+        background="rgb(var(--color-sucess))"
       >
         <MdAdd className="w-[30px] h-[30px]" />
-      </Custom_Button>
-    </div>
+      </Custom_Icon_Button>
+    </BottomAppBar>
   );
 };
 

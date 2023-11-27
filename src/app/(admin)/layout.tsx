@@ -24,7 +24,7 @@ export default function RootLayout({
       >
         <Providers>
           <SideBar />
-          <div className="col-span-10 row-span-full max-h-screen min-h-screen overflow-y-auto bg-inherit text-inherit p-5">
+          <div className="col-span-12 md:col-span-10 row-span-full max-h-screen min-h-screen overflow-y-auto bg-inherit text-inherit p-5">
             {children}
           </div>
           <HotToast />

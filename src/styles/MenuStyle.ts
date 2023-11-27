@@ -7,5 +7,4 @@ export const StyledMenuComponent = styled(Menu)(({ theme }) => ({
     color: theme.palette.common.white,
     background: "rgb(var(--color-secondary-800))",
   },
-  marginBottom: "10px",
 }));

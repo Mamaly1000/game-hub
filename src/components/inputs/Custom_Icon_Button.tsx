@@ -25,7 +25,7 @@ const Custom_Icon_Button = ({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: background || "rab(var(--color-primary-900))",
+        background: !!background ? background : "rab(var(--color-primary-900))",
         color: color || "#ffffff",
       }}
       onClick={onClick}

@@ -9,37 +9,37 @@ import { CgProfile } from "react-icons/cg";
 import Custom_Button from "../inputs/Custom_Button";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { useLogout } from "@/hook/useLogout";
+export const ProfileLinks: {
+  name: string;
+  route: string;
+  icon: ReactNode | string;
+}[] = [
+  {
+    name: "صفحه اصلی",
+    route: "/",
+    icon: <HiOutlineHome />,
+  },
+  {
+    icon: <CgProfile />,
+    name: "پروفایل",
+    route: "/profile",
+  },
+  {
+    name: "اطلاعات کاربری",
+    route: "/profile/me",
+    icon: <TbUserStar />,
+  },
+  {
+    name: "اطلاعات پرداخت ها",
+    route: "/profile/payments",
+    icon: <MdPayment />,
+  },
+];
 const SideBar = () => {
-  const items: {
-    name: string;
-    route: string;
-    icon: ReactNode | string;
-  }[] = [
-    {
-      name: "صفحه اصلی",
-      route: "/",
-      icon: <HiOutlineHome />,
-    },
-    {
-      icon: <CgProfile />,
-      name: "پروفایل",
-      route: "/profile",
-    },
-    {
-      name: "اطلاعات کاربری",
-      route: "/profile/me",
-      icon: <TbUserStar />,
-    },
-    {
-      name: "اطلاعات پرداخت ها",
-      route: "/profile/payments",
-      icon: <MdPayment />,
-    },
-  ];
   const { mutate } = useLogout();
   return (
     <div className="col-span-3 p-5 flex flex-col items-start justify-start gap-2 text-white bg-secondary-800 min-h-screen max-h-screen overflow-y-auto">
-      {items.map((i) => {
+      {ProfileLinks.map((i) => {
         return (
           <Fragment key={i.route}>
             <Custom_link

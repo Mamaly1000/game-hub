@@ -1,4 +1,5 @@
 "use client";
+import BottomAppBar from "@/components/admin-sidebar/BottomSideBar";
 import PageHeader from "@/components/headers/PageHeader";
 import Custom_Button from "@/components/inputs/Custom_Button";
 import Loader from "@/components/loading/Loader";
@@ -8,7 +9,7 @@ import { useFetchAllUsers } from "@/hook/useFetchAllUsers";
 import { UserInterface } from "@/types/User";
 import { useRouter } from "next/navigation";
 import React from "react";
-
+import BackspaceIcon from "@mui/icons-material/Backspace";
 const UsersPage = () => {
   const router = useRouter();
   const { isLoading, error, data, refetch } = useFetchAllUsers();
@@ -39,27 +40,36 @@ const UsersPage = () => {
       </Box>
     );
   }
-  console.log(data?.data);
 
   return (
-    <div className="min-w-full flex flex-col gap-3 items-start justify-start ">
-      <PageHeader>لیست کاربران</PageHeader>
-      <UsersTable
-        labels={[
-          "#",
-          "نام",
-          "ایمیل",
-          "شماره تلفن",
-          "تاییدیه شماره تلفن",
-          "زمان ایجاد شده",
-          "بایوگرافی",
-          "وضعیت",
-          "نقش",
-          "نشان",
-        ]}
-        users={users}
-      />
-    </div>
+    <BottomAppBar
+      customIcon={{
+        fn: () => router.push("/"),
+        icon: <BackspaceIcon />,
+        background: "rgb(var(--color-primary-900))",
+      }}
+      displayAddBtn={true}
+      tooltipTitle="بازکشت به سایت"
+    >
+      <div className="min-w-full flex flex-col gap-3 items-start justify-start ">
+        <PageHeader>لیست کاربران</PageHeader>
+        <UsersTable
+          labels={[
+            "#",
+            "نام",
+            "ایمیل",
+            "شماره تلفن",
+            "تاییدیه شماره تلفن",
+            "زمان ایجاد شده",
+            "بایوگرافی",
+            "وضعیت",
+            "نقش",
+            "نشان",
+          ]}
+          users={users}
+        />
+      </div>
+    </BottomAppBar>
   );
 };
 
