@@ -20,6 +20,38 @@ const ProductFilters = ({ links }: { links: categoryInterface[] }) => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>(
     searchParams.get("category")?.split(",").flat() || []
   );
+  const filterHandler = (link: categoryInterface) => {
+    if (selectedCategories.includes(link.englishTitle)) {
+      const newArray = selectedCategories.filter(
+        (c) => c !== link.englishTitle
+      );
+      setSelectedCategories(newArray);
+      if (newArray.length === 0) {
+        router.push(
+          pathname +
+            "?" +
+            QueryCreator("category", searchParams.get("category") || "", searchParams)
+              .split("&")
+              .filter((q) => !q.includes("category"))
+        );
+      } else {
+        router.push(
+          pathname + "?" + QueryCreator("category", newArray, searchParams)
+        );
+      }
+    } else {
+      setSelectedCategories([...selectedCategories, link.englishTitle]);
+      router.push(
+        pathname +
+          "?" +
+          QueryCreator(
+            "category",
+            [...selectedCategories, link.englishTitle],
+            searchParams
+          )
+      );
+    }
+  };
   return (
     <Suspense fallback={<Loader />}>
       <Custom_list
@@ -34,68 +66,12 @@ const ProductFilters = ({ links }: { links: categoryInterface[] }) => {
               checked={selectedCategories.includes(link.englishTitle)}
               labelId={link._id}
               onchange={(_e) => {
-                if (selectedCategories.includes(link.englishTitle)) {
-                  const newArray = selectedCategories.filter(
-                    (c) => c !== link.englishTitle
-                  );
-                  setSelectedCategories(newArray);
-                  if (newArray.length === 0) {
-                    router.push(pathname);
-                  } else {
-                    router.push(
-                      pathname +
-                        "?" +
-                        QueryCreator("category", newArray, searchParams)
-                    );
-                  }
-                } else {
-                  setSelectedCategories([
-                    ...selectedCategories,
-                    link.englishTitle,
-                  ]);
-                  router.push(
-                    pathname +
-                      "?" +
-                      QueryCreator(
-                        "category",
-                        [...selectedCategories, link.englishTitle],
-                        searchParams
-                      )
-                  );
-                }
+                filterHandler(link);
               }}
             >
               <ListItemButton
                 onClick={() => {
-                  if (selectedCategories.includes(link.englishTitle)) {
-                    const newArray = selectedCategories.filter(
-                      (c) => c !== link.englishTitle
-                    );
-                    setSelectedCategories(newArray);
-                    if (newArray.length === 0) {
-                      router.push(pathname);
-                    } else {
-                      router.push(
-                        pathname +
-                          "?" +
-                          QueryCreator("category", newArray, searchParams)
-                      );
-                    }
-                  } else {
-                    setSelectedCategories([
-                      ...selectedCategories,
-                      link.englishTitle,
-                    ]);
-                    router.push(
-                      pathname +
-                        "?" +
-                        QueryCreator(
-                          "category",
-                          [...selectedCategories, link.englishTitle],
-                          searchParams
-                        )
-                    );
-                  }
+                  filterHandler(link);
                 }}
                 style={{ direction: "rtl" }}
               >

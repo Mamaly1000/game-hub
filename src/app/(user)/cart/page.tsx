@@ -13,8 +13,7 @@ import React from "react";
 const CartPage = () => {
   const { data, isLoading, error, refetch } = useFetchUser();
   const user: UserInterface | null = data?.data.data.user;
-  const cart: cartInterface | null = data?.data.data.cart;
-
+  const cart: cartInterface | null = data?.data.data.cart; 
   const router = useRouter();
   if (isLoading) {
     return <Loader />;
@@ -45,23 +44,24 @@ const CartPage = () => {
       </Box>
     );
   }
-  if (user && !user.cart?.products) {
+  if (user && user.cart && !!!user.cart.products.length) {
     return (
       <Box>
         <span>سبد خرید خالی می باشد!</span>
         <Custom_Button
-          className="bg-primary-900"
           disable={false}
           onclick={() => router.push("/products")}
+          background="rab(var(--color-primary-900))"
         >
           رفتن به فروشگاه
         </Custom_Button>
       </Box>
     );
   }
+
   return (
     <div className="col-span-12 grid grid-cols-12 min-w-full items-start justify-start gap-3 flex-col p-5 max-w-full overflow-hidden">
-      <div className="col-span-9">
+      <div className="col-span-12 md:col-span-9">
         <CustomizedTables
           labels={[
             "نام محصول",

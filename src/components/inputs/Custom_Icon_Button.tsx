@@ -7,7 +7,9 @@ const Custom_Icon_Button = ({
   background,
   disable = false,
   className,
+  color,
 }: {
+  color?: string;
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   children: ReactNode;
   background?: string;
@@ -23,7 +25,8 @@ const Custom_Icon_Button = ({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: background || "auto",
+        background: background || "rab(var(--color-primary-900))",
+        color: color || "#ffffff",
       }}
       onClick={onClick}
       disabled={disable}

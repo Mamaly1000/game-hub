@@ -26,7 +26,9 @@ const CustomProductCard = ({ product }: { product: productInterface }) => {
     <RTL_Creator>
       <StyledCard
         sx={{
-          maxWidth: { xs: "100%", md: 345 },
+          maxWidth: { xs: "100%", sm: 250, md: 345 },
+          minWidth: { xs: "100%", sm: 250, md: 345 }, 
+          minHeight: { xs: "fit-content", sm: 500, md: 460 },
         }}
       >
         <CardHeader
@@ -76,7 +78,7 @@ const CustomProductCard = ({ product }: { product: productInterface }) => {
           component="div"
         >
           <Typography variant="body2">
-            {product.description.slice(0, 70)}...
+            {product.description.slice(0, 50)}...
           </Typography>
           <Divider
             sx={{

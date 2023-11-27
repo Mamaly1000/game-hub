@@ -28,10 +28,31 @@ const ProductSorts = () => {
   const pathname = usePathname();
   const router = useRouter();
   const searchparams = useSearchParams();
+
   const [selectedSort, setSelectedSort] = useState(
     searchparams.get("sort") || ""
   );
-
+  const sortHandler = (sort: { id: number; value: string; label: string }) => {
+    if (sort.value === selectedSort) {
+      setSelectedSort("");
+      router.push(
+        pathname +
+          "?" +
+          QueryCreator(
+            "sort",
+            searchparams.get("sort") || "",
+            searchparams
+          )
+            .split("&")
+            .filter((q) => !q.includes("sort"))
+      );
+    } else {
+      setSelectedSort(sort.value);
+      router.push(
+        pathname + "?" + QueryCreator("sort", sort.value, searchparams)
+      );
+    }
+  };
   return (
     <Custom_list
       bgcolor="inherit"
@@ -44,33 +65,13 @@ const ProductSorts = () => {
             checked={selectedSort === sort.value}
             labelId={sort.id + ""}
             onchange={(_e) => {
-              if (sort.value === selectedSort) {
-                setSelectedSort("");
-                router.push(pathname);
-              } else {
-                setSelectedSort(sort.value);
-                router.push(
-                  pathname +
-                    "?" +
-                    QueryCreator("sort", sort.value, searchparams)
-                );
-              }
+              sortHandler(sort);
             }}
             key={sort.id}
           >
             <ListItemButton
               onClick={() => {
-                if (sort.value === selectedSort) {
-                  setSelectedSort("");
-                  router.push(pathname);
-                } else {
-                  setSelectedSort(sort.value);
-                  router.push(
-                    pathname +
-                      "?" +
-                      QueryCreator("sort", sort.value, searchparams)
-                  );
-                }
+                sortHandler(sort);
               }}
               style={{ direction: "rtl" }}
             >

@@ -31,7 +31,12 @@ const Custom_Button = ({
       onClick={onclick}
       style={vazirFont.style}
       disabled={disable}
-      sx={sx || { background: background || "auto", color: color || "#ffffff" }}
+      sx={
+        sx || {
+          background: background || "rab(var(--color-primary-900)) !important",
+          color: color || "#ffffff",
+        }
+      }
     >
       {children}
     </Button>

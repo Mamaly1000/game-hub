@@ -18,7 +18,7 @@ const Custom_list = ({
       dense
       sx={{
         width: "100%",
-        maxWidth: 360,
+        maxWidth: { xs: "100%", md: 360 },
         bgcolor: bgcolor || "rgb(var(--color-secondary-900))",
       }}
       className={classname}
