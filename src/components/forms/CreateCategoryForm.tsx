@@ -66,6 +66,7 @@ const CreateCategoryForm = ({
       );
     }
   }, []);
+
   return !isPending ? (
     <CustomForm
       onReset={formik.handleReset}

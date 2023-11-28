@@ -1,4 +1,5 @@
 "use client";
+import BottomAppBar from "@/components/admin-sidebar/BottomSideBar";
 import CreateCategoryForm from "@/components/forms/CreateCategoryForm";
 import PageHeader from "@/components/headers/PageHeader";
 import Custom_Button from "@/components/inputs/Custom_Button";
@@ -8,6 +9,7 @@ import {
   useUpdateCategory,
 } from "@/hook/useGetAllCategories";
 import { categoryInterface } from "@/types/category";
+import { Settings } from "@mui/icons-material";
 import { Box } from "@mui/material";
 import { useParams, useRouter } from "next/navigation";
 import React from "react";
@@ -55,7 +57,15 @@ const EditCategoryPage = () => {
     });
   };
   return (
-    <div className="relative min-w-full flex flex-col items-start justify-start gap-5 ">
+    <BottomAppBar
+    customIcon={{
+      background: "rgb(var(--color-warning))",
+      fn: () => router.push("/admin/categories"),
+      icon: <Settings />,
+    }}
+    displayAddBtn
+    tooltipTitle="بازگشت به پنل"
+  >
       <PageHeader>{"دسته بندی " + category?.title}</PageHeader>
       {!isPending ? (
         <CreateCategoryForm
@@ -66,7 +76,7 @@ const EditCategoryPage = () => {
       ) : (
         <Loader />
       )}
-    </div>
+    </BottomAppBar>
   );
 };
 

@@ -46,7 +46,7 @@ const CreateProductsForm = ({
     tags: [],
     title: "",
   });
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(0);
   const formik1 = useFormik({
     initialValues: {
       title: "",

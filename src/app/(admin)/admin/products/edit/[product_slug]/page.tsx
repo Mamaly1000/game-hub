@@ -1,4 +1,5 @@
 "use client";
+import BottomAppBar from "@/components/admin-sidebar/BottomSideBar";
 import CreateProductsForm from "@/components/forms/CreateProductsForm";
 import PageHeader from "@/components/headers/PageHeader";
 import Custom_Button from "@/components/inputs/Custom_Button";
@@ -9,6 +10,7 @@ import {
   useUpdateProduct,
 } from "@/hook/useGetSingleProduct";
 import { createProductInterface, productInterface } from "@/types/product";
+import { Settings } from "@mui/icons-material";
 import { useParams, useRouter } from "next/navigation";
 import React from "react";
 import toast from "react-hot-toast";
@@ -56,7 +58,15 @@ const EditProductPage = () => {
     });
   };
   return (
-    <div className="min-w-full flex flex-col items-start justify-start gap-3">
+    <BottomAppBar
+      customIcon={{
+        background: "rgb(var(--color-warning))",
+        fn: () => router.push("/admin/products"),
+        icon: <Settings />,
+      }}
+      displayAddBtn
+      tooltipTitle="بازگشت به پنل"
+    >
       <PageHeader>{product?.title}</PageHeader>
       {product && !isPending ? (
         <CreateProductsForm
@@ -67,7 +77,7 @@ const EditProductPage = () => {
       ) : (
         <Loader />
       )}
-    </div>
+    </BottomAppBar>
   );
 };
 
