@@ -7,6 +7,7 @@ const nextConfig = {
       "images.wallpapersden.com",
       "behtarin.io",
       "gametrex.com",
+      "www.tanikal.com",
     ],
   },
 };

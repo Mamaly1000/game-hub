@@ -19,6 +19,9 @@ import Custom_link from "../inputs/Custom_link";
 import vazirFont from "@/common/local-fonts/VazirFont";
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 import moment from "jalali-moment";
+import AdminProductTableRow from "./AdminProductTableRow";
+import TableSample from "./TableSample";
+import { productInterface } from "@/types/product";
 
 const UserCollapsibleRow = ({
   row,
@@ -35,17 +38,19 @@ const UserCollapsibleRow = ({
     <React.Fragment>
       <StyledTableRow key={row._id}>
         <StyledTableCell sx={{ maxWidth: "100px !important" }} align="center">
-          <IconButton
-            aria-label="expand row"
-            size="small"
-            onClick={() => setOpen(!open)}
-          >
-            {open ? (
-              <KeyboardArrowUp color="primary" />
-            ) : (
-              <KeyboardArrowDown color="primary" />
-            )}
-          </IconButton>
+          {row.likedProducts && row.likedProducts.length > 0 && (
+            <IconButton
+              aria-label="expand row"
+              size="small"
+              onClick={() => setOpen(!open)}
+            >
+              {open ? (
+                <KeyboardArrowUp color="primary" />
+              ) : (
+                <KeyboardArrowDown color="primary" />
+              )}
+            </IconButton>
+          )}
           {toPersianNumbers(i + 1)}
         </StyledTableCell>
         <StyledTableCell align="right" component="td" scope="row">
@@ -62,7 +67,12 @@ const UserCollapsibleRow = ({
         <StyledTableCell align="right" component="td" scope="row">
           {toPersianNumbers(row.phoneNumber)}
         </StyledTableCell>{" "}
-        <StyledTableCell sx={{minWidth:"150px"}} align="right" component="td" scope="row">
+        <StyledTableCell
+          sx={{ minWidth: "150px" }}
+          align="right"
+          component="td"
+          scope="row"
+        >
           {row.isVerifiedPhoneNumber ? "فعال" : "غیرفعال"}
         </StyledTableCell>{" "}
         <StyledTableCell
@@ -111,55 +121,15 @@ const UserCollapsibleRow = ({
                 >
                   محصولات لایک شده
                 </Typography>
-                <Table
-                  sx={{ minWidth: "100%" }}
-                  size="small"
-                  aria-label="purchases"
-                >
-                  <TableHead>
-                    <StyledTableRow>
-                      {labels.map((l) => {
-                        return (
-                          <StyledTableCell key={l} align="right">
-                            {l}
-                          </StyledTableCell>
-                        );
-                      })}
-                    </StyledTableRow>
-                  </TableHead>
-                  <TableBody>
-                    {row.likedProducts.map((product) => (
-                      <StyledTableRow key={product._id}>
-                        <StyledTableCell
-                          align="right"
-                          component="th"
-                          scope="row"
-                        >
-                          {product.title}
-                        </StyledTableCell>
-                        <StyledTableCell align="right">
-                          {toPersianNumbersWithComma(product.price)}
-                        </StyledTableCell>
-                        <StyledTableCell align="right">
-                          {toPersianNumbersWithComma(product.discount)}
-                        </StyledTableCell>
-                        <StyledTableCell align="right">
-                          {toPersianNumbersWithComma(product.offPrice)}
-                        </StyledTableCell>
-                        <StyledTableCell align="right">
-                          {toPersianNumbersWithComma(product.countInStock)}
-                        </StyledTableCell>
-                        <StyledTableCell align="right">
-                          <Custom_link
-                            href={`/products/{product.slug}`}
-                            classname=""
-                            text="مشاهده محصول"
-                          />
-                        </StyledTableCell>
-                      </StyledTableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                <TableSample
+                  TableRowData={(row: productInterface, _i) => {
+                    return <AdminProductTableRow key={row._id} product={row} />;
+                  }}
+                  labels={labels}
+                  rows={row.likedProducts}
+                  displayPagination={false}
+                  sticky={false}
+                />
               </Box>
             )}
             {row.cart && row.cart.products && row.cart.products.length > 0 && (
@@ -174,61 +144,27 @@ const UserCollapsibleRow = ({
                 >
                   محصولات سبد خرید
                 </Typography>
-                <Table
-                  sx={{ minWidth: "100%" }}
-                  size="small"
-                  aria-label="purchases"
-                >
-                  <TableHead>
-                    <StyledTableRow>
-                      {labels.map((l) => {
-                        return (
-                          <StyledTableCell key={l} align="right">
-                            {l}
-                          </StyledTableCell>
-                        );
-                      })}
-                    </StyledTableRow>
-                  </TableHead>
-                  <TableBody>
-                    {row.cart.products.map((product) => (
-                      <StyledTableRow key={product.productId._id}>
-                        <StyledTableCell
-                          align="right"
-                          component="th"
-                          scope="row"
-                        >
-                          {product.productId.title}
-                        </StyledTableCell>
-                        <StyledTableCell align="right">
-                          {toPersianNumbersWithComma(product.productId.price)}
-                        </StyledTableCell>
-                        <StyledTableCell align="right">
-                          {toPersianNumbersWithComma(
-                            product.productId.discount
-                          )}
-                        </StyledTableCell>
-                        <StyledTableCell align="right">
-                          {toPersianNumbersWithComma(
-                            product.productId.offPrice
-                          )}
-                        </StyledTableCell>
-                        <StyledTableCell align="right">
-                          {toPersianNumbersWithComma(
-                            product.productId.countInStock
-                          )}
-                        </StyledTableCell>
-                        <StyledTableCell align="right">
-                          <Custom_link
-                            href={`/products/${product.productId.slug}`}
-                            classname=""
-                            text="مشاهده محصول"
-                          />
-                        </StyledTableCell>
-                      </StyledTableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                <TableSample
+                  TableRowData={(
+                    row: {
+                      productId: productInterface;
+                      quantity: number;
+                      _id: string;
+                    },
+                    i
+                  ) => {
+                    return (
+                      <AdminProductTableRow
+                        key={row._id}
+                        product={row.productId}
+                      />
+                    );
+                  }}
+                  labels={labels}
+                  displayPagination={false}
+                  sticky={false}
+                  rows={row.cart.products}
+                />
               </Box>
             )}
           </Collapse>

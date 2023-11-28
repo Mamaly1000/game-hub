@@ -3,7 +3,8 @@ import BottomAppBar from "@/components/admin-sidebar/BottomSideBar";
 import PageHeader from "@/components/headers/PageHeader";
 import Custom_Button from "@/components/inputs/Custom_Button";
 import Loader from "@/components/loading/Loader";
-import CategoriesTable from "@/components/table-components/CategoriesTable";
+import AdminCategoryRow from "@/components/table-components/AdminCategoryRow"; 
+import TableSample from "@/components/table-components/TableSample";
 import Custom_Tooltip from "@/components/ui/Custom_Tooltip";
 import { useGetAllCategories } from "@/hook/useGetAllCategories";
 import { categoryInterface } from "@/types/category";
@@ -49,8 +50,11 @@ const AddCategoryPage = () => {
       displayAddBtn
       tooltipTitle="ایجاد دسته بندی جدید"
     >
-      <PageHeader>لیست دسته بندی ها</PageHeader>
-      <CategoriesTable
+      <PageHeader>لیست دسته بندی ها</PageHeader> 
+      <TableSample
+        TableRowData={(row: categoryInterface, i) => {
+          return <AdminCategoryRow i={i} row={row} />;
+        }}
         labels={["عنوان", "توضیحات", "عنوان انگلیسی", "نوع", "عملیات"]}
         rows={categories || []}
       />

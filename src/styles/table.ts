@@ -15,10 +15,12 @@ export const StyledPaginationTableRow = styled(TableRow)(({ theme }) => ({
     minWidth: "100% !important",
     overflow: "visible !important",
     paddingInline: "10px !important",
+    border: 0,
   },
   color: theme.palette.common.white,
   display: "flex",
   justifyContent: "center",
+  minWidth: "100% !important",
   overflow: "visible !important",
 }));
 export const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -62,11 +64,13 @@ export const StyledThead = styled(TableHead)(() => {
   };
 });
 export const StyledTfooter = styled(TableFooter)(() => {
-  return { 
+  return {
     color: "#ffffff !important",
     ...vazirFont.style,
     ".MuiTableCell-root": {
       ...vazirFont.style,
-    }, 
+      minWidth: "100% !important",
+    },
+    minWidth: "100% !important",
   };
 });

@@ -1,5 +1,4 @@
 import { StyledTfooter, StyledThead } from "@/styles/table";
-import { couponInterface } from "@/types/coupon";
 import {
   Paper,
   Table,
@@ -8,28 +7,29 @@ import {
   TableContainer,
   TableRow,
 } from "@mui/material";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useState } from "react";
 import CustomTablePagination from "./TablePagination";
-import SingleCouponRow from "./SingleCouponRow";
 
-const CouponTable = ({
+const TableSample = ({
   rows,
   labels,
-  additionalActions,
-  actions,
+  TableRowData,
+  displayPagination = true,
+  sticky = true,
 }: {
+  sticky?: boolean;
+  displayPagination?: boolean;
+  TableRowData: (row: any, i: number) => ReactNode;
   labels: string[];
-  additionalActions?: (data: couponInterface) => ReactNode | null;
-  rows: couponInterface[];
-  actions: (data: couponInterface) => ReactNode;
+  rows: Array<any>;
 }) => {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
   const handleChangePage = (
-    event: React.MouseEvent<HTMLButtonElement> | null,
+    _event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number
   ) => {
     setPage(newPage);
@@ -43,15 +43,20 @@ const CouponTable = ({
   };
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
-      <TableContainer sx={{ maxHeight: 600, direction: "rtl" }}>
+      <TableContainer
+        sx={{
+          maxHeight: 600,
+          direction: "rtl",
+          background: "rgb(var(--color-secondary-800))",
+        }}
+      >
         <Table
-          stickyHeader
+          stickyHeader={sticky}
           sx={{
             maxWidth: "100%",
             minWidth: "100%",
             overflow: "auto",
             direction: "rtl",
-            background: "rgb(var(--color-primary-900))",
           }}
           aria-label="collapsible table"
         >
@@ -67,43 +72,39 @@ const CouponTable = ({
             </TableRow>
           </StyledThead>
           <TableBody>
-            {(rowsPerPage > 0
+            {(rowsPerPage > 0 && displayPagination
               ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               : rows
-            ).map((row, i) => (
-              <SingleCouponRow
-                key={row._id}
-                i={i}
-                labels={["نام محصول", "قیمت", "تخفیف", "قیمت نهایی", "عملیات"]}
-                row={row}
-                actions={actions}
-              />
-            ))}
+            ).map((row, i) => TableRowData(row, i))}
             {emptyRows > 0 && (
               <TableRow style={{ height: 53 * emptyRows }}>
                 <TableCell colSpan={6} />
               </TableRow>
             )}
           </TableBody>
-          <StyledTfooter
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <CustomTablePagination
-              handleChangePage={handleChangePage}
-              handleChangeRowsPerPage={handleChangeRowsPerPage}
-              page={page}
-              rows={rows}
-              rowsPerPage={rowsPerPage}
-            />
-          </StyledTfooter>
+          {displayPagination && (
+            <StyledTfooter
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                background: "rgb(var(--color-secondary-800))",
+                color: "#ffffff",
+              }}
+            >
+              <CustomTablePagination
+                handleChangePage={handleChangePage}
+                handleChangeRowsPerPage={handleChangeRowsPerPage}
+                page={page}
+                rows={rows}
+                rowsPerPage={rowsPerPage}
+              />
+            </StyledTfooter>
+          )}
         </Table>
       </TableContainer>
     </Paper>
   );
 };
 
-export default CouponTable;
+export default TableSample;

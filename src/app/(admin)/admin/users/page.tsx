@@ -3,13 +3,14 @@ import BottomAppBar from "@/components/admin-sidebar/BottomSideBar";
 import PageHeader from "@/components/headers/PageHeader";
 import Custom_Button from "@/components/inputs/Custom_Button";
 import Loader from "@/components/loading/Loader";
-import UsersTable from "@/components/table-components/UsersTable";
 import Box from "@/components/ui/Box";
 import { useFetchAllUsers } from "@/hook/useFetchAllUsers";
 import { UserInterface } from "@/types/User";
 import { useRouter } from "next/navigation";
 import React from "react";
 import BackspaceIcon from "@mui/icons-material/Backspace";
+import TableSample from "@/components/table-components/TableSample";
+import UserCollapsibleRow from "@/components/table-components/UserCollapsibleRow";
 const UsersPage = () => {
   const router = useRouter();
   const { isLoading, error, data, refetch } = useFetchAllUsers();
@@ -40,7 +41,6 @@ const UsersPage = () => {
       </Box>
     );
   }
-
   return (
     <BottomAppBar
       customIcon={{
@@ -51,24 +51,39 @@ const UsersPage = () => {
       displayAddBtn={true}
       tooltipTitle="بازکشت به سایت"
     >
-      <div className="min-w-full flex flex-col gap-3 items-start justify-start ">
-        <PageHeader>لیست کاربران</PageHeader>
-        <UsersTable
-          labels={[
-            "#",
-            "نام",
-            "ایمیل",
-            "شماره تلفن",
-            "تاییدیه شماره تلفن",
-            "زمان ایجاد شده",
-            "بایوگرافی",
-            "وضعیت",
-            "نقش",
-            "نشان",
-          ]}
-          users={users}
-        />
-      </div>
+      <PageHeader>لیست کاربران</PageHeader>
+      <TableSample
+        TableRowData={(row: UserInterface, i) => {
+          return (
+            <UserCollapsibleRow
+              key={row._id}
+              i={i}
+              labels={[
+                "نام محصول",
+                "قیمت",
+                "تخفیف",
+                "قیمت نهایی",
+                "تعداد",
+                "لینک محصول",
+              ]}
+              row={row}
+            />
+          );
+        }}
+        labels={[
+          "#",
+          "نام",
+          "ایمیل",
+          "شماره تلفن",
+          "تاییدیه شماره تلفن",
+          "زمان ایجاد شده",
+          "بایوگرافی",
+          "وضعیت",
+          "نقش",
+          "نشان",
+        ]}
+        rows={users}
+      />
     </BottomAppBar>
   );
 };

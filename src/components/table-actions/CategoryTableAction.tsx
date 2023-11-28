@@ -23,12 +23,14 @@ const CategoryTableAction = ({ category }: { category: categoryInterface }) => {
         }}
         disable={isPending}
         className="bg-error w-[35px] h-[35px]  rounded-lg flex justify-center items-center text-white "
+        background="rgba(var(--color-error), var(--tw-bg-opacity))"
       >
         <FaRegTrashAlt />
       </Custom_Button>
       <Custom_Button
         onclick={() => router.push(`/admin/categories/edit/${category._id}`)}
         className="bg-warning w-[35px] h-[35px]  rounded-lg flex justify-center items-center text-white "
+        background="rgba(var(--color-warning), var(--tw-bg-opacity))"
       >
         <FaEdit />
       </Custom_Button>

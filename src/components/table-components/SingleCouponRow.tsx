@@ -56,7 +56,7 @@ const SingleCouponRow = ({
           {row.type}
         </StyledTableCell>
         <StyledTableCell align="right" component="td" scope="row">
-          {toPersianNumbers(row.amount)}
+          {toPersianNumbersWithComma(row.amount)}
         </StyledTableCell>{" "}
         <StyledTableCell align="right" component="td" scope="row">
           {toPersianNumbers(row.usageCount)}
@@ -70,7 +70,29 @@ const SingleCouponRow = ({
           )}
         </StyledTableCell>{" "}
         <StyledTableCell align="right" component="td" scope="row">
-          {row.isActive ? <DoneIcon /> : <CloseIcon />}
+          {row.isActive ? (
+            <DoneIcon
+              sx={{
+                background: "rgb(var(--color-success))",
+                width: 45,
+                height: 45,
+                padding: 1,
+                borderRadius: "50%",
+                color: "#fff",
+              }}
+            />
+          ) : (
+            <CloseIcon
+              sx={{
+                background: "rgb(var(--color-error))",
+                width: 45,
+                height: 45,
+                padding: 1,
+                borderRadius: "50%",
+                color: "#fff",
+              }}
+            />
+          )}
         </StyledTableCell>{" "}
         <StyledTableCell align="right" component="td" scope="row">
           {actions(row)}
@@ -82,64 +104,66 @@ const SingleCouponRow = ({
           colSpan={6}
           align="right"
         >
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{ margin: 1 }}>
-              <Typography
-                variant="h6"
-                gutterBottom
-                component="div"
-                dir="rtl"
-                align="right"
-                fontFamily={vazirFont.style.fontFamily}
-              >
-                محصولات خریداری شده
-              </Typography>
-              <Table size="small" aria-label="purchases">
-                <TableHead>
-                  <StyledTableRow>
-                    {labels.map((l) => {
-                      return (
-                        <StyledTableCell key={l} align="right">
-                          {l}
-                        </StyledTableCell>
-                      );
-                    })}
-                  </StyledTableRow>
-                </TableHead>
-                <TableBody>
-                  {row.productIds &&
-                    row.productIds.map((product) => (
-                      <StyledTableRow key={product._id}>
-                        <StyledTableCell
-                          sx={{ minWidth: "200px" }}
-                          align="right"
-                          component="th"
-                          scope="row"
-                        >
-                          {product.title}
-                        </StyledTableCell>
-                        <StyledTableCell align="right">
-                          {toPersianNumbersWithComma(product.price || 0)}
-                        </StyledTableCell>
-                        <StyledTableCell align="right">
-                          {toPersianNumbersWithComma(product.discount || 0)}
-                        </StyledTableCell>
-                        <StyledTableCell align="right">
-                          {toPersianNumbersWithComma(product.offPrice || 0)}
-                        </StyledTableCell>
-                        <StyledTableCell align="right">
-                          <Custom_link
-                            href={`/products/${product.slug}`}
-                            classname="px-3 py-2 rounded-lg bg-warning text-center flex items-center justify-center"
-                            text="مشاهده محصول"
-                          />
-                        </StyledTableCell>
-                      </StyledTableRow>
-                    ))}
-                </TableBody>
-              </Table>
-            </Box>
-          </Collapse>
+          {row.productIds && row.productIds.length > 0 && (
+            <Collapse in={open} timeout="auto" unmountOnExit>
+              <Box sx={{ margin: 1 }}>
+                <Typography
+                  variant="h6"
+                  gutterBottom
+                  component="div"
+                  dir="rtl"
+                  align="right"
+                  fontFamily={vazirFont.style.fontFamily}
+                >
+                  محصولات خریداری شده
+                </Typography>
+                <Table size="small" aria-label="purchases">
+                  <TableHead>
+                    <StyledTableRow>
+                      {labels.map((l) => {
+                        return (
+                          <StyledTableCell key={l} align="right">
+                            {l}
+                          </StyledTableCell>
+                        );
+                      })}
+                    </StyledTableRow>
+                  </TableHead>
+                  <TableBody>
+                    {row.productIds &&
+                      row.productIds.map((product) => (
+                        <StyledTableRow key={product._id}>
+                          <StyledTableCell
+                            sx={{ minWidth: "200px" }}
+                            align="right"
+                            component="th"
+                            scope="row"
+                          >
+                            {product.title}
+                          </StyledTableCell>
+                          <StyledTableCell align="right">
+                            {toPersianNumbersWithComma(product.price || 0)}
+                          </StyledTableCell>
+                          <StyledTableCell align="right">
+                            {toPersianNumbersWithComma(product.discount || 0)}
+                          </StyledTableCell>
+                          <StyledTableCell align="right">
+                            {toPersianNumbersWithComma(product.offPrice || 0)}
+                          </StyledTableCell>
+                          <StyledTableCell align="right">
+                            <Custom_link
+                              href={`/products/${product.slug}`}
+                              classname="px-3 py-2 rounded-lg bg-warning text-center flex items-center justify-center"
+                              text="مشاهده محصول"
+                            />
+                          </StyledTableCell>
+                        </StyledTableRow>
+                      ))}
+                  </TableBody>
+                </Table>
+              </Box>
+            </Collapse>
+          )}
         </StyledTableCell>
       </TableRow>
     </React.Fragment>

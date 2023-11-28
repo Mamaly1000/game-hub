@@ -21,6 +21,9 @@ import moment from "jalali-moment";
 import vazirFont from "@/common/local-fonts/VazirFont";
 import { StyledTableCell, StyledTableRow } from "@/styles/table";
 import { FaEye } from "react-icons/fa";
+import TableSample from "./TableSample";
+import { productInterface } from "@/types/product";
+import AdminProductTableRow from "./AdminProductTableRow";
 const SingleCollapsibleRow = ({
   row,
   labels,
@@ -86,76 +89,45 @@ const SingleCollapsibleRow = ({
         </StyledTableCell>{" "}
         <StyledTableCell align="right" component="td" scope="row">
           <Custom_link
-            classname="p-3 rounded-lg bg-warning"
+            classname="w-[45px] h-[45px] rounded-full  drop-shadow-2xl bg-warning flex items-center justify-center"
             href={`/admin/payments/${row._id}`}
-            text=""
           >
             <FaEye />
           </Custom_link>
         </StyledTableCell>
       </StyledTableRow>
-      <TableRow sx={{ background: "rgb(var(--color-secondary-800))" }}>
-        <StyledTableCell
-          style={{ paddingBottom: 0, paddingTop: 0 }}
-          colSpan={6}
-        >
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{ margin: 1 }}>
-              <Typography
-                variant="h6"
-                gutterBottom
-                component="div"
-                dir="rtl"
-                align="right"
-                fontFamily={vazirFont.style.fontFamily}
-              >
-                محصولات خریداری شده
-              </Typography>
-              <Table size="small" aria-label="purchases">
-                <TableHead>
-                  <StyledTableRow>
-                    {labels.map((l) => {
-                      return (
-                        <StyledTableCell key={l} align="right">
-                          {l}
-                        </StyledTableCell>
-                      );
-                    })}
-                  </StyledTableRow>
-                </TableHead>
-                <TableBody>
-                  {row.cart.productDetail.map((product) => (
-                    <StyledTableRow key={product._id}>
-                      <StyledTableCell align="right" component="th" scope="row">
-                        {product.title}
-                      </StyledTableCell>
-                      <StyledTableCell>
-                        {toPersianNumbersWithComma(product.price)}
-                      </StyledTableCell>
-                      <StyledTableCell align="right">
-                        {toPersianNumbersWithComma(product.discount)}
-                      </StyledTableCell>
-                      <StyledTableCell align="right">
-                        {toPersianNumbersWithComma(product.offPrice)}
-                      </StyledTableCell>
-                      <StyledTableCell align="right">
-                        {toPersianNumbersWithComma(product.quantity)}
-                      </StyledTableCell>
-                      <StyledTableCell align="right">
-                        <Custom_link
-                          href={`/products/${product.slug}`}
-                          classname="px-3 py-2 rounded-lg bg-warning text-center flex items-center justify-center"
-                          text="مشاهده محصول"
-                        />
-                      </StyledTableCell>
-                    </StyledTableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </Box>
-          </Collapse>
-        </StyledTableCell>
-      </TableRow>
+      {row.cart && row.cart.productDetail && (
+        <TableRow sx={{ background: "rgb(var(--color-secondary-800))" }}>
+          <StyledTableCell
+            style={{ paddingBottom: 0, paddingTop: 0 }}
+            colSpan={6}
+          >
+            <Collapse in={open} timeout="auto" unmountOnExit>
+              <Box sx={{ margin: 1 }}>
+                <Typography
+                  variant="h6"
+                  gutterBottom
+                  component="div"
+                  dir="rtl"
+                  align="right"
+                  fontFamily={vazirFont.style.fontFamily}
+                >
+                  محصولات خریداری شده
+                </Typography>
+                <TableSample
+                  TableRowData={(row: productInterface, _i) => {
+                    return <AdminProductTableRow product={row} />;
+                  }}
+                  labels={labels}
+                  rows={row.cart.productDetail}
+                  displayPagination={false}
+                  sticky={false}
+                />
+              </Box>
+            </Collapse>
+          </StyledTableCell>
+        </TableRow>
+      )}
     </React.Fragment>
   );
 };

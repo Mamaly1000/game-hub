@@ -5,7 +5,9 @@ import EditCouponForm from "@/components/forms/EditCouponForm";
 import PageHeader from "@/components/headers/PageHeader";
 import Custom_Button from "@/components/inputs/Custom_Button";
 import Loader from "@/components/loading/Loader";
-import CouponTable from "@/components/table-components/CouponTable";
+import CouponTableActions from "@/components/table-actions/CouponTableActions"; 
+import SingleCouponRow from "@/components/table-components/SingleCouponRow";
+import TableSample from "@/components/table-components/TableSample";
 import {
   useCreateCoupon,
   useDeleteCoupon,
@@ -104,7 +106,7 @@ const page = () => {
         loading={updatePending}
         submitHandler={updateCouponHandler}
       />
-      <CouponTable
+      <TableSample
         labels={[
           "کد تخفیف",
           "نوع",
@@ -116,30 +118,30 @@ const page = () => {
           "عملیات",
         ]}
         rows={coupons || []}
-        actions={(data) => {
+        TableRowData={(row: couponInterface, i) => {
           return (
-            <div className="min-w-fit flex gap-3 items-center justify-start">
-              <Custom_Button
-                className="w-[35px] h-[35px] rounded-lg bg-error text-white"
-                onclick={async () =>
-                  await DeleteMutate(data._id).then((res) => {
-                    toast.success(res.data.data.message);
-                    refetch();
-                    router.refresh();
-                  })
-                }
-              >
-                <Delete />
-              </Custom_Button>{" "}
-              <Custom_Button
-                className="w-[35px] h-[35px] rounded-lg bg-warning text-white"
-                onclick={() => {
-                  setSelectedCoupon(data);
-                }}
-              >
-                <Edit />
-              </Custom_Button>
-            </div>
+            <SingleCouponRow
+              key={row._id}
+              i={i}
+              labels={["نام محصول", "قیمت", "تخفیف", "قیمت نهایی", "عملیات"]}
+              row={row}
+              actions={(data) => {
+                return (
+                  <CouponTableActions
+                    asyncFunc={async () =>
+                      await DeleteMutate(data._id).then((res) => {
+                        toast.success(res.data.data.message);
+                        refetch();
+                        router.refresh();
+                      })
+                    }
+                    func={() => {
+                      setSelectedCoupon(data);
+                    }}
+                  />
+                );
+              }}
+            />
           );
         }}
       />

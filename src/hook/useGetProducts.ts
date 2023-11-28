@@ -4,6 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 export const useAllProducts = () => {
   return useQuery({
     queryFn: getAllRawProducts,
-    queryKey: ["get all users"],
+    queryKey: ["get-all-users"],
   });
 };

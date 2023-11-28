@@ -2,14 +2,15 @@
 import BottomAppBar from "@/components/admin-sidebar/BottomSideBar";
 import PageHeader from "@/components/headers/PageHeader";
 import Custom_Button from "@/components/inputs/Custom_Button";
-import Loader from "@/components/loading/Loader";
-import PaymentsCustomTable from "@/components/table-components/PaymentsCustomTable";
+import Loader from "@/components/loading/Loader"; 
 import { useGetAllPayments } from "@/hook/usePayment";
 import { adminPaymentInterface } from "@/types/payment";
 import { Box } from "@mui/material";
 import { useRouter } from "next/navigation";
 import React from "react";
 import BackspaceIcon from "@mui/icons-material/Backspace";
+import TableSample from "@/components/table-components/TableSample";
+import SingleCollapsibleRow from "@/components/table-components/SingleCollapsibleRow";
 
 const page = () => {
   const router = useRouter();
@@ -57,7 +58,7 @@ const page = () => {
       tooltipTitle="بازکشت به سایت"
     >
       <PageHeader>لیست سفارشات</PageHeader>
-      <PaymentsCustomTable
+      <TableSample
         labels={[
           "شماره فاکتور",
           "توضیحات",
@@ -70,6 +71,23 @@ const page = () => {
           "عملیات",
         ]}
         rows={payments || []}
+        TableRowData={(row: adminPaymentInterface, i) => {
+          return (
+            <SingleCollapsibleRow
+              key={row._id}
+              i={i}
+              labels={[
+                "نام محصول",
+                "قیمت",
+                "تخفیف",
+                "قیمت نهایی",
+                "تعداد",
+                "لینک محصول",
+              ]}
+              row={row}
+            />
+          );
+        }}
       />
     </BottomAppBar>
   );
