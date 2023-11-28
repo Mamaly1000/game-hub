@@ -6,6 +6,6 @@ export const useCreateProduct = () => {
   return useMutation({
     mutationFn: createProductService,
     mutationKey: ["create-product"],
-    onError: (err) => toast.error(err.message),
+    onError: (err: any) => toast.error(err.response.data.message),
   });
 };

@@ -103,6 +103,13 @@ const CustomMultipleSelect = ({
             </div>
           );
         }}
+        MenuProps={{
+          sx: {
+            ".MuiPaper-root": {
+              backgroundColor: "rgb(var(--color-secondary-800))",
+            },
+          },
+        }}
       >
         {displayInput && (
           <MenuItem
@@ -146,6 +153,7 @@ const CustomMultipleSelect = ({
                 });
               }}
               className="bg-success px-2 py-2 rounded-lg"
+              background="rgba(var(--color-success), var(--tw-bg-opacity))"
             >
               <IoMdAdd />
             </Custom_Button>
@@ -156,6 +164,7 @@ const CustomMultipleSelect = ({
                   setText("");
                 })
               }
+              background="rgba(var(--color-error), var(--tw-bg-opacity))"
             >
               <IoMdRemove />
             </Custom_Button>

@@ -6,7 +6,6 @@ import styled from "styled-components";
 
 const Div = styled.div`
   min-width: 100%;
-
   .css-2y464i-MuiInputBase-root-MuiFilledInput-root::after,
   label:focused {
     border-color: rgb(var(--color-primary-900)) !important;
@@ -67,7 +66,7 @@ const Custom_textFiled = ({
           formik.touched[name] && formik.errors[name] && formik.errors[name]
         }
         InputLabelProps={{
-          style: vazirFont.style,
+          style: { ...vazirFont.style, color: "#ffffff" },
         }}
         value={display.persian_value}
         FormHelperTextProps={{
@@ -105,7 +104,8 @@ const Custom_textFiled = ({
           }
         }}
         InputProps={{
-          style: vazirFont.style,
+          style: { ...vazirFont.style, color: "#ffffff", textAlign: "start" },
+          dir: "rtl",
         }}
       />
     </Div>

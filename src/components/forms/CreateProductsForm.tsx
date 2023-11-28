@@ -14,10 +14,10 @@ import { useCreateProduct } from "@/hook/useCreateProduct";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { createProductInterface, productInterface } from "@/types/product";
-import { Divider } from "@mui/material";
-import { toPersianNumbers } from "@/utils/numConvertor";
 import Custom_Button from "../inputs/Custom_Button";
 import { formGenerator } from "@/utils/formGenerator";
+import Custom_Stepper from "../ui/Custom_Stepper";
+import { Build, Description, PriceCheck, TagSharp } from "@mui/icons-material";
 
 const CreateProductsForm = ({
   type = "create",
@@ -46,7 +46,7 @@ const CreateProductsForm = ({
     tags: [],
     title: "",
   });
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(2);
   const formik1 = useFormik({
     initialValues: {
       title: "",
@@ -56,7 +56,7 @@ const CreateProductsForm = ({
     },
     onSubmit: (vals) => {
       setFormData({ ...formData, ...vals });
-      setStep(2);
+      setStep(1);
     },
     validationSchema: yup.object({
       title: yup
@@ -82,7 +82,7 @@ const CreateProductsForm = ({
     },
     onSubmit: (vals) => {
       setFormData({ ...formData, ...vals });
-      setStep(3);
+      setStep(2);
     },
     validationSchema: yup.object({
       brand: yup.string().required("لطفا برند محصول را وارد کنید"),
@@ -134,7 +134,7 @@ const CreateProductsForm = ({
         className="bg-warning px-3 py-2 rounded-lg"
         btn_type="button"
         onclick={() => {
-          setStep(step);
+          setStep(step - 1);
           if (type === "create") {
             fn();
           }
@@ -202,37 +202,14 @@ const CreateProductsForm = ({
 
   return !isLoading || !isPending ? (
     <div className="min-w-full flex flex-col items-start justify-start gap-3">
-      <div className="mx-auto min-w-[70%] max-w-[70%] flex items-center justify-between relative gap-2 ">
-        <Divider
-          className="z-0   min-h-[2px] max-h-[2px] bg-success absolute start-0"
-          style={{
-            minWidth: `${(step - 1) * 50}%`,
-            maxWidth: `${(step - 1) * 50}%`,
-          }}
+      <div className=" min-w-full flex items-center justify-center relative gap-2  ">
+        <Custom_Stepper
+          step={step}
+          stepsIcons={[<Description />, <PriceCheck />, <TagSharp />]}
+          stepsLabels={["مرحله اول", "مرحله دوم", "مرحله آخر"]}
         />
-        <span
-          className={`p-2 rounded-lg text-white relative z-10 drop-shadow-2xl ${
-            step > 1 ? "bg-success" : " bg-primary-900"
-          }`}
-        >
-          مرحله {toPersianNumbers(1)}
-        </span>
-        <span
-          className={`p-2 rounded-lg text-white relative z-10 drop-shadow-2xl ${
-            step > 2 ? "bg-success" : " bg-primary-900"
-          }`}
-        >
-          مرحله {toPersianNumbers(2)}
-        </span>
-        <span
-          className={`p-2 rounded-lg text-white relative z-10 drop-shadow-2xl ${
-            step > 3 ? "bg-success" : " bg-primary-900"
-          }`}
-        >
-          مرحله {toPersianNumbers(3)}
-        </span>
       </div>
-      {step === 1 && (
+      {step === 0 && (
         <CustomForm
           onSubmit={formik1.handleSubmit}
           onReset={() => {
@@ -282,7 +259,7 @@ const CreateProductsForm = ({
           )}
         </CustomForm>
       )}
-      {step === 2 && (
+      {step === 1 && (
         <CustomForm
           onSubmit={formik2.handleSubmit}
           onReset={() => {
@@ -335,7 +312,7 @@ const CreateProductsForm = ({
           }
         </CustomForm>
       )}
-      {step === 3 && (
+      {step === 2 && (
         <CustomForm
           onSubmit={formik3.handleSubmit}
           onReset={() => {

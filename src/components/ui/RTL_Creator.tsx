@@ -15,6 +15,10 @@ const RTL_Creator = ({ children }: { children: ReactNode }) => {
     direction: "rtl",
     typography: {
       fontFamily: vazirFont.style.fontFamily,
+      allVariants: {
+        color: "white",
+        stroke: "white",
+      },
     },
   });
   return (

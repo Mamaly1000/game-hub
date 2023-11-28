@@ -170,6 +170,7 @@ const CheckOTPform = ({
             maxWidth: 40,
             borderRadius: 5,
             outline: "none",
+            background: "transparent",
           }}
           containerStyle={{
             height: "56px",

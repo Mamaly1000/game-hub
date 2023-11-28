@@ -78,6 +78,18 @@ const CustomSelect = ({
         renderValue={(val) => {
           return <span style={vazirFont.style}>{val}</span>;
         }}
+        MenuProps={{
+          sx: {
+            ".MuiPaper-root": {
+              backgroundColor: "rgb(var(--color-secondary-800))",
+            },
+          },
+        }}
+        SelectDisplayProps={{
+          style: {
+            color: "#ffffff",
+          },
+        }}
       >
         {asyncData &&
           asyncData.map((item) => {

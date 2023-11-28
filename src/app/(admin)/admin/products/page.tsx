@@ -77,7 +77,7 @@ const page = () => {
         sx={{
           display: { xs: "none", md: "flex" },
           borderRadius: "50%",
-          background: "rgb(var(--color-success))",
+          background: "rgb(var(--color-success)) !important",
           color: "inherit",
         }}
       >
