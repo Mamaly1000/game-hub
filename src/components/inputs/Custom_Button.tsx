@@ -8,7 +8,7 @@ const Custom_Button = ({
   className,
   btn_type = "button",
   children,
-  disable,
+  disable = false,
   background,
   sx,
   color,

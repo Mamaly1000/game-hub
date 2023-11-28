@@ -56,7 +56,19 @@ export default function BottomAppBar({
   return (
     <React.Fragment>
       <CssBaseline />
-      <Paper sx={{ pb: "50px", background: "inherit", color: "inherit" }}>
+      <Paper
+        sx={{
+          pb: "50px",
+          background: "inherit",
+          color: "inherit",
+          position: "relative",
+          display: "flex",
+          alignItems: "start",
+          justifyContent: "start",
+          flexDirection: "column",
+          gap: 5,
+        }}
+      >
         {children}
       </Paper>
       <AppBar

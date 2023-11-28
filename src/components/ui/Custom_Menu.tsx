@@ -53,8 +53,8 @@ export default function Custom_Menu({
               onClick(link);
             }}
             sx={{
-              minWidth: "120px",
-              maxWidth: "120px",
+              minWidth: "140px",
+              maxWidth: "140px",
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",

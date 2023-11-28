@@ -1,4 +1,5 @@
 "use client";
+import BottomAppBar from "@/components/admin-sidebar/BottomSideBar";
 import CreateCouponForm from "@/components/forms/CreateCouponForm";
 import EditCouponForm from "@/components/forms/EditCouponForm";
 import PageHeader from "@/components/headers/PageHeader";
@@ -20,6 +21,7 @@ import toast from "react-hot-toast";
 
 const page = () => {
   const router = useRouter();
+  const [openModal, setOpenModal] = useState(false);
   const { mutateAsync: DeleteMutate } = useDeleteCoupon();
   const { isPending: createPending, mutateAsync: createMutate } =
     useCreateCoupon();
@@ -89,13 +91,13 @@ const page = () => {
   }
 
   return (
-    <div className="min-w-full flex flex-col gap-3 items-start justify-start  relative">
+    <BottomAppBar
+      displayAddBtn
+      tooltipTitle="ایجاد کد جدید"
+      mainOnClick={() => setOpenModal(true)}
+    >
       <PageHeader>لیست کدهای تخفیف</PageHeader>
 
-      <CreateCouponForm
-        loading={createPending}
-        submitHandler={CreateCouponHandler}
-      />
       <EditCouponForm
         value={selectedCoupon}
         setValue={setSelectedCoupon}
@@ -111,6 +113,7 @@ const page = () => {
           "ظرفیت",
           "تاریخ انقضا",
           "فعال",
+          "عملیات",
         ]}
         rows={coupons || []}
         actions={(data) => {
@@ -140,7 +143,13 @@ const page = () => {
           );
         }}
       />
-    </div>
+      <CreateCouponForm
+        open={openModal}
+        setOpen={setOpenModal}
+        loading={createPending}
+        submitHandler={CreateCouponHandler}
+      />
+    </BottomAppBar>
   );
 };
 

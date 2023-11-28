@@ -16,7 +16,7 @@ export const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     padding: theme.spacing(1),
   },
   "& .MuiDialog-paper": {
-    background: "rgb(var(--color-secondary-900))",
+    background: "rgb(var(--color-secondary-800))",
     color: theme.palette.common.white,
     minWidth: "300px",
   },

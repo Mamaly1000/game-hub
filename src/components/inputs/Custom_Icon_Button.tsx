@@ -4,7 +4,7 @@ import React, { ReactNode } from "react";
 const Custom_Icon_Button = ({
   children,
   onClick,
-  background,
+  background = "rgb(var(--color-primary-900))",
   disable = false,
   className,
   color,
@@ -25,7 +25,7 @@ const Custom_Icon_Button = ({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: !!background ? background : "rab(var(--color-primary-900))",
+        background: background,
         color: color || "#ffffff",
       }}
       onClick={onClick}

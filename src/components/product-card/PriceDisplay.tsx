@@ -18,13 +18,15 @@ const PriceDisplay = ({
   return price.discount && price.offPrice ? (
     <div className={className}>
       {title || "قیمت کل"} :
-      <span className="text-error line-through">
-        {toPersianNumbersWithComma(price.price)}
-      </span>
-      -<span>{toPersianNumbersWithComma(price.offPrice)}</span>
+      <div>
+        <span className="text-error line-through">
+          {toPersianNumbersWithComma(price.price)}
+        </span>
+        -<span>{toPersianNumbersWithComma(price.offPrice)}</span>
+      </div>
     </div>
   ) : (
-    <div className={`min-h-full flex items-center justify-between gap-5 ${className}`}>
+    <div className={className}>
       <span>{title || "قیمت کل"} : </span>
       <span>{toPersianNumbersWithComma(price.price)}</span>
     </div>

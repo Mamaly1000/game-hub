@@ -12,18 +12,23 @@ import CustomSelect from "../inputs/CustomSelect";
 import CustomMultipleSelect from "../inputs/CustomMultipleSelect";
 import CustomDatePicker from "../inputs/CustomDatePicker";
 import Loader from "../loading/Loader";
+import { Add } from "@mui/icons-material";
+import Custom_Tooltip from "../ui/Custom_Tooltip";
 
 const CreateCouponForm = ({
   submitHandler,
   loading = false,
+  open,
+  setOpen,
 }: {
   loading?: boolean;
   submitHandler: (
     vals: createCouponInterface,
     setValue?: Dispatch<SetStateAction<boolean>>
   ) => Promise<void>;
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
 }) => {
-  const [open, setOpen] = useState(false);
   const { data, isLoading: productsLoading } = useAllProducts();
   const products: productInterface[] | null = data?.data.data.products;
   const formik = useFormik<createCouponInterface>({
@@ -59,11 +64,19 @@ const CreateCouponForm = ({
       Modal_title="ایجاد کد تخفیف"
       btnElement={
         <Custom_Button
-          className="absolute top-2 end-2 z-10 bg-success text-white p-3 rounded-full"
+          className=" min-w-[60px] min-h-[60px] max-w-[60px] max-h-[60px] sticky bottom-[-60px] start-[-20px] z-10 animate-pulse"
           disable={false}
           onclick={() => setOpen(true)}
+          sx={{
+            display: { xs: "none", md: "flex" },
+            borderRadius: "50%",
+            background: "rgb(var(--color-success))",
+            color: "inherit",
+          }}
         >
-          <MdAdd className="w-[30px] h-[30px]" />
+          <Custom_Tooltip title="ایجاد کد تخفیف">
+            <Add />
+          </Custom_Tooltip>
         </Custom_Button>
       }
       modalActions={

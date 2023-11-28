@@ -1,10 +1,13 @@
 "use client";
+import BottomAppBar from "@/components/admin-sidebar/BottomSideBar";
 import PageHeader from "@/components/headers/PageHeader";
 import Custom_Button from "@/components/inputs/Custom_Button";
 import Loader from "@/components/loading/Loader";
 import CategoriesTable from "@/components/table-components/CategoriesTable";
+import Custom_Tooltip from "@/components/ui/Custom_Tooltip";
 import { useGetAllCategories } from "@/hook/useGetAllCategories";
 import { categoryInterface } from "@/types/category";
+import { Add } from "@mui/icons-material";
 import { Box } from "@mui/material";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -41,20 +44,31 @@ const AddCategoryPage = () => {
     );
   }
   return (
-    <div className="relative min-w-full flex flex-col items-start justify-start gap-5 ">
+    <BottomAppBar
+      mainOnClick={() => router.push("/admin/categories/add")}
+      displayAddBtn
+      tooltipTitle="ایجاد دسته بندی جدید"
+    >
       <PageHeader>لیست دسته بندی ها</PageHeader>
       <CategoriesTable
         labels={["عنوان", "توضیحات", "عنوان انگلیسی", "نوع", "عملیات"]}
         rows={categories || []}
       />
       <Custom_Button
-        className="absolute top-2 end-2 z-10 bg-success text-white p-3 rounded-full"
-        disable={false}
+        className=" min-w-[60px] min-h-[60px] max-w-[60px] max-h-[60px] sticky bottom-[-60px] start-[-20px] z-10 animate-pulse"
         onclick={() => router.push("/admin/categories/add")}
+        sx={{
+          display: { xs: "none", md: "flex" },
+          borderRadius: "50%",
+          background: "rgb(var(--color-success))",
+          color: "inherit",
+        }}
       >
-        <MdAdd className="w-[30px] h-[30px]" />
+        <Custom_Tooltip title="ایجاد دسته بندی جدید">
+          <Add />
+        </Custom_Tooltip>
       </Custom_Button>
-    </div>
+    </BottomAppBar>
   );
 };
 

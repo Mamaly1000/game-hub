@@ -1,4 +1,5 @@
 "use client";
+import BottomAppBar from "@/components/admin-sidebar/BottomSideBar";
 import PageHeader from "@/components/headers/PageHeader";
 import Custom_Button from "@/components/inputs/Custom_Button";
 import Loader from "@/components/loading/Loader";
@@ -8,6 +9,7 @@ import { adminPaymentInterface } from "@/types/payment";
 import { Box } from "@mui/material";
 import { useRouter } from "next/navigation";
 import React from "react";
+import BackspaceIcon from "@mui/icons-material/Backspace";
 
 const page = () => {
   const router = useRouter();
@@ -45,7 +47,15 @@ const page = () => {
   const payments: adminPaymentInterface[] | null = data.data.data.payments;
 
   return (
-    <div className="min-w-full flex flex-col gap-3 items-start justify-start  relative">
+    <BottomAppBar
+      customIcon={{
+        fn: () => router.push("/"),
+        icon: <BackspaceIcon />,
+        background: "rgb(var(--color-primary-900))",
+      }}
+      displayAddBtn={true}
+      tooltipTitle="بازکشت به سایت"
+    >
       <PageHeader>لیست سفارشات</PageHeader>
       <PaymentsCustomTable
         labels={[
@@ -57,10 +67,11 @@ const page = () => {
           "مبلغ",
           "تاریخ",
           "وضعیت",
+          "عملیات",
         ]}
         rows={payments || []}
       />
-    </div>
+    </BottomAppBar>
   );
 };
 

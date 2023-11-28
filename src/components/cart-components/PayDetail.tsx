@@ -138,10 +138,10 @@ const PayDetail = ({ cart }: { cart: cartInterface | null }) => {
 
 export default PayDetail;
 
-export const Custom_Divider = () => {
+export const Custom_Divider = ({ classname }: { classname?: string }) => {
   return (
     <Divider
-      className="min-w-full border-b-[2px] border-white"
+      className={`min-w-full border-b-[2px] border-white ${classname}`}
       sx={{ borderColor: "#ffffff" }}
     />
   );

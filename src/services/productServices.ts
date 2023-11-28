@@ -2,7 +2,7 @@ import { ParsedUrlQuery } from "querystring";
 import http from "./httpService";
 import queryString from "query-string";
 import { createProductInterface } from "@/types/product";
-export const getAllProducts = (data: ParsedUrlQuery, cookies: string) => {
+export const getAllProducts = (data: ParsedUrlQuery, cookies?: string) => {
   return http.get(`/product/list?${queryString.stringify(data)}`, {
     headers: {
       Cookie: cookies,

@@ -8,11 +8,12 @@ import Box from "@/components/ui/Box";
 import { useAllProducts } from "@/hook/useGetProducts";
 import { productInterface } from "@/types/product";
 import { useRouter } from "next/navigation";
-import { MdAdd } from "react-icons/md";
 import TableActions from "@/components/table-actions/TableActions";
 import { useRemoveProduct } from "@/hook/useGetSingleProduct";
 import BottomAppBar from "@/components/admin-sidebar/BottomSideBar";
 import Custom_Icon_Button from "@/components/inputs/Custom_Icon_Button";
+import { Add } from "@mui/icons-material";
+import Custom_Tooltip from "@/components/ui/Custom_Tooltip";
 const page = () => {
   const router = useRouter();
   const { data, isLoading, error, refetch } = useAllProducts();
@@ -69,14 +70,21 @@ const page = () => {
           );
         }}
       />
-      <Custom_Icon_Button
-        className="hidden md:block fixed top-2 end-2 z-10        "
+      <Custom_Button
+        className=" min-w-[60px] min-h-[60px] max-w-[60px] max-h-[60px] sticky bottom-[-60px] start-[-20px] z-10 animate-pulse"
         disable={false}
-        onClick={() => router.push("/admin/products/add")}
-        background="rgb(var(--color-sucess))"
+        onclick={() => router.push("/admin/products/add")}
+        sx={{
+          display: { xs: "none", md: "flex" },
+          borderRadius: "50%",
+          background: "rgb(var(--color-success))",
+          color: "inherit",
+        }}
       >
-        <MdAdd className="w-[30px] h-[30px]" />
-      </Custom_Icon_Button>
+        <Custom_Tooltip title="ایجاد محصول جدید">
+          <Add />
+        </Custom_Tooltip>
+      </Custom_Button>
     </BottomAppBar>
   );
 };
