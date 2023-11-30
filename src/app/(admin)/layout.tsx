@@ -18,7 +18,7 @@ export default function RootLayout({
       <body
         className={
           vazirFont.className +
-          " grid grid-cols-12 gap-2 grid-rows-6 bg-primary-300 dark:bg-secondary-900 text-secondary-900 dark:text-white "
+          " grid grid-cols-12 gap-2 grid-rows-6 bg-primary-300 dark:bg-secondary-900 text-secondary-900 dark:text-white overflow-hidden"
         }
         suppressHydrationWarning={true}
       >

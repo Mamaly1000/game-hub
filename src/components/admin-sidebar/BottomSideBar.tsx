@@ -41,7 +41,7 @@ export default function BottomAppBar({
 }: {
   tooltipTitle?: string;
   displayAddBtn?: boolean;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   customIcon?: {
     fn: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
     icon: React.ReactNode;
