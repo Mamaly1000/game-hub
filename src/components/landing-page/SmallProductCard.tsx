@@ -7,11 +7,17 @@ import React from "react";
 import RTL_Creator from "../ui/RTL_Creator";
 import Custom_link from "../inputs/Custom_link";
 
-const SmallProductCard = ({ product }: { product: productInterface }) => {
+const SmallProductCard = ({
+  product,
+  isActive,
+}: {
+  isActive: boolean;
+  product: productInterface;
+}) => {
   return (
     <RTL_Creator>
       <Card
-        className="group max-w-[300px] max-h-[200px]   min-w-[300px] min-h-[200px] relative p-1 overflow-hidden flex items-center justify-center"
+        className="group min-w-[250px] min-h-[150px] relative p-1 overflow-hidden flex items-center justify-center"
         sx={{
           minWidth: 300,
           maxWidth: 300,
@@ -19,15 +25,18 @@ const SmallProductCard = ({ product }: { product: productInterface }) => {
         }}
       >
         <Image
-          className="z-10 min-w-[290px] min-h-[190px] max-w-[290px] max-h-[190px] object-cover absolute rounded-lg border-[1px] border-primary-900 group-hover:opacity-50"
+          className={`z-10 min-w-[290px] min-h-[190px] max-w-[290px] max-h-[190px] object-cover absolute rounded-lg border-[1px] border-primary-900 group-hover:opacity-50 ${
+            isActive ? "opacity-50" : "opacity-100"
+          }`}
           alt={product.title}
           src={product.imageLink}
           width={290}
           height={190}
         />
         <CardContent
-          sx={{ background: gradientGenerator() }}
-          className="relative z-20 min-w-[300px] scale-0 min-h-[200px] group-hover:scale-100 flex items-center justify-center text-white"
+          className={`relative z-20 min-w-[100%]  min-h-[160px] group-hover:scale-100 flex items-center justify-center text-white bg-mid_transparent ${
+            isActive ? "scale-100" : "scale-0"
+          } `}
         >
           <Custom_link
             text={`خرید ${product.category.title}`}

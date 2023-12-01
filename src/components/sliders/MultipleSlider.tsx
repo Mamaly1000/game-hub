@@ -4,6 +4,7 @@ import { productInterface } from "@/types/product";
 import React, { useCallback } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SmallProductCard from "../landing-page/SmallProductCard";
+import { Autoplay } from "swiper/modules";
 
 const MultipleSlider = ({
   title,
@@ -34,8 +35,13 @@ const MultipleSlider = ({
       <Swiper
         className="max-w-[300px] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[600px] "
         slidesPerView={"auto"}
-        spaceBetween={10}
+        spaceBetween={0.5}
         dir="rtl"
+        autoplay={{
+          delay: 1000,
+          disableOnInteraction: false,
+        }}
+        modules={[Autoplay]}
       >
         {SingleProducts().map((categoryName) => {
           const product: productInterface | undefined = (
@@ -44,9 +50,14 @@ const MultipleSlider = ({
           return (
             product && (
               <SwiperSlide key={product._id} className="max-w-fit max-h-fit">
-                {type === "product" && (
-                  <SmallProductCard product={product as productInterface} />
-                )}
+                {(isActive) =>
+                  type === "product" && (
+                    <SmallProductCard
+                      isActive={isActive.isActive}
+                      product={product as productInterface}
+                    />
+                  )
+                }
               </SwiperSlide>
             )
           );

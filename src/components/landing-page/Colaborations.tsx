@@ -15,7 +15,7 @@ import Image from "next/image";
 const Colaborations = () => {
   const brands = [apple, microsoft, asus, samsung, Sony, lg, marvel];
   return (
-    <div className="min-w-full min-h-[300px] max-w-[300px]  mb-10">
+    <div className="min-w-full min-h-[120px] max-w-[120px]  mb-10">
       <Swiper
         style={{ width: "100%" }}
         autoplay={{
@@ -35,7 +35,7 @@ const Colaborations = () => {
             <Image
               alt=""
               src={pic.src}
-              className="object-cover "
+              className="object-contain "
               fill
               loading="lazy"
             />
