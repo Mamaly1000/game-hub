@@ -60,12 +60,7 @@ export const CategoryListItem = ({
         sx={{ minWidth: "120px", display: { xs: "none", md: "block" } }}
       >
         {category.description}
-      </StylesTypo>
-      <StylesTypo
-        sx={{ minWidth: "120px", display: { xs: "none", md: "block" } }}
-      >
-        {category.type}
-      </StylesTypo>
+      </StylesTypo> 
       <StylesTypo>
         {toPersianNumbers(
           moment(category.createdAt).format("jYYYY/jMM/jDD-HH:MM")

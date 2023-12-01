@@ -10,15 +10,20 @@ import Custom_list_item from "../ui/Custom_list_item";
 import Custom_link from "../inputs/Custom_link";
 import { ListItemButton } from "@mui/material";
 import { useRouter } from "next/navigation";
-
+import BarChartIcon from "@mui/icons-material/BarChart";
 export const adminLinks = [
-  { name: "صفحه اصلی", route: "/", icon: <HiOutlineHome /> },
+  { name: "فروشگاه", route: "/", icon: <HiOutlineHome /> },
   { name: "داشبورد", route: "/admin", icon: <MdOutlineDashboard /> },
   { name: "کاربران", route: "/admin/users", icon: <PiUsersFourDuotone /> },
   { name: "محصولات", route: "/admin/products", icon: <BsBoxes /> },
   { name: "دسته بندی", route: "/admin/categories", icon: <MdCategory /> },
   { name: "سفارشات", route: "/admin/payments", icon: <RiSecurePaymentLine /> },
   { name: "کد تخفیف", route: "/admin/coupons", icon: <RiCoupon3Fill /> },
+  {
+    name: "مانیتورینگ",
+    route: "/admin/monitoring",
+    icon: <BarChartIcon sx={{ maxWidth: 18 }} />,
+  },
 ];
 
 const SideBar = () => {

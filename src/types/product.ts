@@ -46,6 +46,7 @@ export interface singleProductInterface {
   tags: string[];
   rating: number;
   numReviews: number;
+  quantity: number | undefined | null;
   countInStock: number;
   likes: unknown[];
   createdAt: Date;
