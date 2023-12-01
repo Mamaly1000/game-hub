@@ -39,6 +39,7 @@ const Custom_LineChart = ({
             markCell: "text-[.5rem]",
             mark: "text-[.5rem]",
           },
+          trigger: "axis",
         }}
         axisHighlight={{
           x: "line",

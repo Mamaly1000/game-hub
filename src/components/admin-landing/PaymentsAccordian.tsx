@@ -19,7 +19,7 @@ import { BsEye } from "react-icons/bs";
 import { adminPaymentInterface } from "@/types/payment";
 import CustomizedAccordions from "./ProductAccordian";
 import moment from "jalali-moment";
-import { Box } from "@mui/material";
+import { Box, List, ListItem } from "@mui/material";
 import { StylesTypo } from "@/styles/Typo";
 
 const Accordion = styled((props: AccordionProps) => (
@@ -93,49 +93,51 @@ export default function PaymentsAccordian({
                 شماره فاکتور {toPersianNumbers(p.invoiceNumber)}
               </Typography>
             </AccordionSummary>
-            <Box
-              sx={{
-                minWidth: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                gap: 2,
-              }}
-            >
-              <StylesTypo>مبلغ</StylesTypo>
-              <StylesTypo>{toPersianNumbersWithComma(p.amount)}</StylesTypo>
-            </Box>
-            <Custom_Divider />
-            <Box
-              sx={{
-                minWidth: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                gap: 2,
-              }}
-            >
-              <StylesTypo>در تاریخ</StylesTypo>
-              <StylesTypo>
-                {toPersianNumbers(
-                  moment(+p.paymentDate).format("jYYYY/jMM/jDD-HH:MM")
-                )}
-              </StylesTypo>
-            </Box>
-            <Custom_Divider />
-            <Box
-              sx={{
-                minWidth: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                gap: 2,
-              }}
-            >
-              <StylesTypo>وضعیت</StylesTypo>
-              <StylesTypo>{p.status}</StylesTypo>
-            </Box>
-            <Custom_Divider />
+            <List>
+              <ListItem
+                sx={{
+                  minWidth: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  gap: 2,
+                }}
+              >
+                <StylesTypo>مبلغ</StylesTypo>
+                <StylesTypo>{toPersianNumbersWithComma(p.amount)}</StylesTypo>
+              </ListItem>
+              <Custom_Divider />
+              <ListItem
+                sx={{
+                  minWidth: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  gap: 2,
+                }}
+              >
+                <StylesTypo>در تاریخ</StylesTypo>
+                <StylesTypo>
+                  {toPersianNumbers(
+                    moment(p.paymentDate).format("jYYYY/jMM/jDD-MM:HH:SS")
+                  )}
+                </StylesTypo>
+              </ListItem>
+              <Custom_Divider />
+              <ListItem
+                sx={{
+                  minWidth: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  gap: 2,
+                }}
+              >
+                <StylesTypo>وضعیت</StylesTypo>
+                <StylesTypo>{p.status}</StylesTypo>
+              </ListItem>
+            </List>
+
             <AccordionDetails>
               <Custom_list
                 title="اطلاعات بیشتر"

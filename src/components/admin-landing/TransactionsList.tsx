@@ -60,7 +60,7 @@ export const PaymentListItem = ({
       </StylesTypo>
       <StylesTypo sx={{ display: { xs: "none", sm: "block" } }}>
         {toPersianNumbers(
-          moment(new Date(+payment.paymentDate)).format("jYYYY/jMM/jDD-HH:MM")
+          moment(new Date(payment.createdAt)).format("jYYYY/jMM/jDD-HH:MM")
         )}
       </StylesTypo>
     </ListItem>

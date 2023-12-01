@@ -121,31 +121,34 @@ export default function CustomizedAccordions({
                     value: p.slug,
                     link: true,
                   },
-                ].map((sp, i) => (
-                  <ListItem
-                    sx={{
-                      minWidth: "100%",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      gap: 2,
-                    }}
-                    key={i + sp.name}
-                  >
-                    <StylesTypo>{sp.name}</StylesTypo>
-                    {!!sp.value &&
-                      (!!sp.link ? (
-                        <Custom_link
-                          classname="w-[30px] h-[30px] flex items-center justify-center rounded-lg text-white bg-warning drop-shadow-2xl"
-                          href={`/products/${sp.value}`}
-                        >
-                          <BsEye />
-                        </Custom_link>
-                      ) : (
-                        <StylesTypo>{sp.value}</StylesTypo>
-                      ))}
-                  </ListItem>
-                ))}
+                ].map(
+                  (sp, i) =>
+                    !!sp.value && (
+                      <ListItem
+                        sx={{
+                          minWidth: "100%",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          gap: 2,
+                        }}
+                        key={i + sp.name}
+                      >
+                        <StylesTypo>{sp.name}</StylesTypo>
+                        {!!sp.value &&
+                          (!!sp.link ? (
+                            <Custom_link
+                              classname="w-[30px] h-[30px] flex items-center justify-center rounded-lg text-white bg-warning drop-shadow-2xl"
+                              href={`/products/${sp.value}`}
+                            >
+                              <BsEye />
+                            </Custom_link>
+                          ) : (
+                            <StylesTypo>{sp.value}</StylesTypo>
+                          ))}
+                      </ListItem>
+                    )
+                )}
               </Custom_list>
             </AccordionDetails>
           </Accordion>

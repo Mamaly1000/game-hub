@@ -11,7 +11,7 @@ export interface productInterface {
   imageLink: string;
   price: number;
   offPrice: number;
-  discount: number;
+  discount: number | null;
   brand: string;
   tags: string[];
   rating: number;

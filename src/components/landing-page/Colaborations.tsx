@@ -27,15 +27,15 @@ const Colaborations = () => {
         loop={true}
         dir="rtl"
       >
-        {brands.map((pic) => (
+        {[brands, brands].flat().map((pic) => (
           <SwiperSlide
             key={pic.src}
-            className="overflow-hidden bg-white relative min-w-[200px] min-h-[200px] max-w-[200px] max-h-[200px] rounded-lg drop-shadow-2xl flex items-center justify-center p-1"
+            className="overflow-hidden bg-white relative min-w-[100px] min-h-[100px] max-w-[100px] max-h-[100px] rounded-lg drop-shadow-2xl flex items-center justify-center p-1"
           >
             <Image
               alt=""
               src={pic.src}
-              className="object-fill"
+              className="object-cover "
               fill
               loading="lazy"
             />
