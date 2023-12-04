@@ -6,6 +6,13 @@ import Colaborations from "@/components/landing-page/Colaborations";
 import Acheivements from "@/components/landing-page/Acheivements";
 import Services from "@/components/landing-page/Services";
 import QA from "@/components/landing-page/QA";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "به game hub خوش آمدید.",
+  description: "با ما بروز باشید.",
+};
+
 export default async function Home() {
   const {
     data: {

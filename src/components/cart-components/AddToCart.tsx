@@ -18,6 +18,7 @@ import Custom_link from "../inputs/Custom_link";
 import { toPersianNumbers } from "@/utils/numConvertor";
 import AddIcon from "@mui/icons-material/Add";
 import Custom_Icon_Button from "../inputs/Custom_Icon_Button";
+import Custom_Tooltip from "../ui/Custom_Tooltip";
 const AddToCart = ({
   product,
   redirect = true,
@@ -79,17 +80,25 @@ const AddToCart = ({
       >
         <AddIcon />
       </Custom_Icon_Button>
-      {redirect && <Custom_link classname="" href="/cart" text="ادامه سفارش" />}
+      {redirect && (
+        <Custom_link
+          classname="px-3 py-2 rounded-lg drop-shadow-2xl bg-primary-900"
+          href="/cart"
+          text="ادامه سفارش"
+        />
+      )}
     </div>
   ) : (
     <div>
-      <Custom_Icon_Button
-        background="rgb(var(--color-success))"
-        disable={isLoading && addPending}
-        onClick={addToCart}
-      >
-        <ShoppingCartIcon />
-      </Custom_Icon_Button>
+      <Custom_Tooltip title="اضافه به سبد خربد" >
+        <Custom_Icon_Button
+          background="rgb(var(--color-success))"
+          disable={isLoading && addPending}
+          onClick={addToCart}
+        >
+          <ShoppingCartIcon />
+        </Custom_Icon_Button>
+      </Custom_Tooltip>
     </div>
   );
 };

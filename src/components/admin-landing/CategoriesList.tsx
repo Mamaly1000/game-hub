@@ -50,21 +50,24 @@ export const CategoryListItem = ({
         textAlign: "start",
       }}
     >
-      <StylesTypo sx={{ minWidth: "120px" }}>{category.title}</StylesTypo>
+      <StylesTypo sx={{ minWidth: "120px" }}>
+        {category!.title || "تعریف نشده"}
+      </StylesTypo>
       <StylesTypo
         sx={{ minWidth: "120px", display: { xs: "none", sm: "block" } }}
       >
-        {category.englishTitle}
+        {category!.englishTitle || "N/A"}
       </StylesTypo>
       <StylesTypo
         sx={{ minWidth: "120px", display: { xs: "none", md: "block" } }}
       >
-        {category.description}
-      </StylesTypo> 
+        {category!.description || "N/A"}
+      </StylesTypo>
       <StylesTypo>
-        {toPersianNumbers(
-          moment(category.createdAt).format("jYYYY/jMM/jDD-HH:MM")
-        )}
+        {!!category.createdAt &&
+          toPersianNumbers(
+            moment(category.createdAt).format("jYYYY/jMM/jDD-HH:MM")
+          )}
       </StylesTypo>
     </ListItem>
   );

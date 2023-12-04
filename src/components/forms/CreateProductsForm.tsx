@@ -322,43 +322,39 @@ const CreateProductsForm = ({
           resetText="ریست فرم"
           submitText="ایجاد محصول"
         >
-          {
-            <CustomMultipleSelect
-              formik={formik3}
-              name="tags"
-              setDataChange={(vals) => {
-                formik3.setFieldValue("tags", vals);
-              }}
-              label="تگ های مرتبط"
-            />
-          }
-          {
-            <CustomSelect
-              formik={formik3}
-              name="category"
-              label="دسته بندی"
-              onclickHandler={(val) => {
-                const category: categoryInterface = val;
-                formik3.setFieldValue("category", category._id);
-              }}
-              asyncData={
-                categories?.map((c) => {
-                  return {
-                    data: c,
-                    name: c.title,
-                  };
-                }) || []
-              }
-              PreData={
-                selectedData
-                  ? {
-                      name: selectedData.category.title,
-                      data: selectedData.category,
-                    }
-                  : undefined
-              }
-            />
-          }
+          <CustomMultipleSelect
+            formik={formik3}
+            name="tags"
+            setDataChange={(vals) => {
+              formik3.setFieldValue("tags", vals);
+            }}
+            label="تگ های مرتبط"
+          />
+          <CustomSelect
+            formik={formik3}
+            name="category"
+            label="دسته بندی"
+            onclickHandler={(val) => {
+              const category: categoryInterface = val;
+              formik3.setFieldValue("category", category._id);
+            }}
+            asyncData={
+              categories!.map((c) => {
+                return {
+                  data: c,
+                  name: c.title,
+                };
+              }) || []
+            }
+            PreData={
+              selectedData
+                ? {
+                    name: selectedData!.category!.title,
+                    data: selectedData!.category,
+                  }
+                : undefined
+            }
+          />
         </CustomForm>
       )}
     </div>

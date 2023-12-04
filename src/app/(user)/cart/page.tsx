@@ -23,11 +23,7 @@ const CartPage = () => {
   if (!user) {
     return (
       <Box>
-        <Custom_Button
-          className="bg-primary-900"
-          disable={isLoading}
-          onclick={() => router.push("/auth")}
-        >
+        <Custom_Button disable={isLoading} onclick={() => router.push("/auth")}>
           لطفا ابتدا لاگین کنید
         </Custom_Button>
       </Box>
@@ -36,11 +32,7 @@ const CartPage = () => {
   if (error) {
     return (
       <Box>
-        <Custom_Button
-          className="bg-primary-900"
-          disable={isLoading}
-          onclick={() => refetch()}
-        >
+        <Custom_Button disable={isLoading} onclick={() => refetch()}>
           لطفا دوباره تلاش کنید
         </Custom_Button>
       </Box>
@@ -50,11 +42,7 @@ const CartPage = () => {
     return (
       <Box>
         <span>سبد خرید خالی می باشد!</span>
-        <Custom_Button
-          disable={false}
-          onclick={() => router.push("/products")}
-          background="rab(var(--color-primary-900))"
-        >
+        <Custom_Button disable={false} onclick={() => router.push("/products")}>
           رفتن به فروشگاه
         </Custom_Button>
       </Box>

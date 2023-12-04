@@ -1,19 +1,14 @@
 import { Tooltip } from "@mui/material";
-import React, { ReactElement } from "react";
-import RTL_Creator from "./RTL_Creator";
+import React from "react";
 
 const Custom_Tooltip = ({
   children,
   title,
 }: {
-  children: ReactElement<any, any>;
+  children: any;
   title: string;
 }) => {
-  return (
-    <RTL_Creator>
-      <Tooltip title={title}>{children || ""}</Tooltip>
-    </RTL_Creator>
-  );
+  return <Tooltip title={title}>{children || ""}</Tooltip>;
 };
 
 export default Custom_Tooltip;

@@ -33,7 +33,7 @@ const Custom_Button = ({
       disabled={disable}
       sx={
         sx || {
-          background: background || "rab(var(--color-primary-900)) !important",
+          background: background || "rgb(var(--color-primary-900)) !important",
           color: color || "#ffffff",
         }
       }

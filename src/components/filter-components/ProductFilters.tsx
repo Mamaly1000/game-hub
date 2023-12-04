@@ -20,36 +20,45 @@ const ProductFilters = ({ links }: { links: categoryInterface[] }) => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>(
     searchParams.get("category")?.split(",").flat() || []
   );
-  const filterHandler = (link: categoryInterface) => {
-    if (selectedCategories.includes(link.englishTitle)) {
-      const newArray = selectedCategories.filter(
-        (c) => c !== link.englishTitle
-      );
-      setSelectedCategories(newArray);
-      if (newArray.length === 0) {
+  const filterHandler = (link: categoryInterface | null) => {
+    if (!!link) {
+      if (selectedCategories.includes(link!.englishTitle as string)) {
+        const newArray = selectedCategories.filter(
+          (c) => c !== link!.englishTitle
+        );
+        setSelectedCategories(newArray);
+        if (newArray.length === 0) {
+          router.push(
+            pathname +
+              "?" +
+              QueryCreator(
+                "category",
+                searchParams.get("category") || "",
+                searchParams
+              )
+                .split("&")
+                .filter((q) => !q.includes("category"))
+          );
+        } else {
+          router.push(
+            pathname + "?" + QueryCreator("category", newArray, searchParams)
+          );
+        }
+      } else {
+        setSelectedCategories([
+          ...selectedCategories,
+          link!.englishTitle as string,
+        ]);
         router.push(
           pathname +
             "?" +
-            QueryCreator("category", searchParams.get("category") || "", searchParams)
-              .split("&")
-              .filter((q) => !q.includes("category"))
-        );
-      } else {
-        router.push(
-          pathname + "?" + QueryCreator("category", newArray, searchParams)
+            QueryCreator(
+              "category",
+              [...selectedCategories, link!.englishTitle as string],
+              searchParams
+            )
         );
       }
-    } else {
-      setSelectedCategories([...selectedCategories, link.englishTitle]);
-      router.push(
-        pathname +
-          "?" +
-          QueryCreator(
-            "category",
-            [...selectedCategories, link.englishTitle],
-            searchParams
-          )
-      );
     }
   };
   return (
@@ -62,9 +71,9 @@ const ProductFilters = ({ links }: { links: categoryInterface[] }) => {
         {links.map((link) => {
           return (
             <Custom_list_item
-              key={link._id}
-              checked={selectedCategories.includes(link.englishTitle)}
-              labelId={link._id}
+              key={link!._id}
+              checked={selectedCategories.includes(link!.englishTitle || "")}
+              labelId={link._id as string}
               onchange={(_e) => {
                 filterHandler(link);
               }}
@@ -73,11 +82,10 @@ const ProductFilters = ({ links }: { links: categoryInterface[] }) => {
                 onClick={() => {
                   filterHandler(link);
                 }}
-                style={{ direction: "rtl" }}
               >
-                {link.icon.sm && (
+                {link!.icon.sm && (
                   <ListItemAvatar>
-                    <Avatar alt={link.description} src={link.icon.sm} />
+                    <Avatar alt={link!.description || ""} src={link!.icon.sm} />
                   </ListItemAvatar>
                 )}
                 <ListItemText
@@ -86,8 +94,8 @@ const ProductFilters = ({ links }: { links: categoryInterface[] }) => {
                     textAlign: "start",
                   }}
                   lang="fa-IR"
-                  id={link._id}
-                  primary={link.title}
+                  id={link._id as string}
+                  primary={link!.title}
                   primaryTypographyProps={{
                     fontFamily: vazirFont.style.fontFamily,
                     fontWeight: 400,

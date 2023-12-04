@@ -71,7 +71,7 @@ const Footer = () => {
         {links.map((col) => (
           <div
             key={col.title}
-            className="  min-w-[47%] max-w-[50%] md:min-w-[19%] md:max-w-[19%] flex flex-col items-start justify-start gap-2   "
+            className="min-w-full  sm:min-w-[47%] sm:max-w-[50%] md:min-w-[19%] md:max-w-[19%] flex flex-col items-start  justify-start gap-2   "
           >
             <span className="font-bold text-[1.2] capitalize text-start  ">
               {col.title}

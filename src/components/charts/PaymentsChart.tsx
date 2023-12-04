@@ -47,11 +47,6 @@ const PaymentsChart = ({
       },
     },
   ];
-  console.log({
-    filteredData: chartData,
-    date: payments?.map((p) => p.createdAt),
-    amount: payments?.map((p) => p.amount),
-  });
 
   return (
     <div className="min-w-full min-h-fit ">

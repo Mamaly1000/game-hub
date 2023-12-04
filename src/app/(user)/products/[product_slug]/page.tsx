@@ -4,14 +4,30 @@ import PageHeader from "@/components/headers/PageHeader";
 import PriceDisplay from "@/components/product-card/PriceDisplay";
 import { getAllProducts, getSingleProduct } from "@/services/productServices";
 import { productInterface, singleProductInterface } from "@/types/product";
-import { Box } from "@mui/material";
-import { GetServerSidePropsContext } from "next";
+import { GetServerSidePropsContext, ResolvingMetadata } from "next";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import Image from "next/image";
 import React from "react";
 
 export const dynamicParams = false;
 export const dynamic = "force-static";
+
+type Props = {
+  params: { product_slug: string };
+};
+
+export async function generateMetadata({ params }: Props): Promise<any> {
+  const {
+    data: {
+      data: { product },
+    },
+  } = await getSingleProduct(params.product_slug);
+
+  return {
+    title: product.title,
+    description: product.description,
+  };
+}
 
 const SingleProductPage = async ({ params }: { params: Params }) => {
   const { data } = await getSingleProduct(params.product_slug);
@@ -54,13 +70,13 @@ const SingleProductPage = async ({ params }: { params: Params }) => {
           title="قیمت با تخفیف"
         />
         <Custom_Divider />
-        <div className="min-w-full flex items-center justify-between gap-1 py-2 md:py-0">
-          <span>تگ ها :</span>
-          <div className="w-fit flex items-start justify-start gap-2">
+        <div className="min-w-full flex  items-center justify-between gap-2 py-2 md:py-0">
+          <span className="whitespace-nowrap">تگ ها :</span>
+          <div className="w-fit max-w-[60%] flex flex-wrap items-start justify-start gap-2">
             {product.tags.map((tag) => (
               <h5
                 key={tag}
-                className="px-2 py-1 rounded-lg bg-primary-900 text-white"
+                className="px-2 py-1 whitespace-nowrap rounded-lg bg-primary-900 text-white"
               >
                 {tag}
               </h5>
@@ -75,7 +91,9 @@ const SingleProductPage = async ({ params }: { params: Params }) => {
         <Custom_Divider />
         <div className="min-w-full flex items-center justify-between gap-1 py-2 md:py-0">
           <span>دسته بندی :</span>
-          <div>{product.category.title}</div>
+          <div>
+            {product!.category?.title ? product.category.title : "تعریف نشده"}
+          </div>
         </div>
         <Custom_Divider />
         <PriceDisplay

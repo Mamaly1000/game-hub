@@ -64,7 +64,7 @@ export default function BottomAppBar({
           position: "relative",
           display: "flex",
           alignItems: "start",
-          justifyContent: "start",
+          justifyContent: { xs: "center", md: "start" },
           flexDirection: "column",
           gap: 5,
         }}

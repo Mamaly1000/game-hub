@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import React, { ReactNode, useState } from "react";
 import CustomTablePagination from "./TablePagination";
+import RTL_Creator from "../ui/RTL_Creator";
 
 const TableSample = ({
   rows,
@@ -42,68 +43,73 @@ const TableSample = ({
     setPage(0);
   };
   return (
-    <Paper sx={{ width: "100%", overflow: "hidden" }}>
-      <TableContainer
-        sx={{
-          maxHeight: 600,
-          direction: "rtl",
-          background: "rgb(var(--color-secondary-800))",
-        }}
-      >
-        <Table
-          stickyHeader={sticky}
+    <RTL_Creator>
+      <Paper sx={{ width: "100%", overflow: "hidden" }}>
+        <TableContainer
           sx={{
-            maxWidth: "100%",
-            minWidth: "100%",
-            overflow: "auto",
+            maxHeight: 600,
             direction: "rtl",
+            background: "rgb(var(--color-secondary-800))",
           }}
-          aria-label="collapsible table"
         >
-          <StyledThead>
-            <TableRow>
-              {labels.map((l) => {
-                return (
-                  <TableCell align="right" key={l}>
-                    {l}
-                  </TableCell>
-                );
-              })}
-            </TableRow>
-          </StyledThead>
-          <TableBody>
-            {(rowsPerPage > 0 && displayPagination
-              ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              : rows
-            ).map((row, i) => TableRowData(row, i))}
-            {emptyRows > 0 && (
-              <TableRow style={{ height: 53 * emptyRows }}>
-                <TableCell colSpan={6} />
+          <Table
+            stickyHeader={sticky}
+            sx={{
+              maxWidth: "100%",
+              minWidth: "100%",
+              overflow: "auto",
+              direction: "rtl",
+            }}
+            aria-label="collapsible table"
+          >
+            <StyledThead>
+              <TableRow>
+                {labels.map((l) => {
+                  return (
+                    <TableCell align="right" key={l}>
+                      {l}
+                    </TableCell>
+                  );
+                })}
               </TableRow>
+            </StyledThead>
+            <TableBody>
+              {(rowsPerPage > 0 && displayPagination
+                ? rows.slice(
+                    page * rowsPerPage,
+                    page * rowsPerPage + rowsPerPage
+                  )
+                : rows
+              ).map((row, i) => TableRowData(row, i))}
+              {emptyRows > 0 && (
+                <TableRow style={{ height: 53 * emptyRows }}>
+                  <TableCell colSpan={6} />
+                </TableRow>
+              )}
+            </TableBody>
+            {displayPagination && (
+              <StyledTfooter
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  background: "rgb(var(--color-secondary-800))",
+                  color: "#ffffff",
+                }}
+              >
+                <CustomTablePagination
+                  handleChangePage={handleChangePage}
+                  handleChangeRowsPerPage={handleChangeRowsPerPage}
+                  page={page}
+                  rows={rows}
+                  rowsPerPage={rowsPerPage}
+                />
+              </StyledTfooter>
             )}
-          </TableBody>
-          {displayPagination && (
-            <StyledTfooter
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                background: "rgb(var(--color-secondary-800))",
-                color: "#ffffff",
-              }}
-            >
-              <CustomTablePagination
-                handleChangePage={handleChangePage}
-                handleChangeRowsPerPage={handleChangeRowsPerPage}
-                page={page}
-                rows={rows}
-                rowsPerPage={rowsPerPage}
-              />
-            </StyledTfooter>
-          )}
-        </Table>
-      </TableContainer>
-    </Paper>
+          </Table>
+        </TableContainer>
+      </Paper>
+    </RTL_Creator>
   );
 };
 

@@ -14,12 +14,10 @@ import {
   toPersianNumbers,
   toPersianNumbersWithComma,
 } from "@/utils/numConvertor";
-import RTL_Creator from "../ui/RTL_Creator";
-import { BsEye } from "react-icons/bs";
 import { adminPaymentInterface } from "@/types/payment";
 import CustomizedAccordions from "./ProductAccordian";
 import moment from "jalali-moment";
-import { Box, List, ListItem } from "@mui/material";
+import { List, ListItem } from "@mui/material";
 import { StylesTypo } from "@/styles/Typo";
 
 const Accordion = styled((props: AccordionProps) => (
@@ -75,84 +73,79 @@ export default function PaymentsAccordian({
     };
 
   return (
-    <RTL_Creator>
-      <div className="min-w-full flex flex-col items-start justify-start gap-3">
-        <h3>{title}</h3>
-        <Custom_Divider classname="bg-primary-900 border-primary-900" />
-        {payments?.map((p) => (
-          <Accordion
-            key={p._id}
-            expanded={expanded === p._id}
-            onChange={handleChange(p._id)}
-          >
-            <AccordionSummary
-              aria-controls="panel1d-content"
-              id="panel1d-header"
+    <div className="min-w-full flex flex-col items-start justify-start gap-3">
+      <h3>{title}</h3>
+      <Custom_Divider classname="bg-primary-900 border-primary-900" />
+      {payments?.map((p) => (
+        <Accordion
+          key={p._id}
+          expanded={expanded === p._id}
+          onChange={handleChange(p._id)}
+        >
+          <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
+            <Typography>
+              شماره فاکتور {toPersianNumbers(p.invoiceNumber)}
+            </Typography>
+          </AccordionSummary>
+          <List>
+            <ListItem
+              sx={{
+                minWidth: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                gap: 2,
+              }}
             >
-              <Typography>
-                شماره فاکتور {toPersianNumbers(p.invoiceNumber)}
-              </Typography>
-            </AccordionSummary>
-            <List>
-              <ListItem
-                sx={{
-                  minWidth: "100%",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  gap: 2,
-                }}
-              >
-                <StylesTypo>مبلغ</StylesTypo>
-                <StylesTypo>{toPersianNumbersWithComma(p.amount)}</StylesTypo>
-              </ListItem>
-              <Custom_Divider />
-              <ListItem
-                sx={{
-                  minWidth: "100%",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  gap: 2,
-                }}
-              >
-                <StylesTypo>در تاریخ</StylesTypo>
-                <StylesTypo>
-                  {toPersianNumbers(
-                    moment(p.paymentDate).format("jYYYY/jMM/jDD-MM:HH:SS")
-                  )}
-                </StylesTypo>
-              </ListItem>
-              <Custom_Divider />
-              <ListItem
-                sx={{
-                  minWidth: "100%",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  gap: 2,
-                }}
-              >
-                <StylesTypo>وضعیت</StylesTypo>
-                <StylesTypo>{p.status}</StylesTypo>
-              </ListItem>
-            </List>
+              <StylesTypo>مبلغ</StylesTypo>
+              <StylesTypo>{toPersianNumbersWithComma(p.amount)}</StylesTypo>
+            </ListItem>
+            <Custom_Divider />
+            <ListItem
+              sx={{
+                minWidth: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                gap: 2,
+              }}
+            >
+              <StylesTypo>در تاریخ</StylesTypo>
+              <StylesTypo>
+                {toPersianNumbers(
+                  moment(p.paymentDate).format("jYYYY/jMM/jDD-MM:HH:SS")
+                )}
+              </StylesTypo>
+            </ListItem>
+            <Custom_Divider />
+            <ListItem
+              sx={{
+                minWidth: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                gap: 2,
+              }}
+            >
+              <StylesTypo>وضعیت</StylesTypo>
+              <StylesTypo>{p.status}</StylesTypo>
+            </ListItem>
+          </List>
 
-            <AccordionDetails>
-              <Custom_list
-                title="اطلاعات بیشتر"
-                classname="min-w-full"
-                bgcolor="inherit"
-              >
-                <CustomizedAccordions
-                  products={p.cart.productDetail as any}
-                  title="محصولات مربوط به سفارش"
-                />
-              </Custom_list>
-            </AccordionDetails>
-          </Accordion>
-        ))}
-      </div>
-    </RTL_Creator>
+          <AccordionDetails>
+            <Custom_list
+              title="اطلاعات بیشتر"
+              classname="min-w-full"
+              bgcolor="inherit"
+            >
+              <CustomizedAccordions
+                products={p.cart.productDetail as any}
+                title="محصولات مربوط به سفارش"
+              />
+            </Custom_list>
+          </AccordionDetails>
+        </Accordion>
+      ))}
+    </div>
   );
 }

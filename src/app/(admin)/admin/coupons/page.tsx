@@ -5,7 +5,7 @@ import EditCouponForm from "@/components/forms/EditCouponForm";
 import PageHeader from "@/components/headers/PageHeader";
 import Custom_Button from "@/components/inputs/Custom_Button";
 import Loader from "@/components/loading/Loader";
-import CouponTableActions from "@/components/table-actions/CouponTableActions"; 
+import CouponTableActions from "@/components/table-actions/CouponTableActions";
 import SingleCouponRow from "@/components/table-components/SingleCouponRow";
 import TableSample from "@/components/table-components/TableSample";
 import {
@@ -99,7 +99,12 @@ const page = () => {
       mainOnClick={() => setOpenModal(true)}
     >
       <PageHeader>لیست کدهای تخفیف</PageHeader>
-
+      <CreateCouponForm
+        open={openModal}
+        setOpen={setOpenModal}
+        loading={createPending}
+        submitHandler={CreateCouponHandler}
+      />
       <EditCouponForm
         value={selectedCoupon}
         setValue={setSelectedCoupon}
@@ -144,12 +149,6 @@ const page = () => {
             />
           );
         }}
-      />
-      <CreateCouponForm
-        open={openModal}
-        setOpen={setOpenModal}
-        loading={createPending}
-        submitHandler={CreateCouponHandler}
       />
     </BottomAppBar>
   );

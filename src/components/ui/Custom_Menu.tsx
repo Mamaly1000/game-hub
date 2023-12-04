@@ -1,10 +1,7 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
-import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
-import ReactNode from "react";
-import RTL_Creator from "./RTL_Creator";
 import { StyledMenuComponent } from "@/styles/MenuStyle";
 
 export default function Custom_Menu({
@@ -30,7 +27,7 @@ export default function Custom_Menu({
   };
 
   return (
-    <RTL_Creator>
+    <React.Fragment>
       {
         <Button style={{ all: "unset" }} onClick={handleClick}>
           {children}
@@ -65,6 +62,6 @@ export default function Custom_Menu({
           </MenuItem>
         ))}
       </StyledMenuComponent>
-    </RTL_Creator>
+    </React.Fragment>
   );
 }

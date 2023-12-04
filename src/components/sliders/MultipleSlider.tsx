@@ -19,9 +19,9 @@ const MultipleSlider = ({
     let returnedData: string[] = [];
     if (type === "product") {
       const categories = (data as productInterface[]).map(
-        (p) => p.category.englishTitle
+        (p) => p.category?.englishTitle
       );
-      returnedData = [...new Set(categories)];
+      returnedData = [...new Set(categories)] as string[];
     }
     return returnedData;
   }, [data]);
@@ -46,7 +46,9 @@ const MultipleSlider = ({
         {SingleProducts().map((categoryName) => {
           const product: productInterface | undefined = (
             data as productInterface[]
-          ).find((p) => p.category.englishTitle === categoryName);
+          )
+            .filter((p) => !!p.category?.englishTitle)
+            .find((p) => p.category?.englishTitle === categoryName);
           return (
             product && (
               <SwiperSlide key={product._id} className="max-w-fit max-h-fit">

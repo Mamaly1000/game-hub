@@ -1,5 +1,5 @@
 import * as React from "react";
-import { styled, useTheme } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -11,7 +11,6 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import RTL_Creator from "../ui/RTL_Creator";
 
 const drawerWidth = 320;
 
@@ -68,14 +67,15 @@ export default function PersistentDrawerLeft({
   children,
   title,
   drawerContent,
+  open,
+  setOpen,
 }: {
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   drawerContent: React.ReactNode;
   title?: string;
   children: React.ReactNode;
 }) {
-  const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
-
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -85,71 +85,69 @@ export default function PersistentDrawerLeft({
   };
 
   return (
-    <RTL_Creator>
-      <Box sx={{ display: "flex" }}>
-        <CssBaseline />
-        <AppBar
-          sx={{ background: "rgb(var(--color-secondary-800))" }}
-          position="absolute"
-          open={open}
-        >
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              edge="start"
-              sx={{ mr: 2, ...(open && { display: "none" }) }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              sx={{ fontSize: { xs: "1rem", md: "1.5rem" } }}
-              variant="h6"
-              noWrap
-              component="div"
-            >
-              {title}
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <Drawer
-          sx={{
-            width: drawerWidth,
-            flexShrink: 0,
-            "& .MuiDrawer-paper": {
-              width: drawerWidth,
-              boxSizing: "border-box",
-              background: "rgb(var(--color-secondary-800))",
-              color: "#ffffff",
-            },
-          }}
-          variant="persistent"
-          anchor="right"
-          open={open}
-        >
-          <DrawerHeader
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "start",
-            }}
+    <Box sx={{ display: "flex" }}>
+      <CssBaseline />
+      <AppBar
+        sx={{ background: "rgb(var(--color-secondary-800))" }}
+        position="absolute"
+        open={open}
+      >
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            sx={{ mr: 2, ...(open && { display: "none" }) }}
           >
-            <IconButton
-              sx={{ background: "rgb(var(--color-primary-900))" }}
-              onClick={handleDrawerClose}
-            >
-              {!open ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-            </IconButton>
-          </DrawerHeader>
-          <Divider />
-          {drawerContent}
-        </Drawer>
-        <Main className="col-span-12" open={open}>
-          <DrawerHeader />
-          {children}
-        </Main>
-      </Box>
-    </RTL_Creator>
+            <MenuIcon />
+          </IconButton>
+          <Typography
+            sx={{ fontSize: { xs: "1rem", md: "1.5rem" } }}
+            variant="h6"
+            noWrap
+            component="div"
+          >
+            {title}
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          "& .MuiDrawer-paper": {
+            width: drawerWidth,
+            boxSizing: "border-box",
+            background: "rgb(var(--color-secondary-800))",
+            color: "#ffffff",
+          },
+        }}
+        variant="persistent"
+        anchor="right"
+        open={open}
+      >
+        <DrawerHeader
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "start",
+          }}
+        >
+          <IconButton
+            sx={{ background: "rgb(var(--color-primary-900))" }}
+            onClick={handleDrawerClose}
+          >
+            {!open ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+          </IconButton>
+        </DrawerHeader>
+        <Divider />
+        {drawerContent}
+      </Drawer>
+      <Main className="col-span-12" open={open}>
+        <DrawerHeader />
+        {children}
+      </Main>
+    </Box>
   );
 }

@@ -4,7 +4,6 @@ import vazirFont from "@/common/local-fonts/VazirFont";
 import numConvertor from "@/utils/numConvertor";
 import { TextField } from "@mui/material";
 import styled from "styled-components";
-import RTL_Creator from "../ui/RTL_Creator";
 
 const Div = styled.div`
   min-width: 100%;
@@ -55,50 +54,48 @@ const Normal_textfield = ({
   };
 
   return (
-    <RTL_Creator>
-      <Div className=" p-2 bg-mid_transparent text-white rounded-lg text-start ">
-        <TextField
-          fullWidth
-          className="font-vazir"
-          type="text"
-          id="filled-basic"
-          name={name}
-          label={label}
-          variant="filled"
-          error={error.value}
-          helperText={error.message}
-          style={vazirFont.style}
-          InputLabelProps={{
-            style: {
-              fontFamily: vazirFont.style.fontFamily,
-              color: "#ffffff",
-            },
-          }}
-          value={display.persian_value}
-          FormHelperTextProps={{
-            style: vazirFont.style,
-          }}
-          onChange={(e) => {
-            setValue(e);
-            setDisplay({
-              persian_value: numConvertor("fa", e.target.value),
-              english_value: numConvertor("en", e.target.value),
-            });
-            errorHandling(e);
-          }}
-          InputProps={{
-            style: {
-              ...vazirFont.style,
-              color: "#ffffff",
-            },
-          }}
-          onFocus={errorHandling}
-          onBlur={errorHandling}
-          onClick={errorHandling}
-          onBeforeInput={errorHandling}
-        />
-      </Div>
-    </RTL_Creator>
+    <Div className=" p-2 bg-mid_transparent text-white rounded-lg text-start ">
+      <TextField
+        fullWidth
+        className="font-vazir"
+        type="text"
+        id="filled-basic"
+        name={name}
+        label={label}
+        variant="filled"
+        error={error.value}
+        helperText={error.message}
+        style={vazirFont.style}
+        InputLabelProps={{
+          style: {
+            fontFamily: vazirFont.style.fontFamily,
+            color: "#ffffff",
+          },
+        }}
+        value={display.persian_value}
+        FormHelperTextProps={{
+          style: vazirFont.style,
+        }}
+        onChange={(e) => {
+          setValue(e);
+          setDisplay({
+            persian_value: numConvertor("fa", e.target.value),
+            english_value: numConvertor("en", e.target.value),
+          });
+          errorHandling(e);
+        }}
+        InputProps={{
+          style: {
+            ...vazirFont.style,
+            color: "#ffffff",
+          },
+        }}
+        onFocus={errorHandling}
+        onBlur={errorHandling}
+        onClick={errorHandling}
+        onBeforeInput={errorHandling}
+      />
+    </Div>
   );
 };
 

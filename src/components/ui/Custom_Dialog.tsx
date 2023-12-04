@@ -1,7 +1,6 @@
 "use client";
 import { useTheme } from "@mui/material/styles";
 import {
-  Button,
   DialogActions,
   DialogContent,
   DialogContentText,
@@ -9,12 +8,10 @@ import {
   IconButton,
   useMediaQuery,
 } from "@mui/material";
-import React, { ReactNode } from "react";
+import React, { Fragment, ReactNode } from "react";
 import { BootstrapDialog } from "@/styles/Dialog";
 import CloseIcon from "@mui/icons-material/Close";
-import RTL_Creator from "./RTL_Creator";
 import { toPersianNumbers } from "@/utils/numConvertor";
-import Custom_Button from "../inputs/Custom_Button";
 const Custom_Dialog = ({
   btnElement,
   open,
@@ -39,7 +36,7 @@ const Custom_Dialog = ({
     setOpen(false);
   };
   return (
-    <RTL_Creator>
+    <Fragment>
       {btnElement}
       <BootstrapDialog
         fullScreen={fullScreen}
@@ -73,7 +70,7 @@ const Custom_Dialog = ({
         </DialogContent>
         <DialogActions>{modalActions}</DialogActions>
       </BootstrapDialog>
-    </RTL_Creator>
+    </Fragment>
   );
 };
 

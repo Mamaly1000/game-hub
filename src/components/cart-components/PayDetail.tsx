@@ -33,6 +33,7 @@ const PayDetail = ({ cart }: { cart: cartInterface | null }) => {
             price: cart.payDetail.totalGrossPrice,
           }}
           title="جمع کل"
+          className="min-w-full flex items-center justify-between flex-wrap gap-2"
         />{" "}
         <Custom_Divider />
         <PriceDisplay
@@ -41,6 +42,7 @@ const PayDetail = ({ cart }: { cart: cartInterface | null }) => {
             offPrice: null,
             price: cart.payDetail.totalOffAmount,
           }}
+          className="min-w-full flex items-center justify-between flex-wrap gap-2"
           title="تخفیف"
         />{" "}
         <Custom_Divider />
@@ -51,7 +53,7 @@ const PayDetail = ({ cart }: { cart: cartInterface | null }) => {
             price: cart.payDetail.totalPrice,
           }}
           title="مبلغ قابل پرداخت"
-          className="font-bold"
+          className="min-w-full flex items-center justify-between flex-wrap gap-2"
         />
         <Custom_Divider />
         <Box

@@ -24,7 +24,7 @@ const CardContentList = ({ product }: { product: productInterface }) => {
   const data = [
     {
       text: "دسته بندی",
-      value: product.category.title,
+      value: !!product.category?.title ? product.category.title : "تعریف نشده",
     },
     {
       text: "تعداد موجود",

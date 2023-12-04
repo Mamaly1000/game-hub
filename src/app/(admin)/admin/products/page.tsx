@@ -9,9 +9,9 @@ import { productInterface, singleCartProductInterface } from "@/types/product";
 import { useRouter } from "next/navigation";
 import BottomAppBar from "@/components/admin-sidebar/BottomSideBar";
 import { Add } from "@mui/icons-material";
-import Custom_Tooltip from "@/components/ui/Custom_Tooltip";
 import TableSample from "@/components/table-components/TableSample";
 import AdminMainProductRow from "@/components/table-components/AdminMainProductRow";
+import DisplayProductsChart from "@/components/charts/DisplayProductsChart";
 const page = () => {
   const router = useRouter();
   const { data, isLoading, error, refetch } = useAllProducts();
@@ -50,6 +50,18 @@ const page = () => {
       mainOnClick={() => router.push("/admin/products/add")}
     >
       <PageHeader>لیست محصولات</PageHeader>
+      <Custom_Button
+        className=" animate-pulse"
+        disable={false}
+        onclick={() => router.push("/admin/products/add")}
+        sx={{
+          display: { xs: "none", md: "flex" },
+          background: "rgb(var(--color-success)) !important",
+          color: "inherit",
+        }}
+      >
+        <Add /> ایجاد محصول
+      </Custom_Button>
       <TableSample
         TableRowData={(
           row: singleCartProductInterface | productInterface,
@@ -68,21 +80,7 @@ const page = () => {
         ]}
         rows={products}
       />
-      <Custom_Button
-        className=" min-w-[60px] min-h-[60px] max-w-[60px] max-h-[60px] sticky bottom-[-60px] start-[-20px] z-10 animate-pulse"
-        disable={false}
-        onclick={() => router.push("/admin/products/add")}
-        sx={{
-          display: { xs: "none", md: "flex" },
-          borderRadius: "50%",
-          background: "rgb(var(--color-success)) !important",
-          color: "inherit",
-        }}
-      >
-        <Custom_Tooltip title="ایجاد محصول جدید">
-          <Add />
-        </Custom_Tooltip>
-      </Custom_Button>
+      <DisplayProductsChart products={products} />
     </BottomAppBar>
   );
 };

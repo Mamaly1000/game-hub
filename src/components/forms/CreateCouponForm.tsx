@@ -64,19 +64,16 @@ const CreateCouponForm = ({
       Modal_title="ایجاد کد تخفیف"
       btnElement={
         <Custom_Button
-          className=" min-w-[60px] min-h-[60px] max-w-[60px] max-h-[60px] sticky bottom-[-60px] start-[-20px] z-10 animate-pulse"
-          disable={false}
           onclick={() => setOpen(true)}
+          className=" animate-pulse"
+          disable={false}
           sx={{
             display: { xs: "none", md: "flex" },
-            borderRadius: "50%",
-            background: "rgb(var(--color-success))",
+            background: "rgb(var(--color-success)) !important",
             color: "inherit",
           }}
         >
-          <Custom_Tooltip title="ایجاد کد تخفیف">
-            <Add />
-          </Custom_Tooltip>
+          <Add /> ایجاد کد تخفیف
         </Custom_Button>
       }
       modalActions={

@@ -2,7 +2,7 @@
 import BottomAppBar from "@/components/admin-sidebar/BottomSideBar";
 import PageHeader from "@/components/headers/PageHeader";
 import Custom_Button from "@/components/inputs/Custom_Button";
-import Loader from "@/components/loading/Loader"; 
+import Loader from "@/components/loading/Loader";
 import { useGetAllPayments } from "@/hook/usePayment";
 import { adminPaymentInterface } from "@/types/payment";
 import { Box } from "@mui/material";
@@ -11,6 +11,7 @@ import React from "react";
 import BackspaceIcon from "@mui/icons-material/Backspace";
 import TableSample from "@/components/table-components/TableSample";
 import SingleCollapsibleRow from "@/components/table-components/SingleCollapsibleRow";
+import PaymentsChart from "@/components/charts/PaymentsChart";
 
 const page = () => {
   const router = useRouter();
@@ -68,7 +69,6 @@ const page = () => {
           "مبلغ",
           "تاریخ",
           "وضعیت",
-          "عملیات",
         ]}
         rows={payments || []}
         TableRowData={(row: adminPaymentInterface, i) => {
@@ -89,6 +89,7 @@ const page = () => {
           );
         }}
       />
+      <PaymentsChart payments={payments} />
     </BottomAppBar>
   );
 };

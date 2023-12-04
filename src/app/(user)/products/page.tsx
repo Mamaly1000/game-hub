@@ -9,7 +9,14 @@ import { cookies } from "next/headers";
 import PageHeader from "@/components/headers/PageHeader";
 import MobileSidebar from "@/components/user-sidebar/MobileSidebar";
 import CustomProductCard from "@/components/product-card/CustomProductCard";
+import { Metadata } from "next";
+import { Box } from "@mui/material";
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "به صفحه محصولات game hub خوش آمدید.",
+  description: "با ما بروز باشید.",
+};
 
 const ProductsPage = async ({ searchParams }: { searchParams: any }) => {
   const allcategories = getAllCategories();
@@ -32,17 +39,31 @@ const ProductsPage = async ({ searchParams }: { searchParams: any }) => {
     <div className="col-span-12 min-w-full max-h-fit md:max-h-screen   overflow-hidden grid grid-cols-12  ">
       <SideBar links={categories} />
       <Suspense fallback={<Loader />}>
-        <div className="col-span-12 md:hidden">
+        <Box
+          sx={{
+            display: { xs: "block", md: "none" },
+          }}
+          className="col-span-12"
+        >
           <MobileSidebar categories={categories} />
-        </div>
-        <div className="max-w-full  max-h-fit md:max-h-full md:overflow-auto col-span-12 md:col-span-10 p-5  flex items-start justify-start gap-5 flex-wrap bg-transparent  ">
-          <PageHeader classname="hidden md:block min-w-full font-bold text-start text-[3rem]">
-            محصولات
-          </PageHeader>
+        </Box>
+        <Box
+          sx={{
+            overflow: { md: "auto" },
+            maxHeight: { xs: "fit-content", md: "100%" },
+            gridColumn: { xs: "span 12 / span 12", md: "span 10 / span 10" },
+          }}
+          className="max-w-full  p-5  flex items-start justify-center md:justify-start gap-5 flex-wrap bg-transparent  "
+        >
+          <Box sx={{ display: { xs: "none", md: "block" }, minWidth: "100%" }}>
+            <PageHeader classname="hidden md:block min-w-full font-bold text-start text-[3rem]">
+              محصولات
+            </PageHeader>
+          </Box>
           {(products as productInterface[]).map((p) => {
             return <CustomProductCard product={p} key={p._id} />;
           })}
-        </div>
+        </Box>
       </Suspense>
     </div>
   );

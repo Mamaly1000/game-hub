@@ -1,75 +1,72 @@
-import { productInterface } from "@/types/product";
 import {
   toPersianNumbers,
   toPersianNumbersWithComma,
 } from "@/utils/numConvertor";
+import { LineSeriesType } from "@mui/x-charts";
+import { MakeOptional } from "@mui/x-date-pickers/internals";
 import moment from "jalali-moment";
 import React, { useState } from "react";
 import Custom_LineChart from "./Custom_LineChart";
-import { MakeOptional } from "@mui/x-date-pickers/internals";
-import { LineSeriesType } from "@mui/x-charts";
 import Custom_RangeSlider from "../ui/Custom_RangeSlider";
+import { UserInterface } from "@/types/User";
 
-const DisplayProductsChart = ({
-  products = null,
-}: {
-  products: productInterface[] | null;
-}) => {
+const UsersChart = ({ users = null }: { users: UserInterface[] | null }) => {
   const [hiddenSeries, setHiddenSeries] = useState<string[]>([]);
-  const [priceRange, setpriceRange] = useState<{
+  const [addedProductsRange, setAddedProductsRange] = useState<{
     min: number;
     max: number;
   }>({
-    max: Math.max(...products!.map((p) => +p.price || 0)),
-    min: Math.min(...products!.map((p) => +p.price || 0)),
+    max: Math.max(...users!.map((p) => +p.likedProducts.length || 0)),
+    min: Math.min(...users!.map((p) => +p.likedProducts.length || 0)),
   });
   const [dateRange, setdateRange] = useState<{ min: number; max: number }>({
     max:
-      Math.max(...products!.map((p) => new Date(p.createdAt).getTime() || 0)) ||
+      Math.max(...users!.map((p) => new Date(p.createdAt).getTime() || 0)) ||
       100,
     min:
-      Math.min(...products!.map((p) => new Date(p.createdAt).getTime() || 0)) ||
-      0,
+      Math.min(...users!.map((p) => new Date(p.createdAt).getTime() || 0)) || 0,
   });
-  const productsPrices = products
+  const likedProducts = users
     ?.filter(
       (p) =>
         new Date(p.createdAt).getTime() >= dateRange.min &&
         new Date(p.createdAt).getTime() <= dateRange.max
     )
     .filter(
-      (product) =>
-        +product.price >= priceRange.min && +product.price <= priceRange.max
+      (user) =>
+        user.likedProducts.length >= addedProductsRange.min &&
+        user.likedProducts.length <= addedProductsRange.max
     )
-    .map((p) => p.price);
-  const createdProductsDate = products
+    ?.map((p) => p.likedProducts.length);
+  const registeredData = users
     ?.filter(
       (p) =>
         new Date(p.createdAt).getTime() >= dateRange.min &&
         new Date(p.createdAt).getTime() <= dateRange.max
     )
     .filter(
-      (product) =>
-        product.price >= priceRange.min && product.price <= priceRange.max
+      (user) =>
+        user.likedProducts.length >= addedProductsRange.min &&
+        user.likedProducts.length <= addedProductsRange.max
     )
     ?.map((p) => new Date(p.createdAt).getTime());
   const series: MakeOptional<LineSeriesType, "type">[] = [
     {
-      data: productsPrices,
+      data: likedProducts,
       color: "rgb(var(--color-primary-900))",
       yAxisKey: "right-axis",
-      label: "قیمت محصول",
+      label: "تعداد مصولات لایک شده",
       valueFormatter: (val: any) => {
-        return toPersianNumbersWithComma(val) + " تومان";
+        return toPersianNumbersWithComma(val || 0) + " عدد";
       },
     },
     {
-      data: createdProductsDate,
+      data: registeredData,
       color: "rgb(var(--color-success))",
       yAxisKey: "left-axis",
-      label: "تاریخ ایجاد محصول",
-      valueFormatter: (val: string | number) => {
-        return toPersianNumbers(moment(+val).format("jYYYY/jMM/jDD"));
+      label: "تاریخ ثبت نام",
+      valueFormatter: (val: any) => {
+        return toPersianNumbers(moment(+val).format("jYYYY/jMM/jDD-HH:MM"));
       },
     },
   ];
@@ -104,28 +101,28 @@ const DisplayProductsChart = ({
               )
           )}
         </div>
-        {!!products?.length && (
+        {!!users?.length && (
           <div className="min-w-full md:min-w-[45%] md:max-w-[45%] flex items-center justify-center gap-3 flex-wrap ">
             <Custom_RangeSlider
-              max={Math.max(...products!.map((p) => +p.price))}
-              min={Math.min(...products!.map((p) => +p.price))}
-              minVal={priceRange.min}
-              maxVal={priceRange.max}
+              max={Math.max(...users!.map((p) => +p.likedProducts.length))}
+              min={Math.min(...users!.map((p) => +p.likedProducts.length))}
+              minVal={addedProductsRange.min}
+              maxVal={addedProductsRange.max}
               setRange={(val) => {
-                setpriceRange({
+                setAddedProductsRange({
                   min: +val[0],
                   max: +val[1],
                 });
               }}
               type="number"
-              label="قیمت محصول"
+              label="مبلغ سفارش"
             />{" "}
             <Custom_RangeSlider
               max={Math.max(
-                ...products!.map((p) => new Date(p.createdAt).getTime() || 0)
+                ...users!.map((p) => new Date(p.createdAt).getTime() || 0)
               )}
               min={Math.min(
-                ...products!.map((p) => new Date(p.createdAt).getTime() || 0)
+                ...users!.map((p) => new Date(p.createdAt).getTime() || 0)
               )}
               minVal={dateRange.min}
               maxVal={dateRange.max}
@@ -136,32 +133,21 @@ const DisplayProductsChart = ({
                 });
               }}
               type="date"
-              label="تاریخ ایجاد محصول"
+              label="تاریخ سفارش"
             />
           </div>
         )}
       </div>
-      {products &&
-        productsPrices &&
-        productsPrices?.length > 0 &&
-        createdProductsDate &&
-        createdProductsDate?.length > 0 && (
+      {users &&
+        likedProducts &&
+        likedProducts?.length > 0 &&
+        registeredData &&
+        registeredData?.length > 0 && (
           <Custom_LineChart
             series={series.filter((s) => !hiddenSeries.includes(s.label || ""))}
             xAxis={[
               {
-                data: products
-                  ?.filter(
-                    (p) =>
-                      new Date(p.createdAt).getTime() >= dateRange.min &&
-                      new Date(p.createdAt).getTime() <= dateRange.max
-                  )
-                  .filter(
-                    (product) =>
-                      product.price >= priceRange.min &&
-                      product.price <= priceRange.max
-                  )
-                  .map((p) => p.title),
+                data: users?.map((user) => user.name || user.email),
                 scaleType: "band",
                 labelStyle: {
                   fontSize: 14,
@@ -172,9 +158,6 @@ const DisplayProductsChart = ({
                   textAnchor: "start",
                   fontSize: 10,
                 },
-                valueFormatter: (val) => {
-                  return (val + "").slice(0, 20);
-                },
               },
             ]}
             yAxis={[
@@ -183,15 +166,17 @@ const DisplayProductsChart = ({
                 id: "right-axis",
                 scaleType: "linear",
                 valueFormatter: (val) => {
-                  return toPersianNumbersWithComma(val) + " تومان";
+                  return toPersianNumbersWithComma(val || 0) + " عدد";
                 },
               },
               {
                 stroke: "rgb(var(--color-success))",
                 id: "left-axis",
-                scaleType: "utc",
-                valueFormatter: (val) => {
-                  return toPersianNumbers(moment(+val).format("jYYYY/jMM/jDD"));
+                scaleType: "time",
+                valueFormatter: (val: any) => {
+                  return toPersianNumbers(
+                    moment(+val).format("jYYYY/jMM/jDD-HH:MM")
+                  );
                 },
               },
             ]}
@@ -203,4 +188,4 @@ const DisplayProductsChart = ({
   );
 };
 
-export default DisplayProductsChart;
+export default UsersChart;

@@ -34,8 +34,6 @@ const CreateCategoryForm = ({
       type: "",
     },
     onSubmit: async (vals) => {
-      console.log(vals);
-
       if (formType === "create") {
         await mutateAsync(vals).then((res) => {
           toast.success(res.data.data.message);

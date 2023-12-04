@@ -6,7 +6,6 @@ import MuiAccordionSummary, {
   AccordionSummaryProps,
 } from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
 import { productInterface, singleProductInterface } from "@/types/product";
 import { Custom_Divider } from "../cart-components/PayDetail";
 import Custom_list from "../ui/Custom_list";
@@ -17,8 +16,6 @@ import {
   toPersianNumbersWithComma,
 } from "@/utils/numConvertor";
 import Custom_link from "../inputs/Custom_link";
-import RTL_Creator from "../ui/RTL_Creator";
-import { ViewAgenda } from "@mui/icons-material";
 import { BsEye } from "react-icons/bs";
 
 const Accordion = styled((props: AccordionProps) => (
@@ -74,86 +71,84 @@ export default function CustomizedAccordions({
     };
 
   return (
-    <RTL_Creator>
-      <div className="min-w-full flex flex-col items-start justify-start gap-3">
-        <h3 className="text-white">{title}</h3>
-        <Custom_Divider classname="bg-primary-900 border-primary-900" />
-        {products?.map((p) => (
-          <Accordion
-            key={p._id}
-            expanded={expanded === p.title}
-            onChange={handleChange(p.title)}
+    <div className="min-w-full flex flex-col items-start justify-start gap-3">
+      <h3 className="text-white">{title}</h3>
+      <Custom_Divider classname="bg-primary-900 border-primary-900" />
+      {products?.map((p) => (
+        <Accordion
+          key={p._id}
+          expanded={expanded === p.title}
+          onChange={handleChange(p.title)}
+        >
+          <AccordionSummary
+            aria-controls="panel1d-content"
+            id="panel1d-header"
+            color="inherit"
           >
-            <AccordionSummary
-              aria-controls="panel1d-content"
-              id="panel1d-header"
-              color="inherit"
+            <StylesTypo sx={{ color: "#fff" }}>
+              {p.title.slice(0, 25)}
+            </StylesTypo>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Custom_list
+              title="اطلاعات بیشتر"
+              classname="min-w-full"
+              bgcolor="inherit"
             >
-              <StylesTypo sx={{ color: "#fff" }}>
-                {p.title.slice(0, 25)}
-              </StylesTypo>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Custom_list
-                title="اطلاعات بیشتر"
-                classname="min-w-full"
-                bgcolor="inherit"
-              >
-                {[
-                  {
-                    name: "قیمت",
-                    value: toPersianNumbersWithComma(p.price),
-                  },
-                  {
-                    name: "دسته بندی",
-                    value: p.category?.title,
-                  },
-                  {
-                    name: "تعداد",
-                    value: toPersianNumbers(p.quantity || p.countInStock),
-                  },
-                  {
-                    name: "برند",
-                    value: p.brand,
-                  },
-                  {
-                    name: "مشاهده محصول",
-                    value: p.slug,
-                    link: true,
-                  },
-                ].map(
-                  (sp, i) =>
-                    !!sp.value && (
-                      <ListItem
-                        sx={{
-                          minWidth: "100%",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "space-between",
-                          gap: 2,
-                        }}
-                        key={i + sp.name}
-                      >
-                        <StylesTypo>{sp.name}</StylesTypo>
-                        {!!sp.value &&
-                          (!!sp.link ? (
-                            <Custom_link
-                              classname="w-[30px] h-[30px] flex items-center justify-center rounded-lg text-white bg-warning drop-shadow-2xl"
-                              href={`/products/${sp.value}`}
-                            >
-                              <BsEye />
-                            </Custom_link>
-                          ) : (
-                            <StylesTypo>{sp.value}</StylesTypo>
-                          ))}
-                      </ListItem>
-                    )
-                )}
-              </Custom_list>
-            </AccordionDetails>
-          </Accordion>
-        ))}
-      </div>
-    </RTL_Creator>
+              {[
+                {
+                  name: "قیمت",
+                  value: toPersianNumbersWithComma(p.price),
+                },
+                {
+                  name: "دسته بندی",
+                  value: !!p.category?.title ? p.category.title : "تعریف نشده",
+                },
+                {
+                  name: "تعداد",
+                  value: toPersianNumbers(p.quantity || p.countInStock),
+                },
+                {
+                  name: "برند",
+                  value: p.brand,
+                },
+                {
+                  name: "مشاهده محصول",
+                  value: p.slug,
+                  link: true,
+                },
+              ].map(
+                (sp, i) =>
+                  !!sp.value && (
+                    <ListItem
+                      sx={{
+                        minWidth: "100%",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        gap: 2,
+                      }}
+                      key={i + sp.name}
+                    >
+                      <StylesTypo>{sp.name}</StylesTypo>
+                      {!!sp.value &&
+                        (!!sp.link ? (
+                          <Custom_link
+                            classname="w-[30px] h-[30px] flex items-center justify-center rounded-lg text-white bg-warning drop-shadow-2xl"
+                            href={`/products/${sp.value}`}
+                          >
+                            <BsEye />
+                          </Custom_link>
+                        ) : (
+                          <StylesTypo>{sp.value}</StylesTypo>
+                        ))}
+                    </ListItem>
+                  )
+              )}
+            </Custom_list>
+          </AccordionDetails>
+        </Accordion>
+      ))}
+    </div>
   );
 }

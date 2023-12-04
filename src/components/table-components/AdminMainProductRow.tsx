@@ -15,7 +15,7 @@ const AdminMainProductRow = ({
   role = "ADMIN",
 }: {
   row: singleCartProductInterface | productInterface;
-  role: ROLES;
+  role?: ROLES;
 }) => {
   return (
     <StyledTableRow key={row._id}>

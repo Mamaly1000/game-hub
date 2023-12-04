@@ -1,3 +1,4 @@
+"use client";
 import React, { ReactNode } from "react";
 import createCache from "@emotion/cache";
 import { prefixer } from "stylis";
@@ -18,6 +19,7 @@ const RTL_Creator = ({ children }: { children: ReactNode }) => {
       allVariants: {
         color: "white",
         stroke: "white",
+        textAlign: "right",
       },
     },
   });

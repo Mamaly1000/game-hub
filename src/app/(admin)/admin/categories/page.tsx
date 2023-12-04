@@ -3,16 +3,14 @@ import BottomAppBar from "@/components/admin-sidebar/BottomSideBar";
 import PageHeader from "@/components/headers/PageHeader";
 import Custom_Button from "@/components/inputs/Custom_Button";
 import Loader from "@/components/loading/Loader";
-import AdminCategoryRow from "@/components/table-components/AdminCategoryRow"; 
-import TableSample from "@/components/table-components/TableSample";
-import Custom_Tooltip from "@/components/ui/Custom_Tooltip";
+import AdminCategoryRow from "@/components/table-components/AdminCategoryRow";
+import TableSample from "@/components/table-components/TableSample"; 
 import { useGetAllCategories } from "@/hook/useGetAllCategories";
 import { categoryInterface } from "@/types/category";
 import { Add } from "@mui/icons-material";
 import { Box } from "@mui/material";
 import { useRouter } from "next/navigation";
-import React from "react";
-import { MdAdd } from "react-icons/md";
+import React from "react"; 
 
 const AddCategoryPage = () => {
   const router = useRouter();
@@ -50,7 +48,18 @@ const AddCategoryPage = () => {
       displayAddBtn
       tooltipTitle="ایجاد دسته بندی جدید"
     >
-      <PageHeader>لیست دسته بندی ها</PageHeader> 
+      <PageHeader>لیست دسته بندی ها</PageHeader>
+      <Custom_Button
+        onclick={() => router.push("/admin/categories/add")}
+        className=" animate-pulse"
+        sx={{
+          display: { xs: "none", md: "flex" },
+          background: "rgb(var(--color-success)) !important",
+          color: "inherit",
+        }}
+      >
+        <Add /> ایجاد دسته بندی
+      </Custom_Button>
       <TableSample
         TableRowData={(row: categoryInterface, i) => {
           return <AdminCategoryRow i={i} row={row} />;
@@ -58,20 +67,6 @@ const AddCategoryPage = () => {
         labels={["عنوان", "توضیحات", "عنوان انگلیسی", "نوع", "عملیات"]}
         rows={categories || []}
       />
-      <Custom_Button
-        className=" min-w-[60px] min-h-[60px] max-w-[60px] max-h-[60px] sticky bottom-[-60px] start-[-20px] z-10 animate-pulse"
-        onclick={() => router.push("/admin/categories/add")}
-        sx={{
-          display: { xs: "none", md: "flex" },
-          borderRadius: "50%",
-          background: "rgb(var(--color-success))",
-          color: "inherit",
-        }}
-      >
-        <Custom_Tooltip title="ایجاد دسته بندی جدید">
-          <Add />
-        </Custom_Tooltip>
-      </Custom_Button>
     </BottomAppBar>
   );
 };

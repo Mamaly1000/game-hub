@@ -1,10 +1,8 @@
 "use client";
-import React from "react";
+import React, { Fragment } from "react";
 import { Box, Typography, Divider } from "@mui/material";
 import { Sort } from "@mui/icons-material";
-import vazirFont from "@/common/local-fonts/VazirFont";
-import Custom_Button from "../inputs/Custom_Button";
-import RTL_Creator from "../ui/RTL_Creator";
+import vazirFont from "@/common/local-fonts/VazirFont"; 
 import ProductFilters from "../filter-components/ProductFilters";
 import ProductSorts from "../sort-components/ProductSorts";
 import { categoryInterface } from "@/types/category";
@@ -18,7 +16,7 @@ const MobileSidebar = ({ categories }: { categories: categoryInterface[] }) => {
   };
 
   return (
-    <RTL_Creator>
+    <Fragment>
       <Box
         sx={{
           display: { xs: "flex", md: "none" },
@@ -50,7 +48,7 @@ const MobileSidebar = ({ categories }: { categories: categoryInterface[] }) => {
         <Divider />
         <ProductSorts />
       </Custom_Drawer>
-    </RTL_Creator>
+    </Fragment>
   );
 };
 

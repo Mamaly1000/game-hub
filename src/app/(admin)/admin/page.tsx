@@ -3,6 +3,7 @@ import AdminDrawer from "@/components/admin-landing/AdminDrawer";
 import PaymentsAccordian from "@/components/admin-landing/PaymentsAccordian";
 import CustomizedAccordions from "@/components/admin-landing/ProductAccordian";
 import BottomAppBar from "@/components/admin-sidebar/BottomSideBar";
+import PayDetail from "@/components/cart-components/PayDetail";
 import Custom_LineChart from "@/components/charts/Custom_LineChart";
 import DisplayProductsChart from "@/components/charts/DisplayProductsChart";
 import PaymentsChart from "@/components/charts/PaymentsChart";
@@ -16,9 +17,11 @@ import { cartInterface } from "@/types/cart";
 import { adminPaymentInterface } from "@/types/payment";
 import { productInterface } from "@/types/product";
 import { toPersianNumbersWithComma } from "@/utils/numConvertor";
-import React, { ReactNode } from "react";
+import { Box } from "@mui/material";
+import React, { ReactNode, useState } from "react";
 
 const AdminPage = () => {
+  const [open, setOpen] = useState(false);
   const { data: allProducts, isLoading: allProductsLoading } = useAllProducts();
   const { data: AdminData, isLoading: AdminLoading } = useFetchUser();
   const user: UserInterface | null = AdminData?.data.data.user;
@@ -29,6 +32,7 @@ const AdminPage = () => {
   if (AdminLoading || allProductsLoading) {
     return <Loader />;
   }
+
   return (
     <BottomAppBar>
       <PersistentDrawerLeft
@@ -38,6 +42,8 @@ const AdminPage = () => {
             cart={+cart!.payDetail!.totalGrossPrice === 0 ? null : cart}
           />
         }
+        open={open}
+        setOpen={setOpen}
       >
         <div className="min-w-full max-w-full grid grid-cols-12 min-h-fit gap-5  ">
           <div className="col-span-12">
@@ -101,6 +107,20 @@ const AdminPage = () => {
             ).filter((p) => !!p.discount)}
           />
         </div>
+        {!!!(cart!.productDetail.length === 0) && (
+          <Box
+            sx={{
+              maxWidth: "300px",
+              maxHeight: "content-fit",
+              display: { xs: "none", lg: open ? "none" : "block" },
+              position: "fixed",
+              top: "100px",
+              right: "100px",
+            }}
+          >
+            <PayDetail cart={cart} />
+          </Box>
+        )}
       </PersistentDrawerLeft>
     </BottomAppBar>
   );

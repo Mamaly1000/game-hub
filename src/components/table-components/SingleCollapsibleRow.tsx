@@ -60,7 +60,7 @@ const SingleCollapsibleRow = ({
           scope="row"
           className="line-clamp-2"
         >
-          {row.description}
+          {row.description.slice(0, 30)}
         </StyledTableCell>
         <StyledTableCell align="right" component="td" scope="row">
           {row.user.name}
@@ -85,16 +85,14 @@ const SingleCollapsibleRow = ({
           )}
         </StyledTableCell>{" "}
         <StyledTableCell align="right" component="td" scope="row">
-          {row.status === "COMPLETED" ? "موفق" : "ناموفق"}
-        </StyledTableCell>{" "}
-        <StyledTableCell align="right" component="td" scope="row">
-          <Custom_link
-            classname="w-[45px] h-[45px] rounded-full  drop-shadow-2xl bg-warning flex items-center justify-center"
-            href={`/admin/payments/${row._id}`}
+          <span
+            className={`${
+              row.status === "COMPLETED" ? "bg-success" : "bg-error"
+            } p-2 rounded-lg drop-shadow-2xl`}
           >
-            <FaEye />
-          </Custom_link>
-        </StyledTableCell>
+            {row.status === "COMPLETED" ? "موفق" : "ناموفق"}
+          </span>
+        </StyledTableCell>{" "}
       </StyledTableRow>
       {row.cart && row.cart.productDetail && (
         <TableRow sx={{ background: "rgb(var(--color-secondary-800))" }}>

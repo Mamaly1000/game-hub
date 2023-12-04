@@ -11,6 +11,7 @@ import React from "react";
 import BackspaceIcon from "@mui/icons-material/Backspace";
 import TableSample from "@/components/table-components/TableSample";
 import UserCollapsibleRow from "@/components/table-components/UserCollapsibleRow";
+import UsersChart from "@/components/charts/UsersChart";
 const UsersPage = () => {
   const router = useRouter();
   const { isLoading, error, data, refetch } = useFetchAllUsers();
@@ -84,6 +85,7 @@ const UsersPage = () => {
         ]}
         rows={users}
       />
+      <UsersChart users={users} />
     </BottomAppBar>
   );
 };

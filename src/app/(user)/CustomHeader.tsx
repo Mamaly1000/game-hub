@@ -14,7 +14,6 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import vazirFont from "@/common/local-fonts/VazirFont";
 import { useRouter } from "next/navigation";
-import RTL_Creator from "@/components/ui/RTL_Creator";
 import { StyledMenuComponent } from "@/styles/MenuStyle";
 import {
   AdminPanelSettings,
@@ -111,191 +110,192 @@ function ResponsiveAppBar(props: any) {
   };
 
   return (
-    <RTL_Creator>
-      <HideOnScroll {...props}>
-        <AppBar
-          sx={{
-            background: "rgb(var(--color-secondary-800))",
-            ...vazirFont.style,
-            top: 0,
-            left: 0,
-          }}
-          position="sticky"
-        >
-          <Container maxWidth="xl">
-            <Toolbar disableGutters>
-              <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-              <Typography
-                variant="h6"
-                noWrap
-                component="a"
-                href="#app-bar-with-responsive-menu"
+    <HideOnScroll {...props}>
+      <AppBar
+        sx={{
+          background: "rgb(var(--color-secondary-800))",
+          ...vazirFont.style,
+          top: 0,
+          left: 0,
+        }}
+        position="sticky"
+      >
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="#app-bar-with-responsive-menu"
+              sx={{
+                mr: 2,
+                display: { xs: "none", md: "flex" },
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              GAME-HUB
+            </Typography>
+
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+              <StyledMenuComponent
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={() => handleCloseNavMenu()}
                 sx={{
-                  mr: 2,
-                  display: { xs: "none", md: "flex" },
-                  fontFamily: "monospace",
-                  fontWeight: 700,
-                  letterSpacing: ".3rem",
-                  color: "inherit",
-                  textDecoration: "none",
+                  display: { xs: "block", md: "none" },
                 }}
               >
-                GAME-HUB
-              </Typography>
-
-              <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-                <IconButton
-                  size="large"
-                  aria-label="account of current user"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  onClick={handleOpenNavMenu}
-                  color="inherit"
-                >
-                  <MenuIcon />
-                </IconButton>
-                <StyledMenuComponent
-                  id="menu-appbar"
-                  anchorEl={anchorElNav}
-                  anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "left",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "left",
-                  }}
-                  open={Boolean(anchorElNav)}
-                  onClose={() => handleCloseNavMenu()}
-                  sx={{
-                    display: { xs: "block", md: "none" },
-                    background: "rgba(0 0 0 /.3)",
-                  }}
-                >
-                  {pages.map((page) => (
-                    <MenuItem
-                      key={page.text}
-                      onClick={() => handleCloseNavMenu(page.href)}
-                    >
-                      <Typography
-                        sx={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          minWidth: "120px",
-                          position: "relative",
-                        }}
-                        textAlign="center"
-                      >
-                        {page.text} {page.icon}{" "}
-                        {!!page.amount && (
-                          <Badge
-                            classname=" absolute end-[10px] bottom-[-50%] w-[20px] h-[20px] rounded-full drop-shadow-2xl bg-primary-900 text-white flex items-center justify-center"
-                            text={toPersianNumbers(page.amount)}
-                          />
-                        )}
-                      </Typography>
-                    </MenuItem>
-                  ))}
-                </StyledMenuComponent>
-              </Box>
-
-              <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-              <Typography
-                variant="h5"
-                noWrap
-                component="a"
-                href="#app-bar-with-responsive-menu"
-                sx={{
-                  mr: 2,
-                  display: { xs: "flex", md: "none" },
-                  flexGrow: 1,
-                  fontFamily: "monospace",
-                  fontWeight: 700,
-                  letterSpacing: ".3rem",
-                  color: "inherit",
-                  textDecoration: "none",
-                }}
-              >
-                GAME-HUB
-              </Typography>
-              <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
                 {pages.map((page) => (
-                  <Button
+                  <MenuItem
                     key={page.text}
                     onClick={() => handleCloseNavMenu(page.href)}
-                    sx={{
-                      my: 2,
-                      color: "white",
-                      display: "block",
-                      position: "relative",
+                  >
+                    <Typography
+                      sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        minWidth: "120px",
+                        position: "relative",
+                      }}
+                      textAlign="center"
+                    >
+                      {page.text} {page.icon}{" "}
+                      {!!page.amount && (
+                        <Badge
+                          classname=" absolute end-[10px] bottom-[-50%] w-[20px] h-[20px] rounded-full drop-shadow-2xl bg-primary-900 text-white flex items-center justify-center"
+                          text={toPersianNumbers(page.amount)}
+                        />
+                      )}
+                    </Typography>
+                  </MenuItem>
+                ))}
+              </StyledMenuComponent>
+            </Box>
+
+            <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+            <Typography
+              variant="h5"
+              noWrap
+              component="a"
+              href="#app-bar-with-responsive-menu"
+              sx={{
+                mr: 2,
+                display: { xs: "flex", md: "none" },
+                flexGrow: 1,
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              GAME-HUB
+            </Typography>
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+              {pages.map((page) => (
+                <Button
+                  key={page.text}
+                  onClick={() => handleCloseNavMenu(page.href)}
+                  sx={{
+                    my: 2,
+                    color: "white",
+                    display: "block",
+                    position: "relative",
+                  }}
+                >
+                  {page.text} {page.icon}{" "}
+                  {!!page.amount && (
+                    <Badge
+                      classname=" absolute end-[0] bottom-[0%] w-[20px] h-[20px] rounded-full drop-shadow-2xl bg-primary-900 text-white flex items-center justify-center"
+                      text={toPersianNumbers(page.amount)}
+                    />
+                  )}
+                </Button>
+              ))}
+            </Box>
+
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="نمایش تنظیمات">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar
+                    alt={profile?.name}
+                    src={
+                      profile
+                        ? "https://avatars.githubusercontent.com/u/105161078?v=4"
+                        : ""
+                    }
+                  />
+                </IconButton>
+              </Tooltip>
+              <StyledMenuComponent
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem
+                    key={setting?.text}
+                    onClick={() => {
+                      handleCloseUserMenu();
+                      setting.fn();
                     }}
                   >
-                    {page.text} {page.icon}{" "}
-                    {!!page.amount && (
-                      <Badge
-                        classname=" absolute end-[0] bottom-[0%] w-[20px] h-[20px] rounded-full drop-shadow-2xl bg-primary-900 text-white flex items-center justify-center"
-                        text={toPersianNumbers(page.amount)}
-                      />
-                    )}
-                  </Button>
-                ))}
-              </Box>
-
-              <Box sx={{ flexGrow: 0 }}>
-                <Tooltip title="نمایش تنظیمات">
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar
-                      alt="Remy Sharp"
-                      src="https://avatars.githubusercontent.com/u/105161078?v=4"
-                    />
-                  </IconButton>
-                </Tooltip>
-                <StyledMenuComponent
-                  sx={{ mt: "45px", background: "rgba(0 0 0 /.3)" }}
-                  id="menu-appbar"
-                  anchorEl={anchorElUser}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  open={Boolean(anchorElUser)}
-                  onClose={handleCloseUserMenu}
-                >
-                  {settings.map((setting) => (
-                    <MenuItem
-                      key={setting?.text}
-                      onClick={() => {
-                        handleCloseUserMenu();
-                        setting.fn();
+                    <Typography
+                      sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        minWidth: "120px",
                       }}
+                      textAlign="center"
                     >
-                      <Typography
-                        sx={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          minWidth: "120px",
-                        }}
-                        textAlign="center"
-                      >
-                        {setting?.text} {setting?.icon}
-                      </Typography>
-                    </MenuItem>
-                  ))}
-                </StyledMenuComponent>
-              </Box>
-            </Toolbar>
-          </Container>
-        </AppBar>
-      </HideOnScroll>
-    </RTL_Creator>
+                      {setting?.text} {setting?.icon}
+                    </Typography>
+                  </MenuItem>
+                ))}
+              </StyledMenuComponent>
+            </Box>
+          </Toolbar>
+        </Container>
+      </AppBar>
+    </HideOnScroll>
   );
 }
 export default ResponsiveAppBar;
