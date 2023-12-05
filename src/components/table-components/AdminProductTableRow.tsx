@@ -19,7 +19,7 @@ const AdminProductTableRow = ({ product }: { product: productInterface }) => {
             !!product?.discount ? product.discount : 0
           )}
         </StyledTableCell>
-        <StyledTableCell align="right">
+        <StyledTableCell align="right" sx={{ minWidth: "150px" }}>
           {toPersianNumbersWithComma(
             !!product?.offPrice ? product.offPrice : 0
           )}

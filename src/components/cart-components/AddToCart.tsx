@@ -62,7 +62,7 @@ const AddToCart = ({
   );
 
   return user && availableProduct ? (
-    <div className="  md:min-w-fit  max-w-fit flex items-center justify-center gap-2 ">
+    <div className=" mx-2 md:min-w-fit  max-w-fit flex items-center justify-center gap-2 ">
       <Custom_Icon_Button
         background="rgb(var(--color-error))"
         disable={removePending}
@@ -89,16 +89,14 @@ const AddToCart = ({
       )}
     </div>
   ) : (
-    <div>
-      <Custom_Tooltip title="اضافه به سبد خربد" >
-        <Custom_Icon_Button
-          background="rgb(var(--color-success))"
-          disable={isLoading && addPending}
-          onClick={addToCart}
-        >
-          <ShoppingCartIcon />
-        </Custom_Icon_Button>
-      </Custom_Tooltip>
+    <div className="mx-2">
+      <Custom_Icon_Button
+        background="rgb(var(--color-success))"
+        disable={isLoading && addPending}
+        onClick={addToCart}
+      >
+        <ShoppingCartIcon />
+      </Custom_Icon_Button>
     </div>
   );
 };

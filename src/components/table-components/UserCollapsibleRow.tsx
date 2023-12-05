@@ -115,8 +115,6 @@ const UserCollapsibleRow = ({
                   variant="h6"
                   gutterBottom
                   component="div"
-                  dir="rtl"
-                  align="right"
                   fontFamily={vazirFont.style.fontFamily}
                 >
                   محصولات لایک شده
@@ -137,9 +135,7 @@ const UserCollapsibleRow = ({
                 <Typography
                   variant="h6"
                   gutterBottom
-                  component="div"
-                  dir="rtl"
-                  align="right"
+                  component="div" 
                   fontFamily={vazirFont.style.fontFamily}
                 >
                   محصولات سبد خرید

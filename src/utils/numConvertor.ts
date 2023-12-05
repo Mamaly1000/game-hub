@@ -1,10 +1,7 @@
 "use client";
-import starkString from "starkstring";
 export default function numConvertor(lang: "fa" | "en", n: string): string {
   if (n.length > 0 && n && lang) {
-    return lang === "en"
-      ? starkString(n).englishNumber().toString()
-      : starkString(n).persianNumber().toString();
+    return lang === "en" ? toenglishNumber(n) : toPersianNumbers(n);
   } else {
     return "";
   }
@@ -12,7 +9,7 @@ export default function numConvertor(lang: "fa" | "en", n: string): string {
 const farsiDigits = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
 
 export function toPersianNumbersWithComma(n: any) {
-  const numWithCommas = numberWithCommas(n); // 1000,2343
+  const numWithCommas = numberWithCommas(n);
   const persianNumber = toPersianNumbers(numWithCommas);
   return persianNumber;
 }
@@ -23,3 +20,9 @@ function numberWithCommas(x: any) {
 export function toPersianNumbers(n: any) {
   return n.toString().replace(/\d/g, (x: any) => farsiDigits[parseInt(x)]);
 }
+
+const toenglishNumber = (string: string): string => {
+  return string.replace(/[\u0660-\u0669\u06f0-\u06f9]/g, (c): string => {
+    return (c.charCodeAt(0) & 0xf) + "";
+  });
+};

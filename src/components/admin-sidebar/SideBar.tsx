@@ -11,6 +11,8 @@ import Custom_link from "../inputs/Custom_link";
 import { Box, ListItemButton } from "@mui/material";
 import { useRouter } from "next/navigation";
 import BarChartIcon from "@mui/icons-material/BarChart";
+import { Logout } from "@mui/icons-material";
+import { useLogout } from "@/hook/useLogout";
 export const adminLinks = [
   { name: "فروشگاه", route: "/", icon: <HiOutlineHome /> },
   { name: "داشبورد", route: "/admin", icon: <MdOutlineDashboard /> },
@@ -28,7 +30,10 @@ export const adminLinks = [
 
 const SideBar = () => {
   const router = useRouter();
-
+  const { mutateAsync, isPending } = useLogout();
+  const logoutHandler = async () => {
+    await mutateAsync();
+  };
   return (
     <Box
       sx={{
@@ -70,6 +75,25 @@ const SideBar = () => {
             </Custom_list_item>
           );
         })}
+        <Custom_list_item
+          secondaryAction={
+            <Logout
+              sx={{
+                stroke: "rgb(var(--color-error))",
+                fill: "rgb(var(--color-error))",
+              }}
+            />
+          }
+          checked={false}
+          onchange={logoutHandler}
+        >
+          <ListItemButton
+            sx={{ color: "rgb(var(--color-error))" }}
+            onClick={logoutHandler}
+          >
+            خروج از حساب{" "}
+          </ListItemButton>
+        </Custom_list_item>
       </Custom_list>
     </Box>
   );

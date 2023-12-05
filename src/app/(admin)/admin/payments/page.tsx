@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import BackspaceIcon from "@mui/icons-material/Backspace";
 import TableSample from "@/components/table-components/TableSample";
-import SingleCollapsibleRow from "@/components/table-components/SingleCollapsibleRow";
+import PaymentTableRow from "@/components/table-components/SingleCollapsibleRow";
 import PaymentsChart from "@/components/charts/PaymentsChart";
 
 const page = () => {
@@ -73,7 +73,7 @@ const page = () => {
         rows={payments || []}
         TableRowData={(row: adminPaymentInterface, i) => {
           return (
-            <SingleCollapsibleRow
+            <PaymentTableRow
               key={row._id}
               i={i}
               labels={[

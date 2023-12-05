@@ -20,6 +20,7 @@ import Custom_link from "../inputs/Custom_link";
 import Link from "next/link";
 import { toPersianNumbers } from "@/utils/numConvertor";
 import PriceDisplay from "./PriceDisplay";
+import vazirFont from "@/common/local-fonts/VazirFont";
 const CustomProductCard = ({ product }: { product: productInterface }) => {
   return (
     <StyledCard
@@ -30,22 +31,17 @@ const CustomProductCard = ({ product }: { product: productInterface }) => {
       }}
     >
       <CardHeader
-        avatar={
-          <Avatar sx={{ bgcolor: gradientGenerator() }} aria-label="recipe">
-            {product.brand.slice(0, 1)}
-          </Avatar>
-        }
         action={
           <Custom_link
             href={`/products/${product.slug}`}
-            classname="w-[40px] h-[40px] rounded-full flex items-center justify-center bg-primary-900 drop-shadow-2xl"
+            classname="w-[45px] h-[45px] rounded-full flex items-center justify-center bg-primary-900 drop-shadow-2xl"
           >
             <ReadMoreIcon />
           </Custom_link>
         }
         title={
-          <Link href={`/products/${product.slug}`}>
-            {product.title.slice(0, 20) + "..."}
+          <Link className="text-[.9rem]" href={`/products/${product.slug}`}>
+            {product.title.slice(0, 30) + "..."}
           </Link>
         }
         subheader={
@@ -76,7 +72,7 @@ const CustomProductCard = ({ product }: { product: productInterface }) => {
         component="div"
       >
         <Typography variant="body2">
-          {product.description.slice(0, 50)}...
+          {product.description.slice(0, 60)}...
         </Typography>
         <Divider
           sx={{

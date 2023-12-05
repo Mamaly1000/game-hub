@@ -6,8 +6,8 @@ export const useLogout = () => {
   return useMutation({
     mutationFn: logoutUser,
     mutationKey: ["logout-user"],
-    onError: (err) => {
-      toast.error(err.message);
+    onError: (err: any) => {
+      toast.error(err.response.data.message);
     },
     onSuccess: () => {
       localStorage.removeItem("userInfo");

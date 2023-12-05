@@ -4,11 +4,15 @@ import { TbUserStar } from "react-icons/tb";
 import { HiOutlineHome } from "react-icons/hi";
 import Custom_link from "../inputs/Custom_link";
 import { MdPayment } from "react-icons/md";
-import { Divider } from "@mui/material";
+import { Box, Divider, ListItemButton } from "@mui/material";
 import { CgProfile } from "react-icons/cg";
 import Custom_Button from "../inputs/Custom_Button";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { useLogout } from "@/hook/useLogout";
+import Custom_list from "../ui/Custom_list";
+import Custom_list_item from "../ui/Custom_list_item";
+import { useRouter } from "next/navigation";
+import { Logout } from "@mui/icons-material";
 export const ProfileLinks: {
   name: string;
   route: string;
@@ -36,33 +40,73 @@ export const ProfileLinks: {
   },
 ];
 const SideBar = () => {
-  const { mutate } = useLogout();
+  const { mutateAsync, isPending } = useLogout();
+  const logoutHandler = async () => {
+    await mutateAsync();
+  };
+  const router = useRouter();
   return (
-    <div className="col-span-3 p-5 flex flex-col items-start justify-start gap-2 text-white bg-secondary-800 min-h-screen max-h-screen overflow-y-auto">
-      {ProfileLinks.map((i) => {
-        return (
-          <Fragment key={i.route}>
-            <Custom_link
-              classname="flex flex-row-reverse items-center justify-start gap-3 text-primary-900"
-              href={i.route}
-              text={i.name}
+    <Box
+      sx={{
+        display: { xs: "none", md: "flex" },
+        fontSize: {
+          md: ".9rem",
+          lg: "1rem",
+        },
+        padding: {
+          md: ".75rem",
+          lg: "1.25rem",
+        },
+      }}
+      className=" col-span-2 row-span-full  items-start justify-start gap-3 flex-col max-h-screen min-h-screen overflow-auto  text-white bg-secondary-800 md:p-3 md:text-[.8rem] lg:text-[1] lg:p-5"
+    >
+      <Custom_list classname="" title="داشبورد کاربری" bgcolor="inherit">
+        {ProfileLinks.map((link) => {
+          return (
+            <Custom_list_item
+              secondaryAction={
+                typeof link.icon === "string" ? (
+                  <img src={link.icon} />
+                ) : (
+                  link.icon
+                )
+              }
+              checked={false}
+              labelId={link.name}
+              onchange={() => {}}
+              key={link.name}
             >
-              {typeof i.icon === "string" ? <img src={i.icon || ""} /> : i.icon}
-            </Custom_link>
-            <Divider className="bg-primary-900 border-primary-900 border-b-[1px] min-w-full" />
-          </Fragment>
-        );
-      })}
-      <Custom_Button
-        className="flex flex-row-reverse items-center justify-end gap-3 bg-error min-w-full rounded-lg px-3 py-2"
-        onclick={() => {
-          mutate();
-        }}
-      >
-        خروج از حساب
-        <RiLogoutBoxLine />
-      </Custom_Button>
-    </div>
+              <ListItemButton onClick={() => router.push(link.route)}>
+                <Custom_link
+                  href={link.route}
+                  classname=" text-primary-900"
+                  text={link.name}
+                />
+              </ListItemButton>
+            </Custom_list_item>
+          );
+        })}
+        <Custom_list_item
+          secondaryAction={
+            <Logout
+              sx={{
+                stroke: "rgb(var(--color-error))",
+                fill: "rgb(var(--color-error))",
+              }}
+            />
+          }
+          checked={false}
+          onchange={logoutHandler}
+        >
+          <ListItemButton
+            sx={{ color: "rgb(var(--color-error))" }}
+            onClick={logoutHandler}
+          >
+            خروج از حساب{" "}
+          </ListItemButton>
+        </Custom_list_item>
+      </Custom_list>
+    </Box>
   );
 };
 

@@ -1,11 +1,8 @@
 import * as React from "react";
 import dayjs from "dayjs";
-import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
+import { DemoItem } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
-import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
-import { DesktopDateTimePicker } from "@mui/x-date-pickers/DesktopDateTimePicker";
 import { StaticDateTimePicker } from "@mui/x-date-pickers/StaticDateTimePicker";
 
 export default function ReadOnlyDatePicker() {
@@ -15,7 +12,7 @@ export default function ReadOnlyDatePicker() {
         <StaticDateTimePicker
           readOnly
           sx={{
-            maxWidth: "95% !important",
+            maxWidth: "250px !important",
             fontSize: "1rem",
             background: "transparent",
             "*": { color: "#ffffff !important" },
@@ -54,15 +51,53 @@ export default function ReadOnlyDatePicker() {
                   display: "none",
                 },
               },
+              ampm: false,
             },
             layout: {
               sx: {
-                maxWidth: "95% !important",
                 ".MuiDateCalendar-root": {
-                  maxWidth: "95% !important",
-                  float: "right",
-                  marginInlineEnd: "50px",
+                  maxWidth: "250px !important",
                 },
+              },
+            },
+            tabs: {
+              hidden: true,
+            },
+            nextIconButton: {
+              hidden: true,
+              disabled: true,
+              sx: { display: "none" },
+            },
+            previousIconButton: {
+              hidden: true,
+              sx: { display: "none" },
+              disabled: true,
+            },
+            switchViewButton: {
+              hidden: true,
+              disabled: true,
+              sx: { display: "none" },
+            },
+            calendarHeader: {
+              sx: {
+                textAlign: "center",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              },
+              reduceAnimations: true,
+              disabled: true,
+              disableFuture: true,
+              disablePast: true,
+            },
+            day: {
+              classes: {
+                selected:
+                  "max-w-[30px] min-w-[30px] max-h-[30px] min-h-[30px] rounded-full flex items-center justify-center",
+              },
+              disabled: true,
+              sx: {
+                cursor: "default !important",
               },
             },
           }}

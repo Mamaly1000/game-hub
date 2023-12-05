@@ -8,7 +8,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { Fragment } from "react";
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 import { adminPaymentInterface, paymentType } from "@/types/payment";
 import Custom_link from "../inputs/Custom_link";
@@ -24,11 +24,13 @@ import { FaEye } from "react-icons/fa";
 import TableSample from "./TableSample";
 import { productInterface } from "@/types/product";
 import AdminProductTableRow from "./AdminProductTableRow";
-const SingleCollapsibleRow = ({
+const PaymentTableRow = ({
   row,
   labels,
   i,
+  role = "ADMIN",
 }: {
+  role?: "ADMIN" | "USER";
   i: number;
   labels: string[];
   row: paymentType | adminPaymentInterface;
@@ -51,7 +53,7 @@ const SingleCollapsibleRow = ({
             )}
           </IconButton>
           {toPersianNumbers(i + 1)} {" - "}
-          {toPersianNumbers(row.invoiceNumber)}
+          {toPersianNumbers(row?.invoiceNumber || 0)}
         </StyledTableCell>
         <StyledTableCell
           sx={{ minWidth: "350px" }}
@@ -62,17 +64,21 @@ const SingleCollapsibleRow = ({
         >
           {row.description.slice(0, 30)}
         </StyledTableCell>
+        {role === "ADMIN" && (
+          <Fragment>
+            <StyledTableCell align="right" component="td" scope="row">
+              {row.user.name}
+            </StyledTableCell>
+            <StyledTableCell align="right" component="td" scope="row">
+              {row.user.email}
+            </StyledTableCell>
+            <StyledTableCell align="right" component="td" scope="row">
+              {toPersianNumbers(row.user?.phoneNumber || 0)}
+            </StyledTableCell>
+          </Fragment>
+        )}
         <StyledTableCell align="right" component="td" scope="row">
-          {row.user.name}
-        </StyledTableCell>{" "}
-        <StyledTableCell align="right" component="td" scope="row">
-          {row.user.email}
-        </StyledTableCell>{" "}
-        <StyledTableCell align="right" component="td" scope="row">
-          {toPersianNumbers(row.user.phoneNumber)}
-        </StyledTableCell>{" "}
-        <StyledTableCell align="right" component="td" scope="row">
-          {toPersianNumbersWithComma(row.amount)}
+          {toPersianNumbersWithComma(row?.amount || 0)}
         </StyledTableCell>{" "}
         <StyledTableCell
           sx={{ minWidth: "200px" }}
@@ -81,7 +87,7 @@ const SingleCollapsibleRow = ({
           scope="row"
         >
           {toPersianNumbers(
-            moment(row.createdAt).format("jYYYY/jMMM/DD HH:MM")
+            moment(row.createdAt).format("jYYYY/jMMM/DD HH:MM") || 0
           )}
         </StyledTableCell>{" "}
         <StyledTableCell align="right" component="td" scope="row">
@@ -106,8 +112,6 @@ const SingleCollapsibleRow = ({
                   variant="h6"
                   gutterBottom
                   component="div"
-                  dir="rtl"
-                  align="right"
                   fontFamily={vazirFont.style.fontFamily}
                 >
                   محصولات خریداری شده
@@ -130,4 +134,4 @@ const SingleCollapsibleRow = ({
   );
 };
 
-export default SingleCollapsibleRow;
+export default PaymentTableRow;

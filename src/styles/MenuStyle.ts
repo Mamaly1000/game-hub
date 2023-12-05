@@ -6,5 +6,7 @@ export const StyledMenuComponent = styled(Menu)(({ theme }) => ({
   "& .MuiMenu-list": {
     color: theme.palette.common.white,
     background: "rgb(var(--color-secondary-800))",
+    minWidth: "160px",
+    maxWidth: "fit-content",
   },
 }));

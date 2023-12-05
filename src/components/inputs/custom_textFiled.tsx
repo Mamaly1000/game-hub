@@ -2,17 +2,6 @@ import vazirFont from "@/common/local-fonts/VazirFont";
 import numConvertor, { toPersianNumbers } from "@/utils/numConvertor";
 import { TextField } from "@mui/material";
 import React, { useEffect, useState, useTransition } from "react";
-import styled from "styled-components";
-
-const Div = styled.div`
-  min-width: 100%;
-  .css-2y464i-MuiInputBase-root-MuiFilledInput-root::after,
-  label:focused {
-    border-color: rgb(var(--color-primary-900)) !important;
-    color: rgb(var(--color-primary-900)) !important;
-    font-family: var(--font-vazir) !important;
-  }
-`;
 
 const Custom_textFiled = ({
   label,
@@ -54,7 +43,7 @@ const Custom_textFiled = ({
   }, [value]);
 
   return (
-    <Div className="p-2 rounded-lg bg-mid_transparent text-white">
+    <div className=" min-w-full p-2 rounded-lg bg-mid_transparent text-white">
       <TextField
         {...formik.getFieldProps(name)}
         fullWidth
@@ -104,11 +93,16 @@ const Custom_textFiled = ({
           }
         }}
         InputProps={{
-          style: { ...vazirFont.style, color: "#ffffff", textAlign: "start" },
-          dir: "rtl",
+          sx: {
+            "&:before, &:after": {
+              borderColor: "rgb(var(--color-primary-900)) !important",
+            },
+            ...vazirFont.style,
+            color: "#ffffff",
+          },
         }}
       />
-    </Div>
+    </div>
   );
 };
 

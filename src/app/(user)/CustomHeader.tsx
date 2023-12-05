@@ -29,6 +29,7 @@ import Badge from "@/components/ui/Badge";
 import { useFetchUser } from "@/hook/useAuth";
 import { UserInterface } from "@/types/User";
 import { Slide, useScrollTrigger } from "@mui/material";
+import RTL_Creator from "@/components/ui/RTL_Creator";
 
 interface Props {
   window?: () => Window;
@@ -42,9 +43,11 @@ function HideOnScroll(props: Props) {
   });
 
   return (
-    <Slide appear={false} direction="down" in={!trigger}>
-      {children}
-    </Slide>
+    <RTL_Creator>
+      <Slide appear={false} direction="down" in={!trigger}>
+        {children}
+      </Slide>
+    </RTL_Creator>
   );
 }
 
@@ -81,7 +84,14 @@ function ResponsiveAppBar(props: any) {
         },
         {
           text: "خروج",
-          icon: <Logout />,
+          icon: (
+            <Logout
+              sx={{
+                fill: "rgb(var(--color-error))",
+                stroke: "rgb(var(--color-error))",
+              }}
+            />
+          ),
           fn: () => mutate(),
         },
       ]

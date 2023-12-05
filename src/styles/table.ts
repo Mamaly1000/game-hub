@@ -28,14 +28,15 @@ export const StyledTableCell = styled(TableCell)(({ theme }) => ({
     backgroundColor: "rgb(var(--color-primary-900))",
     ...vazirFont.style,
     color: theme.palette.common.white,
+    textAlign: "start",
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
     color: theme.palette.common.white,
     ...vazirFont.style,
   },
+  textAlign: "start",
 }));
-
 export const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
     backgroundColor: "rgb(var(--color-secondary-800))",

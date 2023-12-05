@@ -36,7 +36,7 @@ const SingleCategoryPage = () => {
         <ProductsSection
           products={allproducts!.filter(
             (p) =>
-              (!!p.category.englishTitle
+              (!!p.category?.englishTitle
                 ? p.category?.englishTitle
                 : "تعریف نشده") === category.englishTitle
           )}

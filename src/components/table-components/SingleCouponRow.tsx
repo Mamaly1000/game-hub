@@ -111,8 +111,6 @@ const SingleCouponRow = ({
                   variant="h6"
                   gutterBottom
                   component="div"
-                  dir="rtl"
-                  align="right"
                   fontFamily={vazirFont.style.fontFamily}
                 >
                   محصولات خریداری شده

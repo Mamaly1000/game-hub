@@ -7,6 +7,7 @@ import Acheivements from "@/components/landing-page/Acheivements";
 import Services from "@/components/landing-page/Services";
 import QA from "@/components/landing-page/QA";
 import { Metadata } from "next";
+import RTL_Creator from "@/components/ui/RTL_Creator";
 
 export const metadata: Metadata = {
   title: "به game hub خوش آمدید.",
@@ -31,7 +32,9 @@ export default async function Home() {
       <Colaborations />
       <Acheivements products={products} />
       <Services />
-      <QA />
+      <RTL_Creator>
+        <QA />
+      </RTL_Creator>
     </main>
   );
 }

@@ -2,7 +2,8 @@
 import PageHeader from "@/components/headers/PageHeader";
 import Custom_Button from "@/components/inputs/Custom_Button";
 import Loader from "@/components/loading/Loader";
-import CollapsibleTable from "@/components/table-components/CollapsibleTable";
+import PaymentTableRow from "@/components/table-components/SingleCollapsibleRow";
+import TableSample from "@/components/table-components/TableSample";
 import Box from "@/components/ui/Box";
 import { useFetchUser } from "@/hook/useAuth";
 import { paymentType } from "@/types/payment";
@@ -28,17 +29,33 @@ const PaymentsPage = () => {
       </Box>
     );
   }
+  console.log(payments);
 
   return (
-    payments && (
-      <div className="min-w-full flex flex-col items-start justify-start gap-3">
-        <PageHeader>اطلاعات پرداخت ها</PageHeader>
-        <CollapsibleTable
-          labels={["#", "شماره فاکتور", "توضیحات", "مبلغ", "تاریخ", "وضعیت"]}
-          rows={payments || []}
-        />
-      </div>
-    )
+    <div className="min-w-full flex flex-col items-start justify-start gap-3">
+      <PageHeader>اطلاعات پرداخت ها</PageHeader>
+      <TableSample
+        labels={["#", "توضیحات", "مبلغ", "تاریخ", "وضعیت"]}
+        rows={payments || []}
+        TableRowData={(row: paymentType, i) => {
+          return (
+            <PaymentTableRow
+              i={i}
+              labels={[
+                "نام محصول",
+                "قیمت",
+                "تخفیف",
+                "قیمت نهایی",
+                "تعداد",
+                "لینک محصول",
+              ]}
+              row={row}
+              role="USER"
+            />
+          );
+        }}
+      />
+    </div>
   );
 };
 

@@ -86,6 +86,7 @@ export default function BottomAppBar({
             onClick={(link) => {
               router.push(link.route);
             }}
+            logout
           >
             <Custom_Tooltip title="منو">
               <IconButton color="inherit" aria-label="open drawer">

@@ -17,6 +17,7 @@ export interface paymentType {
   updatedAt: Date;
   __v: number;
 }
+
 export interface adminPaymentInterface {
   _id: string;
   invoiceNumber: string;

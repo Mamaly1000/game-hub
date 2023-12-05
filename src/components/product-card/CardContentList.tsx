@@ -59,7 +59,7 @@ const CardContentList = ({ product }: { product: productInterface }) => {
   };
   return (
     <Fragment>
-      <CardActions disableSpacing>
+      <CardActions>
         <LikeButton product={product} />
         <Custom_Icon_Button
           onClick={() =>

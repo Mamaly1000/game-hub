@@ -48,8 +48,8 @@ const TableSample = ({
         <TableContainer
           sx={{
             maxHeight: 600,
-            direction: "rtl",
             background: "rgb(var(--color-secondary-800))",
+            textAlign: "right",
           }}
         >
           <Table
@@ -58,7 +58,6 @@ const TableSample = ({
               maxWidth: "100%",
               minWidth: "100%",
               overflow: "auto",
-              direction: "rtl",
             }}
             aria-label="collapsible table"
           >
@@ -66,7 +65,7 @@ const TableSample = ({
               <TableRow>
                 {labels.map((l) => {
                   return (
-                    <TableCell align="right" key={l}>
+                    <TableCell key={l}>
                       {l}
                     </TableCell>
                   );

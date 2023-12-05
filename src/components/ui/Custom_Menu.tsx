@@ -3,12 +3,16 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
 import { StyledMenuComponent } from "@/styles/MenuStyle";
+import { Logout } from "@mui/icons-material";
+import { useLogout } from "@/hook/useLogout";
 
 export default function Custom_Menu({
   children,
   links,
   onClick,
+  logout = false,
 }: {
+  logout?: boolean;
   links: { name: string; route: string; icon: React.ReactNode }[];
   children: React.ReactNode;
   onClick: (link: {
@@ -25,7 +29,10 @@ export default function Custom_Menu({
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  const { mutateAsync, isPending } = useLogout();
+  const logoutHandler = async () => {
+    await mutateAsync();
+  };
   return (
     <React.Fragment>
       {
@@ -50,8 +57,7 @@ export default function Custom_Menu({
               onClick(link);
             }}
             sx={{
-              minWidth: "140px",
-              maxWidth: "140px",
+              minWidth: "100%",
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
@@ -61,6 +67,28 @@ export default function Custom_Menu({
             {link.name} {link.icon}
           </MenuItem>
         ))}
+        {logout && (
+          <MenuItem
+            onClick={logoutHandler}
+            sx={{
+              minWidth: "100%",
+
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: 1,
+              color: "rgb(var(--color-error))",
+            }}
+          >
+            خروج{" "}
+            <Logout
+              sx={{
+                stroke: "rgb(var(--color-error))",
+                fill: "rgb(var(--color-error))",
+              }}
+            />
+          </MenuItem>
+        )}
       </StyledMenuComponent>
     </React.Fragment>
   );
